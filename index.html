@@ -407,6 +407,32 @@ table.sv-table{width:100%;border-collapse:collapse;background:var(--in);border-r
 .chips-row button[aria-selected="true"]{background:var(--ink);color:var(--ink-text)}
 @media (min-width:901px){ .chips-row{margin:0;padding:0} }
 
+/* ---------- spesa per giorni ---------- */
+.sp-period{gap:12px}
+.sp-days{display:flex;flex-direction:column;gap:8px}
+details.spday{background:var(--blk);border-radius:var(--r-tile);padding:0 14px}
+details.spday>summary{display:grid;grid-template-columns:minmax(0,1fr) 22px;grid-template-rows:auto auto;column-gap:10px;align-items:center;height:auto;min-height:58px;padding:10px 0;border-radius:0;background:transparent;color:inherit;font-weight:400}
+details.spday[open]>summary{background:transparent;color:inherit}
+details.spday .sd-d{font:600 16px/1.25 var(--f-t)}
+details.spday .sd-m{grid-column:1;font-size:13px;color:var(--muted)}
+details.spday .chev{grid-column:2;grid-row:1 / span 2;display:grid;place-items:center;color:var(--muted)}
+details.spday .chev svg{transform:rotate(-90deg);transition:transform .2s}
+details.spday[open] .chev svg{transform:none}
+.sd-body{display:flex;flex-direction:column;gap:8px;padding:0 0 14px}
+.sd-row{display:flex;flex-direction:column;gap:4px}
+.sd-row select.swap{margin:0;height:46px;font-size:15px;background-color:var(--in)}
+.spg{display:flex;flex-direction:column;gap:6px}
+.spg+.spg{margin-top:12px}
+.spg .eyebrow{padding:0 4px}
+ul.spl{list-style:none;margin:0;padding:2px 14px;background:var(--blk);border-radius:var(--r-tile);display:flex;flex-direction:column}
+.sp-pantry ul.spl{background:var(--in)}
+li.spi{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:1px;padding:10px 0;border-top:1px solid var(--line)}
+li.spi:first-child{border-top:0}
+.spi-n{font-weight:600;font-size:15px;line-height:1.3}
+.spi-q{font:600 15px var(--f-d);letter-spacing:-.03em;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.spi-p{font-size:13px;color:var(--muted);line-height:1.3}
+.spi-c{font-size:13px;color:var(--muted);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+#spList{display:flex;flex-direction:column;gap:12px}
 /* ---------- blocchi ---------- */
 .card{background:var(--blk);border-radius:var(--r-card);padding:22px}
 .card.hero{background:var(--hero);color:var(--on-hero)}
@@ -763,19 +789,32 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 
 <!-- SPESA -->
 <section class="view" id="v-spesa" hidden>
-  <header class="ph"><div><span class="lbl">Dal menù della settimana</span><h1>Spesa</h1></div></header>
-  <div class="days-tabs" id="spesaRot" role="group" aria-label="Settimana del menù"></div>
+  <header class="ph"><div><span class="lbl">Calcolata dal menù</span><h1>Spesa</h1></div></header>
+  <section class="card sec sp-period" aria-label="Per quanti giorni">
+    <div class="rest-head"><h2 class="h-card">Per quanti giorni?</h2><label class="datechip"><span class="vh">Dal giorno</span><input type="date" id="spStart"></label></div>
+    <div class="al-weeks" id="spDays" role="group" aria-label="Numero di giorni"></div>
+    <p class="small muted" id="spRange"></p>
+  </section>
   <button class="shop-cta" type="button" id="shopOpen">
     <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>
     <span class="t"><b>Modalità spesa</b><span id="shopOpenSub">Lista da spuntare al supermercato</span></span>
     <span class="arr" aria-hidden="true">›</span>
   </button>
-  <div class="strip strip-2" id="spesaStrip"></div>
-  <div class="sec" data-fold="spesa-lista">
-    <div class="sec-head"><h2>Lista e prezzi</h2><button class="btn ghost small" type="button" id="prezziEdit">Modifica prezzi</button></div>
-    <p class="small muted" id="prezziHint" hidden>Scrivi i prezzi del tuo supermercato: il totale si aggiorna da solo. Poi premi Salva.</p>
+  <div class="sec" data-fold="spesa-piatti">
+    <h2>Piatti</h2>
+    <p class="lead">Cambia un piatto e la lista qui sotto si aggiorna da sola. Le scelte valgono anche nella pagina Oggi.</p>
+    <div id="spDishes" class="sp-days"></div>
+  </div>
+  <div class="sec" data-fold="spesa-lista2">
+    <h2>Da comprare</h2>
+    <p class="lead" id="spCost"></p>
+    <div id="spList"></div>
+  </div>
+  <div class="sec" data-fold="spesa-prezzi">
+    <h2>I tuoi prezzi</h2>
+    <p class="lead">Metti i prezzi del tuo supermercato: i costi si aggiornano da soli.</p>
     <div class="tw"><table id="spesaTable"></table></div>
-    <div class="row" id="prezziRow" hidden>
+    <div class="row">
       <button class="btn" type="button" id="prezziSave">Salva i miei prezzi</button>
       <button class="btn ghost" type="button" id="prezziReset">Ripristina prezzi medi</button>
       <span class="msg" id="prezziMsg"></span>
@@ -784,7 +823,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
   <div class="sec" data-fold="spesa-info">
     <h2>Come leggere i costi e dove risparmiare</h2>
     <div class="rules">
-      <div class="card"><h3>Come leggere i costi</h3><p class="muted">Il costo è calcolato su quello che consumi in 7 giorni. Riso, olio, avena, miele e frutta secca durano più settimane: lo scontrino di una singola spesa oscilla, ma la media resta questa.</p></div>
+      <div class="card"><h3>Come leggere i costi</h3><p class="muted">Il costo conta solo quello che mangi nei giorni scelti. Riso, olio, avena, miele e frutta secca durano più spese: lo scontrino di una singola spesa oscilla, ma la media resta questa.</p></div>
       <div class="card"><h3>Da dove arrivano i prezzi</h3><p class="muted">C = spesa online Carrefour a fine ottobre 2026, marca del supermercato dove c'era. M = prezzo medio in Italia (prezzi-mondiali.it, ottobre 2026). MP = sito Myprotein, ottobre 2026. S = stima. Discount come Lidl ed Eurospin di solito costano il 15–25% in meno.</p></div>
       <div class="card"><h3>Dove si risparmia</h3><ul class="plain">
         <li><b>Proteine più economiche</b>, a parità di 10 g di proteine: albume 0,33 €, uova 0,42 €, yogurt greco 0,50 €, tonno 0,57 €, pollo 0,60 €, proteine in polvere 0,62 €. Bresaola e prosciutto cotto costano più di 1 € e li ho tolti dal menù.</li>
@@ -1371,7 +1410,7 @@ function logFor(dk, ex){ return S.carichi.find(l => l.id === `${dk}_${ex}`); }
 
 /* pasti su una riga: si aprono con un tocco per vedere dosi, preparazione e cambio piatto */
 S.mealOpen = {};
-document.addEventListener("toggle", e => { const d = e.target; if (d && d.matches && d.matches("details.mealc, details.mrw")) S.mealOpen[d.dataset.mk] = d.open; }, true);
+document.addEventListener("toggle", e => { const d = e.target; if (d && d.matches && d.matches("details.mealc, details.mrw, details.spday")) S.mealOpen[d.dataset.mk] = d.open; }, true);
 function mealsCompactHTML(meals, swappable, ctx){
   return meals.map(x => {
     const lab = x.label || SLOT_LAB[x.slot], sg = x.id === "SG", key = `${ctx}|${x.slot}`;
@@ -2127,46 +2166,101 @@ function packLabel(k, g){
   const every = Math.max(2, Math.floor(1/n));
   return `1 × ${P.lab} ogni ${every} settimane`;
 }
-function renderSpesa(){
-  if (!S.spesaRot) S.spesaRot = rotOf(today());
-  const R = S.spesaRot;
-  $("spesaRot").innerHTML = ["A","B"].map(r=>`<button type="button" data-r="${r}" aria-pressed="${r===R}">Settimana ${r}${r===rotOf(today())?" · questa":""}</button>`).join("");
-  $("spesaRot").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.spesaRot=b.dataset.r; renderSpesa();});
-  const t = weekTotals(R), edit = !!S.prezziEdit;
-  let total = 0, rows = "";
-  const catTot = [];
-  for (const [cat, keys] of Object.entries(CAT)){
-    const ks = keys.filter(k=>t[k]);
-    if (!ks.length) continue;
-    let sub = 0;
-    const body = ks.map(k=>{
-      const price = priceOf(k), c = costOf(k, t[k], price); sub += c;
-      const edited = typeof S.prezzi[k] === "number" && S.prezzi[k] !== PRICES[k].p;
-      return `<tr><td><b class="sp-n">${esc(PLAN.foods[k][0])}</b><div class="small muted">${esc(packLabel(k,t[k]))} · ${qtyLabel(k,t[k])}</div></td>
-        ${edit ? `<td class="n"><input class="price" type="number" step="0.01" min="0" id="pr-${k}" data-k="${k}" value="${price.toFixed(2)}" aria-label="Prezzo ${esc(PLAN.foods[k][0])} in ${UNIT_LAB[PRICES[k].u]}"><div class="src">${UNIT_LAB[PRICES[k].u]} · ${edited?"tuo":PRICES[k].src}</div></td>` : ""}
-        <td class="n"><b>${fmt(c,2)} €</b></td></tr>`;
-    }).join("");
-    total += sub; catTot.push([cat, sub]);
-    rows += `<tr class="cat-row"><td colspan="${edit?2:1}">${cat}</td><td class="n">${fmt(sub,2)} €</td></tr>${body}`;
+/* spesa per i giorni scelti: quantità dai piatti di quei giorni (cambi piatto compresi) */
+const SP_DAYS = [2,3,4,7];
+const FRESH = ["Frutta e verdura","Carne, pesce e uova","Latticini"];
+const PANTRY = ["Riso, pasta e cereali","Dispensa"];
+const PZ_NAME = {mela:["mela","mele"], banana:["banana","banane"], avocado:["avocado","avocado"]};
+function spState(){
+  if (!S.sp){
+    let s = null; try { s = JSON.parse(localStorage.getItem("piano-hyrox-sp") || "null"); } catch(_){}
+    S.sp = {start:(s && /^\d{4}-\d{2}-\d{2}$/.test(s.start || "")) ? s.start : iso(today()), days:(s && SP_DAYS.includes(s.days)) ? s.days : 2};
   }
-  rows += `<tr class="tot-row"><td colspan="${edit?2:1}">Totale settimana ${R}</td><td class="n">${fmt(total,2)} €</td></tr>`;
-  $("spesaTable").innerHTML = `<thead><tr><th>Prodotto</th>${edit?`<th class="n">Prezzo</th>`:""}<th class="n">Costo</th></tr></thead><tbody>${rows}</tbody>`;
-  $("spesaTable").classList.toggle("sp-edit", edit);
-  $("prezziRow").hidden = !edit; $("prezziHint").hidden = !edit;
-  $("prezziEdit").textContent = edit ? "Fine" : "Modifica prezzi";
-  const top = catTot.slice().sort((a,b)=>b[1]-a[1])[0];
-  $("spesaStrip").innerHTML = `
-    <div><span class="eyebrow">Settimana ${R}</span><span class="v">${fmt(total,0)}<small>€</small></span><span class="small muted">circa ${fmt(total/7,2)} € al giorno</span></div>
-    <div><span class="eyebrow">Al mese</span><span class="v">${fmt(total*4.33,0)}<small>€</small></span><span class="small muted">${top?`${esc(top[0].split(",")[0].toLowerCase())}: ${fmt(top[1]/total*100)}% del totale`:""}</span></div>`;
-  if (S.shop){ const pg = shopProgress(R); $("shopOpenSub").textContent = pg.done ? `${pg.done} di ${pg.tot} già nel carrello` : `${pg.tot} prodotti da spuntare al supermercato`; }
-  $("spesaTable").querySelectorAll("input.price").forEach(inp=>inp.onchange=()=>{
+  if (S.sp.start < iso(today())) S.sp.start = iso(today());
+  return S.sp;
+}
+function spDates(){ const s = spState(), d0 = parse(s.start), out = []; for (let i = 0; i < s.days; i++){ const d = new Date(d0); d.setDate(d0.getDate() + i); out.push(d); } return out; }
+function spDayMeals(d){ const p = dayPlan(d), dk = iso(d); return {d, dk, tipo:p.tipo, meals:dayMeals(dow(d), rotOf(d), dk, p.tipo)}; }
+function spTotals(){
+  const t = {}; let n = 0;
+  for (const d of spDates()) for (const m of spDayMeals(d).meals){ if (m.id === "SG") continue; n++; for (const [k,g] of m.items) t[k] = (t[k] || 0) + g; }
+  return {t, n};
+}
+function buyQty(k, g){
+  const P = PRICES[k];
+  if (k === "uovo"){ const n = Math.max(1, Math.ceil(g/55 - 0.05)); return `${n} ${n === 1 ? "uovo" : "uova"}`; }
+  if (P.pz){ const n = Math.max(1, Math.ceil(g/P.pz - 0.15)), nm = PZ_NAME[k] || ["pezzo","pezzi"]; return `${n} ${n === 1 ? nm[0] : nm[1]}`; }
+  if (k === "olio") return `${Math.ceil(g/0.92/5)*5} ml`;
+  const r = g < 100 ? Math.ceil(g/5)*5 : Math.ceil(g/10)*10;
+  return r >= 1000 ? `${fmt(r/1000, 2)} kg` : `${r} g`;
+}
+function buyPack(k, g){
+  const P = PRICES[k];
+  if (P.loose) return "sfuse: zucchine, carote, insalata, peperoni…";
+  if (P.pz) return "";
+  if (k === "uovo"){ const n = Math.ceil(g/55 - 0.05); return n <= 6 ? "confezione da 6" : n <= 10 ? "confezione da 10" : `${Math.ceil(n/10)} confezioni da 10`; }
+  const n = Math.max(1, Math.ceil(g/P.pack - 0.05));
+  return `${n} × ${P.lab}${g < P.pack*0.5 ? " · ne avanza" : ""}`;
+}
+function spItems(){
+  const {t} = spTotals(), out = [];
+  for (const cat of [...FRESH, ...PANTRY]) for (const k of CAT[cat] || []) if (t[k] > 0)
+    out.push({k, cat, pantry:PANTRY.includes(cat), name:PLAN.foods[k][0], qty:buyQty(k, t[k]), pack:buyPack(k, t[k]), cost:costOf(k, t[k], priceOf(k))});
+  return out;
+}
+function saveSp(){
+  try { localStorage.setItem("piano-hyrox-sp", JSON.stringify(S.sp)); } catch(_){}
+  if (typeof saveShop === "function") saveShop();
+}
+function renderSpesa(){
+  const s = spState(), dates = spDates(), {n} = spTotals(), items = spItems();
+  if (document.activeElement !== $("spStart")) $("spStart").value = s.start;
+  $("spStart").min = iso(today());
+  $("spDays").innerHTML = SP_DAYS.map(d => `<button type="button" data-d="${d}" aria-pressed="${d === s.days}">${d} giorni</button>`).join("");
+  const last = dates[dates.length - 1];
+  $("spRange").textContent = `Da ${fmtDateLong(dates[0]).toLowerCase()} a ${fmtDateLong(last).toLowerCase()} · ${n} pasti`;
+  $("spDishes").innerHTML = dates.map((d, i) => {
+    const x = spDayMeals(d), key = `sp|${x.dk}`, open = S.mealOpen[key] === undefined ? i === 0 : S.mealOpen[key];
+    return `<details class="spday" data-mk="${key}" ${open ? "open" : ""}>
+      <summary><span class="sd-d">${GIORNI[dow(d)]} ${d.getDate()} ${MESI[d.getMonth()]}</span><span class="sd-m">${x.tipo === "train" ? "allenamento" : "riposo"} · ${x.meals.length} pasti</span><span class="chev">${CHEV}</span></summary>
+      <div class="sd-body">${x.meals.map(m => `<label class="sd-row"><span class="mr-s">${esc(m.label || SLOT_LAB[m.slot])}</span><select class="swap" data-dk="${x.dk}" data-slot="${m.slot}" aria-label="${esc((m.label || SLOT_LAB[m.slot]) + " di " + GIORNI[dow(d)].toLowerCase())}">${dishOptions(m.slot, m.tipo, m.id, m.def)}</select></label>`).join("")}</div>
+    </details>`;
+  }).join("");
+  const row = i => `<li class="spi"><span class="spi-n">${esc(i.name)}</span><span class="spi-q">${esc(i.qty)}</span><span class="spi-p">${esc(i.pack)}</span><span class="spi-c">${fmt(i.cost, 2)} €</span></li>`;
+  const grp = (cat, arr) => arr.length ? `<div class="spg"><span class="eyebrow">${esc(cat)}</span><ul class="spl">${arr.map(row).join("")}</ul></div>` : "";
+  const pantry = items.filter(i => i.pantry);
+  let html = FRESH.map(c => grp(c, items.filter(i => i.cat === c))).join("");
+  if (pantry.length){
+    const key = "sp|dispensa", open = !!S.mealOpen[key];
+    html += `<details class="spday sp-pantry" data-mk="${key}" ${open ? "open" : ""}><summary><span class="sd-d">Da controllare in dispensa</span><span class="sd-m">${pantry.length} prodotti: compra solo quelli che mancano</span><span class="chev">${CHEV}</span></summary><div class="sd-body">${PANTRY.map(c => grp(c, pantry.filter(i => i.cat === c))).join("")}</div></details>`;
+  }
+  $("spList").innerHTML = html;
+  const cost = items.reduce((a, i) => a + i.cost, 0);
+  $("spCost").textContent = `Circa ${fmt(cost, 0)} €, cioè ${fmt(cost/s.days, 2)} € al giorno, contando solo quello che mangi.`;
+  if (S.shop){ const pg = shopProgress(); $("shopOpenSub").textContent = pg.done ? `${pg.done} di ${pg.tot} già nel carrello` : `${pg.tot} prodotti da spuntare al supermercato`; }
+  // prezzi
+  const keys = Object.values(CAT).flat().filter(k => PRICES[k] && Object.values(PLAN.dishes).some(d => [...(d.train || []), ...(d.rest || [])].some(([x]) => x === k)));
+  $("spesaTable").innerHTML = `<thead><tr><th>Prodotto</th><th class="n">Prezzo</th></tr></thead><tbody>${keys.map(k => {
+    const price = priceOf(k), edited = typeof S.prezzi[k] === "number" && S.prezzi[k] !== PRICES[k].p;
+    return `<tr><td><b class="sp-n">${esc(PLAN.foods[k][0])}</b><div class="small muted">${esc(PRICES[k].lab)}</div></td><td class="n"><input class="price" type="number" step="0.01" min="0" data-k="${k}" value="${price.toFixed(2)}" aria-label="Prezzo ${esc(PLAN.foods[k][0])} in ${UNIT_LAB[PRICES[k].u]}"><div class="src">${UNIT_LAB[PRICES[k].u]} · ${edited ? "tuo" : PRICES[k].src}</div></td></tr>`;
+  }).join("")}</tbody>`;
+  $("spesaTable").querySelectorAll("input.price").forEach(inp => inp.onchange = () => {
     const v = Number(inp.value);
     if (v > 0) S.prezzi[inp.dataset.k] = v; else delete S.prezzi[inp.dataset.k];
     renderSpesa();
     $("prezziMsg").className = "msg"; $("prezziMsg").textContent = "Prezzi modificati: premi Salva per conservarli.";
   });
 }
-$("prezziEdit").onclick = () => { S.prezziEdit = !S.prezziEdit; if (S.prezziEdit && isFolded("spesa-lista")){ FOLD["spesa-lista"] = false; try { localStorage.setItem("piano-hyrox-fold", JSON.stringify(FOLD)); } catch(_){} decorateFolds(); } renderSpesa(); };
+$("spDays").addEventListener("click", e => { const b = e.target.closest("[data-d]"); if (!b) return; spState().days = Number(b.dataset.d); saveSp(); renderSpesa(); });
+$("spStart").addEventListener("change", () => { const v = $("spStart").value; if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return; spState().start = v < iso(today()) ? iso(today()) : v; saveSp(); renderSpesa(); });
+$("spDishes").addEventListener("change", e => {
+  const sel = e.target.closest("select.swap"); if (!sel) return;
+  const dk = sel.dataset.dk, slot = sel.dataset.slot, x = spDayMeals(parse(dk)), def = (x.meals.find(m => m.slot === slot) || {}).def;
+  const key = `${dk}|${slot}`;
+  if (sel.value === def) delete S.swaps[key]; else S.swaps[key] = sel.value;
+  try { localStorage.setItem("piano-hyrox-swaps", JSON.stringify(S.swaps)); } catch(_){}
+  renderSpesa(); renderOggi();
+});
 $("prezziSave").onclick = async ()=>{
   const data = {}; for (const [k,v] of Object.entries(S.prezzi)) if (typeof v==="number" && v>0) data[k]=v;
   const m = $("prezziMsg");
@@ -2405,7 +2499,7 @@ route(); renderAll(); fillQuick();
 
 /* ---------- sezioni richiudibili ----------
    Ogni contenitore con data-fold ha una freccia nell'intestazione; lo stato resta su questo dispositivo. */
-const FOLD_CLOSED = new Set(["ali-macro","ali-piatti","ali-swap","ali-integ","all-gara","all-settimana","all-prog","all-s-A","all-s-INT","all-s-B","all-s-Z2","all-s-C","dia-storico","dia-sess","dia-test","spesa-info","spesa-lista"]);
+const FOLD_CLOSED = new Set(["ali-macro","ali-piatti","ali-swap","ali-integ","all-gara","all-settimana","all-prog","all-s-A","all-s-INT","all-s-B","all-s-Z2","all-s-C","dia-storico","dia-sess","dia-test","spesa-info","spesa-prezzi"]);
 let FOLD = {};
 try { FOLD = JSON.parse(localStorage.getItem("piano-hyrox-fold") || "{}") || {}; } catch(_){ FOLD = {}; }
 const isFolded = k => (k in FOLD) ? !!FOLD[k] : FOLD_CLOSED.has(k);
@@ -2444,28 +2538,25 @@ decorateFolds();
 /* ---------- modalità spesa ----------
    Lista da spuntare al supermercato: i prodotti presi scendono in "Nel carrello".
    Le spunte restano sul telefono anche senza rete e si salvano nel database quando c'è. */
-S.shop = {A:{}, B:{}, ts:0};
-try { const s = JSON.parse(localStorage.getItem("piano-hyrox-shop") || "null"); if (s && s.A && s.B) S.shop = s; } catch(_){}
+S.shop = {start:"", checked:{}, ts:0};
+try { const s = JSON.parse(localStorage.getItem("piano-hyrox-shop") || "null"); if (s && s.checked && typeof s.start === "string") S.shop = s; } catch(_){}
 let shopTimer = null, wakeLock = null;
-const shopRot = () => S.spesaRot || rotOf(today());
-function shopItems(rot){
-  const t = weekTotals(rot), out = [];
-  for (const [cat, keys] of Object.entries(CAT)) for (const k of keys) if (t[k]) out.push({k, cat, name:PLAN.foods[k][0], buy:packLabel(k, t[k]), qty:qtyLabel(k, t[k])});
-  return out;
-}
-function shopProgress(rot){ const it = shopItems(rot), m = S.shop[rot] || {}; return {done:it.filter(i => m[i.k]).length, tot:it.length}; }
+function shopChecks(){ const s = spState(); if (S.shop.start !== s.start){ S.shop.start = s.start; S.shop.checked = {}; } return S.shop.checked; }
+function shopProgress(){ const it = spItems(), m = shopChecks(); return {done:it.filter(i => m[i.k]).length, tot:it.length}; }
 function renderShop(){
-  const R = shopRot(), items = shopItems(R), chk = S.shop[R] || (S.shop[R] = {});
+  const s = spState(), items = spItems(), chk = shopChecks();
   const done = items.filter(i => chk[i.k]).length;
-  $("shopSub").textContent = `Menù settimana ${R} · ${items.length} prodotti`;
+  $("shopSub").textContent = `${s.days} giorni da ${fmtDateLong(parse(s.start)).toLowerCase()} · ${items.length} prodotti`;
   $("shopCount").textContent = `${done} di ${items.length}`;
   $("shopBar").style.width = (items.length ? done / items.length * 100 : 0) + "%";
-  const row = i => `<li><button type="button" class="shop-item ${chk[i.k] ? "done" : ""}" data-shop="${i.k}" aria-pressed="${!!chk[i.k]}"><span class="ck" aria-hidden="true"></span><span class="tx"><span class="nm">${esc(i.name)}</span><span class="qt">${esc(i.buy)}</span><span class="small muted">per la settimana: ${esc(i.qty)}</span></span></button></li>`;
-  let html = done === items.length && items.length ? `<p class="shop-done">Hai preso tutto. Buona settimana!</p>` : "";
-  for (const cat of Object.keys(CAT)){
+  const row = i => `<li><button type="button" class="shop-item ${chk[i.k] ? "done" : ""}" data-shop="${i.k}" aria-pressed="${!!chk[i.k]}"><span class="ck" aria-hidden="true"></span><span class="tx"><span class="nm">${esc(i.name)}</span><span class="qt">${esc(i.qty)}</span>${i.pack ? `<span class="small muted">${esc(i.pack)}</span>` : ""}</span></button></li>`;
+  let html = done === items.length && items.length ? `<p class="shop-done">Hai preso tutto.</p>` : "";
+  for (const cat of FRESH){
     const todo = items.filter(i => i.cat === cat && !chk[i.k]);
     if (todo.length) html += `<section class="shop-cat"><h2 class="lbl">${esc(cat)}</h2><ul>${todo.map(row).join("")}</ul></section>`;
   }
+  const pan = items.filter(i => i.pantry && !chk[i.k]);
+  if (pan.length) html += `<section class="shop-cat"><h2 class="lbl">Dispensa · solo se manca</h2><ul>${pan.map(row).join("")}</ul></section>`;
   const got = items.filter(i => chk[i.k]);
   if (got.length) html += `<section class="shop-cat got"><h2 class="lbl">Nel carrello · ${got.length}</h2><ul>${got.map(row).join("")}</ul></section>`;
   $("shopList").innerHTML = html;
@@ -2476,7 +2567,8 @@ function saveShop(){
   clearTimeout(shopTimer);
   if (!S.db || S.canWrite === false) return;
   shopTimer = setTimeout(async () => {
-    try { await S.db.doc("config/spesa").set({A:S.shop.A, B:S.shop.B, ts:S.shop.ts}); $("shopSave").textContent = ""; }
+    const s = spState();
+    try { await S.db.doc("config/spesa").set({start:s.start, days:s.days, checkStart:S.shop.start, checked:S.shop.checked, ts:S.shop.ts}); $("shopSave").textContent = ""; }
     catch(_){ $("shopSave").textContent = "Senza rete: le spunte restano su questo telefono e si salvano alla prossima spunta con la rete."; }
   }, 700);
 }
@@ -2489,11 +2581,11 @@ $("shopReset").onclick = () => {
   const b = $("shopReset");
   if (b.dataset.armed !== "1"){ b.dataset.armed = "1"; b.textContent = "Tocca di nuovo per togliere tutte le spunte"; setTimeout(() => { b.dataset.armed = ""; b.textContent = "Ricomincia da capo"; }, 3000); return; }
   b.dataset.armed = ""; b.textContent = "Ricomincia da capo";
-  S.shop[shopRot()] = {}; saveShop(); renderShop(); $("shop").scrollTop = 0;
+  shopChecks(); S.shop.checked = {}; saveShop(); renderShop(); $("shop").scrollTop = 0;
 };
 $("shopList").addEventListener("click", e => {
   const b = e.target.closest("[data-shop]"); if (!b) return;
-  const R = shopRot(), m = S.shop[R] || (S.shop[R] = {}), k = b.dataset.shop;
+  const m = shopChecks(), k = b.dataset.shop;
   if (m[k]) delete m[k]; else m[k] = 1;
   saveShop(); renderShop();
 });
@@ -2513,7 +2605,8 @@ function subscribeAll(db){
   db.doc("config/spesa").onSnapshot(snap=>{
     if (!snap.exists) return; const d = snap.data() || {};
     if (!(d.ts > (S.shop.ts || 0))) return;
-    S.shop = {A:d.A || {}, B:d.B || {}, ts:d.ts};
+    if (/^\d{4}-\d{2}-\d{2}$/.test(d.start || "") && SP_DAYS.includes(d.days)){ S.sp = {start:d.start, days:d.days}; try { localStorage.setItem("piano-hyrox-sp", JSON.stringify(S.sp)); } catch(_){} }
+    S.shop = {start:typeof d.checkStart === "string" ? d.checkStart : "", checked:d.checked && typeof d.checked === "object" ? d.checked : {}, ts:d.ts};
     try { localStorage.setItem("piano-hyrox-shop", JSON.stringify(S.shop)); } catch(_){}
     if (!$("shop").hidden) renderShop(); else renderSpesa();
   }, onErr);
