@@ -1238,6 +1238,12 @@ const S = {
 };
 try { S.swaps = JSON.parse(localStorage.getItem("piano-hyrox-swaps") || "{}") || {}; } catch(_) { S.swaps = {}; }
 
+/* cambi piatto: su questo dispositivo e nel database, così valgono su telefono e PC */
+function saveSwaps(){
+  try { localStorage.setItem("piano-hyrox-swaps", JSON.stringify(S.swaps)); } catch(_){}
+  S.swapsTs = Date.now();
+  if (S.db && S.canWrite !== false){ try { Promise.resolve(S.db.doc("config/piatti").set({swaps:S.swaps, ts:S.swapsTs})).catch(()=>{}); } catch(_){} }
+}
 /* ---------- utilità ---------- */
 const $ = id => document.getElementById(id);
 const pad = n => String(n).padStart(2,"0");
@@ -1978,7 +1984,7 @@ function renderOggi(){
   $("panel-pasti").querySelectorAll("select.swap").forEach(sel=>sel.onchange=()=>{
     const key = `${dk}|${sel.dataset.slot}`, def = meals.find(m=>m.slot===sel.dataset.slot).def;
     if (sel.value===def) delete S.swaps[key]; else S.swaps[key] = sel.value;
-    try { localStorage.setItem("piano-hyrox-swaps", JSON.stringify(S.swaps)); } catch(_){}
+    saveSwaps();
     renderOggi();
   });
 
@@ -2258,7 +2264,7 @@ $("spDishes").addEventListener("change", e => {
   const dk = sel.dataset.dk, slot = sel.dataset.slot, x = spDayMeals(parse(dk)), def = (x.meals.find(m => m.slot === slot) || {}).def;
   const key = `${dk}|${slot}`;
   if (sel.value === def) delete S.swaps[key]; else S.swaps[key] = sel.value;
-  try { localStorage.setItem("piano-hyrox-swaps", JSON.stringify(S.swaps)); } catch(_){}
+  saveSwaps();
   renderSpesa(); renderOggi();
 });
 $("prezziSave").onclick = async ()=>{
@@ -2602,6 +2608,13 @@ function subscribeAll(db){
   db.collection("turni").onSnapshot(snap=>{ const o = {}; snap.docs.forEach(x=>{ o[x.id] = x.data(); }); S.turni = o; _assign.clear(); renderOggi(); }, onErr);
   db.doc("config/giornata").onSnapshot(snap=>{ if (snap.exists){ const g = snap.data(), c = Number(g.commute); if (c >= 0 && c <= 120) S.giornata.commute = c; if (typeof g.pranzoNegozio === "boolean") S.giornata.pranzoNegozio = g.pranzoNegozio; _assign.clear(); renderOggi(); } }, onErr);
   db.doc("config/profilo").onSnapshot(snap=>{ if (snap.exists){ const d = snap.data(); if (d.fcmax && d.fcrest){ S.zone = {max:d.fcmax, rest:d.fcrest}; renderAll(); } } }, onErr);
+  db.doc("config/piatti").onSnapshot(snap=>{
+    if (!snap.exists) return; const d = snap.data() || {};
+    if (!(d.ts > (S.swapsTs || 0))) return;
+    S.swapsTs = d.ts; S.swaps = d.swaps && typeof d.swaps === "object" ? d.swaps : {};
+    try { localStorage.setItem("piano-hyrox-swaps", JSON.stringify(S.swaps)); } catch(_){}
+    renderOggi(); renderSpesa();
+  }, onErr);
   db.doc("config/spesa").onSnapshot(snap=>{
     if (!snap.exists) return; const d = snap.data() || {};
     if (!(d.ts > (S.shop.ts || 0))) return;
