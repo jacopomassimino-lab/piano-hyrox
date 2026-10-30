@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex, nofollow">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <script>window.HYROX_PWA = {"url": "https://fehiqjvbhepfjpqojaoy.supabase.co", "key": "sb_publishable_n_UFljascl7MWU97jQetqg_Mnn339gb"};</script>
 <script src="supabase.js"></script>
 <title>Piano Hyrox</title>
@@ -38,34 +38,11 @@
   --f-d:"Unbounded","Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
   --f-t:"Inter Tight",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
   --r-card:28px; --r-tile:22px; --r-in:14px;
+  color-scheme:light;
   /* alias usati dal codice della pagina */
   --surface:var(--blk); --surface-2:var(--blk-2); --ink-2:var(--text); --accent:var(--me); --accent-soft:var(--me-soft);
   --good:var(--ok); --bad:var(--danger); --display:var(--f-d); --body:var(--f-t); --mono:var(--f-t);
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#000000; --blk:#1C1C1E; --blk-2:#2C2C2E; --blk-3:#3A3A3C; --in:#2C2C2E;
-  --text:#F5F5F7; --text-2:#D1D1D6; --muted:#8E8E93; --muted-2:#8E8E93; --faint:#5A5A5F;
-  --line:#2E2E31; --track:#3A3A3C;
-  --ink:#F5F5F7; --ink-text:#0A0A0B;
-  --hero:#F5F5F7; --on-hero:#0A0A0B; --on-hero-2:rgba(10,10,11,.6); --hero-line:rgba(10,10,11,.12);
-  --me:#4C8DFF; --me-soft:#152645;
-  --ok:#30D158; --ok-soft:#10301A; --warn:#FF9F0A; --warn-soft:#3A2508; --danger:#FF453A; --danger-soft:#3D1412;
-  --p:#4C8DFF; --c:#FF9F0A; --f:#30D158;
-  --z1:#8E8E93; --z2:#30D158; --z3:#FFD60A; --z4:#FF9F0A; --z5:#FF453A;
-  --glass:rgba(28,28,30,.78); --glass-line:rgba(255,255,255,.08);
-  color-scheme:dark;}}
-:root[data-theme="dark"]{
-  --bg:#000000; --blk:#1C1C1E; --blk-2:#2C2C2E; --blk-3:#3A3A3C; --in:#2C2C2E;
-  --text:#F5F5F7; --text-2:#D1D1D6; --muted:#8E8E93; --muted-2:#8E8E93; --faint:#5A5A5F;
-  --line:#2E2E31; --track:#3A3A3C;
-  --ink:#F5F5F7; --ink-text:#0A0A0B;
-  --hero:#F5F5F7; --on-hero:#0A0A0B; --on-hero-2:rgba(10,10,11,.6); --hero-line:rgba(10,10,11,.12);
-  --me:#4C8DFF; --me-soft:#152645;
-  --ok:#30D158; --ok-soft:#10301A; --warn:#FF9F0A; --warn-soft:#3A2508; --danger:#FF453A; --danger-soft:#3D1412;
-  --p:#4C8DFF; --c:#FF9F0A; --f:#30D158;
-  --z1:#8E8E93; --z2:#30D158; --z3:#FFD60A; --z4:#FF9F0A; --z5:#FF453A;
-  --glass:rgba(28,28,30,.78); --glass-line:rgba(255,255,255,.08);
-  color-scheme:dark;}
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -165,8 +142,9 @@ a.more-item:hover{text-decoration:none}
 .fold-head{display:flex;align-items:center;gap:10px}
 .sec-head.fold-head,.sess-title.fold-head{justify-content:flex-start}
 .sec-head.fold-head>:first-child,.sess-title.fold-head>:first-child{margin-right:auto}
-.sess-title.fold-head,.sec-head.fold-head{flex-wrap:nowrap}
-.sess-title.fold-head>:first-child,.sec-head.fold-head>:first-child{min-width:0;flex:1 1 auto}
+.sess-title.fold-head,.sec-head.fold-head{flex-wrap:wrap}
+.sess-title.fold-head>:first-child,.sec-head.fold-head>:first-child{min-width:0;flex:1 1 0}
+.sec-head.fold-head>.legend{order:100;flex-basis:100%}
 .sess-title.fold-head>.tag,.sec-head.fold-head>.tag{flex:none}
 .fold-head>.fold-btn{order:99;flex:none;margin-left:auto;display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:17px;background:var(--blk-2);color:var(--text);cursor:pointer;padding:0}
 .card .fold-head>.fold-btn{background:var(--in)}
@@ -206,6 +184,106 @@ html.shop-open,html.shop-open body{overflow:hidden}
 .shop-cat.got .shop-item{background:transparent;box-shadow:inset 0 0 0 1px var(--line);min-height:54px}
 .shop-done{background:var(--ok-soft);color:var(--ok);border-radius:var(--r-tile);padding:16px 18px;font-weight:600}
 .shop-foot{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:0 6px}
+
+/* ---------- Oggi a schede ---------- */
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ph-oggi{align-items:center}
+.datechip input{height:38px;width:auto;padding:0 12px;border-radius:19px;background:var(--blk);font:600 14px var(--f-t)}
+.peso-q{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.peso-q>label{font-weight:600;font-size:15px;margin-right:auto}
+.peso-q .kgin{background:var(--in)}
+.peso-q .kgin input[type=number]{width:64px}
+.peso-q .btn{height:40px}
+.peso-q .peso-info{flex-basis:100%;order:5}
+.peso-q .msg{flex-basis:100%;order:6;min-height:0}
+.peso-q .msg:empty{display:none}
+.seg-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;border-radius:24px;background:var(--blk);position:sticky;top:12px;z-index:4}
+.seg-tabs button{height:40px;border:0;border-radius:20px;background:transparent;color:var(--text-2);font:600 15px var(--f-t);cursor:pointer;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg-tabs button:hover{background:var(--blk-2)}
+.seg-tabs button[aria-selected="true"]{background:var(--ink);color:var(--ink-text)}
+.tab-panel{gap:16px}
+#oggiSess{gap:14px}
+#oggiSess .sess-title h3{font-size:20px}
+#qSessBox .qs{padding-top:14px}
+/* pasti su una riga */
+.meals-c{display:flex;flex-direction:column;background:var(--in);border-radius:var(--r-tile);padding:2px 14px}
+details.mealc{border-top:1px solid var(--line)}
+details.mealc:first-child{border-top:0}
+details.mealc>summary{display:flex;align-items:center;gap:10px;height:auto;min-height:58px;padding:8px 0;border-radius:0;background:transparent;color:inherit;font-weight:400;font-size:15px;list-style:none}
+details.mealc[open]>summary{background:transparent;color:inherit}
+details.mealc>summary .time{margin:0;flex:none}
+.mealc .mc-t{display:flex;flex-direction:column;min-width:0;flex:1}
+.mealc .mc-t .slot{font:600 11.5px/14px var(--f-t);letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
+.mealc .mc-t .nm{font-weight:600;font-size:15px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mealc[open] .mc-t .nm{white-space:normal}
+.mealc .kc{flex:none;font:600 13px var(--f-t);color:var(--muted);font-variant-numeric:tabular-nums}
+.mealc .chev{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:14px;color:var(--muted)}
+.mealc .chev svg{transform:rotate(-90deg);transition:transform .2s}
+.mealc[open] .chev svg{transform:none}
+.mealc .mc-body{display:flex;flex-direction:column;gap:10px;padding:0 0 14px}
+.mealc .item{background:var(--blk)}
+.mealc select.swap{background:var(--blk);height:44px}
+/* macro compatti */
+.mcomp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.mc-m{display:flex;flex-direction:column;gap:4px;padding:10px 12px;border-radius:16px;background:var(--in);min-width:0}
+.mc-m .lab{font:600 11.5px/14px var(--f-t);letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2)}
+.mc-m .v{display:flex;align-items:baseline;gap:3px;white-space:nowrap}
+.mc-m .v b{font:600 18px/1.1 var(--f-d);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.mc-m .of{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mc-m .mbar{height:6px}
+.mc-note{margin-top:-4px}
+/* spesa */
+.shop-cta{display:flex;align-items:center;gap:14px;width:100%;min-height:72px;padding:14px 18px;border:0;border-radius:var(--r-tile);background:var(--ink);color:var(--ink-text);font:inherit;text-align:left;cursor:pointer}
+.shop-cta .ic{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:22px;background:var(--me)}
+.shop-cta .t{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.shop-cta .t b{font:600 18px/1.2 var(--f-d);letter-spacing:-.03em}
+.shop-cta .t span{font-size:14px;opacity:.75}
+.shop-cta .arr{font-size:28px;line-height:1;opacity:.7}
+.strip.strip-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+#spesaTable td{vertical-align:middle}
+#spesaTable .sp-n{font-weight:600}
+#spesaTable .src{font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap}
+@media (max-width:900px){
+  .ph-oggi h1{font-size:30px;line-height:34px}
+  .today .big{font-size:38px;line-height:42px}
+  .week{margin-top:12px;gap:2px}
+  .week .day{gap:4px;padding:4px 0 2px}
+  .week .trk{width:22px;height:56px;border-radius:11px}
+  .week .trk i{border-radius:11px}
+  .seg-tabs{top:calc(70px + env(safe-area-inset-top,0px))}
+  .mcomp{gap:6px}
+  .mc-m{padding:8px 9px}
+  .mc-m .v b{font-size:16px}
+  .mc-m .lab{font-size:10.5px;letter-spacing:.04em}
+  .blocks{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .blk{padding:10px 10px;border-radius:16px;gap:2px}
+  .blk .bn{font-size:14px}
+  .blk .small{display:none}
+  .blk .now{font-size:0}
+  .blk .now::first-letter{font-size:12px}
+  .strip .v{font-size:26px}
+  .strip>div{padding:14px 16px}
+}
+@media (max-width:420px){ .mc-m .of{display:none} }
+/* esercizi sulla pagina Oggi */
+.lines li.exl{gap:6px}
+.sess-mini{display:flex;flex-direction:column;gap:2px;padding:0 4px}
+.dose-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dose-row .dose{flex:1;min-width:0}
+.dose-row .kgv{flex:none;font:600 17px/1.2 var(--f-d);letter-spacing:-.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dose-row .kgv-done{flex:none;white-space:nowrap}
+.dose-row .kgin{flex:none;height:38px;background:var(--blk)}
+.dose-row .kgin input[type=number]{width:50px;height:38px}
+.lines .trend{color:var(--muted)}
+.lines .trend .up{color:var(--ok);font-weight:600}
+.logx{margin-top:2px}
+.seg.seg-full{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+.seg.seg-full button{height:36px;padding:0 6px}
+.logged.small{color:var(--muted);margin-top:0}
+@media (max-width:900px){
+  .view .blocks{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .lines{padding:2px 14px}
+}
 
 /* ---------- blocchi ---------- */
 .card{background:var(--blk);border-radius:var(--r-card);padding:22px}
@@ -455,10 +533,10 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
     <nav class="tabs" aria-label="Sezioni">
       <a href="#oggi" data-v="oggi" data-short="Oggi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg><span>Oggi</span></a>
       <a href="#alimentazione" data-v="alimentazione" data-short="Pasti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11.5h17a8.5 8.5 0 0 1-17 0z"></path><path d="M8.5 8c0-1.6 1.2-2 1.2-3.6M12.5 8c0-1.6 1.2-2 1.2-3.6"></path></svg><span>Alimentazione</span></a>
-      <a href="#spesa" data-v="spesa" data-short="Spesa" class="in-more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5h2.2l2.2 10.5h10.3l2.1-7.5H7"></path><circle cx="9.5" cy="19.5" r="1.2"></circle><circle cx="17" cy="19.5" r="1.2"></circle></svg><span>Spesa</span></a>
       <a href="#allenamento" data-v="allenamento" data-short="Allenamento"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"></path></svg><span>Allenamento</span></a>
+      <a href="#spesa" data-v="spesa" data-short="Spesa"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5h2.2l2.2 10.5h10.3l2.1-7.5H7"></path><circle cx="9.5" cy="19.5" r="1.2"></circle><circle cx="17" cy="19.5" r="1.2"></circle></svg><span>Spesa</span></a>
+      <a href="#diario" data-v="diario" data-short="Diario" class="in-more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5h16"></path><path d="M5 15l4-4 3 3 6.5-7"></path></svg><span>Diario</span></a>
       <a href="#zone" data-v="zone" data-short="Zone" class="in-more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-8.5-8.8A4.6 4.6 0 0 1 12 6.6a4.6 4.6 0 0 1 8.5 4.6C19 15.6 12 20 12 20z"></path><path d="M7 12h2.5l1.5-2.5 2 5 1.5-2.5H17"></path></svg><span>Zone cardio</span></a>
-      <a href="#diario" data-v="diario" data-short="Diario"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5h16"></path><path d="M5 15l4-4 3 3 6.5-7"></path></svg><span>Diario</span></a>
       <a href="#regole" data-v="regole" data-short="Regole" class="in-more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7h12M8 12h12M8 17h12M4 7h.01M4 12h.01M4 17h.01"></path></svg><span>Regole</span></a>
       <a href="#altro" data-v="altro" data-short="Altro" class="more-link"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="12" r="1.4"></circle><circle cx="12" cy="12" r="1.4"></circle><circle cx="18.5" cy="12" r="1.4"></circle></svg><span>Altro</span></a>
     </nav>
@@ -469,39 +547,39 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 
 <!-- OGGI -->
 <section class="view" id="v-oggi">
-  <header class="ph">
+  <header class="ph ph-oggi">
     <div><span class="lbl" id="oggiLabel"></span><h1 id="oggiTitle">Oggi</h1></div>
-    <label class="f">Giorno<input type="date" id="oggiDate"></label>
+    <label class="datechip"><span class="vh">Scegli il giorno</span><input type="date" id="oggiDate"></label>
   </header>
   <p class="note" id="oggiNote" hidden></p>
-  <section class="card today" aria-label="Allenamento e settimana">
+  <section class="card today" aria-label="Allenamento, settimana e peso">
     <div class="sec-head"><span class="lbl" id="heroLbl">Allenamento di oggi</span><span class="tag" id="oggiTipo"></span></div>
     <div class="big" id="heroTime"></div>
     <div class="muted" id="heroSub"></div>
     <div class="week" id="weekStrip" role="group" aria-label="Questa settimana"></div>
+    <form class="peso-q" id="fPesoQuick">
+      <label for="qPeso">Peso di oggi</label>
+      <span class="kgin"><input type="number" id="qPeso" step="0.1" min="40" max="150" inputmode="decimal" required><span>kg</span></span>
+      <button class="btn small" type="submit">Salva</button>
+      <span class="small muted peso-info" id="qPesoInfo"></span>
+      <p class="msg" id="qPesoMsg"></p>
+    </form>
   </section>
-  <div class="strip" id="strip"></div>
-  <div class="card sec" id="giornata" data-fold="oggi-giornata"></div>
-  <div class="grid2">
-    <div class="col">
-      <div class="card sec" id="oggiSess" data-fold="oggi-sess"></div>
-      <div class="card sec" data-fold="oggi-registra">
-        <h2 class="h-card">Registra</h2>
-        <form class="row" id="fPesoQuick">
-          <label class="f">Peso al mattino (kg)<input type="number" id="qPeso" step="0.1" min="40" max="150" inputmode="decimal" required></label>
-          <label class="f">Vita (cm)<input type="number" id="qVita" step="0.5" min="50" max="150" class="w-s"></label>
-          <button class="btn" type="submit">Salva peso</button>
-          <p class="msg" id="qPesoMsg" style="flex-basis:100%"></p>
-        </form>
-        <div id="qSessBox"></div>
-      </div>
-    </div>
-    <div class="card sec" data-fold="oggi-pasti">
-      <div class="sec-head"><h2 class="h-card">Pasti del giorno</h2><span id="oggiKcal"></span></div>
-      <div class="macros" id="oggiMacros"></div>
-      <div id="oggiMeals"></div>
-    </div>
+  <div class="seg-tabs" role="tablist" aria-label="Sezioni di oggi">
+    <button type="button" role="tab" id="tab-allen" data-tab="allen" aria-controls="panel-allen">Allenamento</button>
+    <button type="button" role="tab" id="tab-pasti" data-tab="pasti" aria-controls="panel-pasti">Pasti</button>
+    <button type="button" role="tab" id="tab-giornata" data-tab="giornata" aria-controls="giornata">Giornata</button>
   </div>
+  <div class="card sec tab-panel" id="panel-allen" role="tabpanel" aria-labelledby="tab-allen">
+    <div id="oggiSess" class="sec"></div>
+    <div id="qSessBox"></div>
+  </div>
+  <div class="card sec tab-panel" id="panel-pasti" role="tabpanel" aria-labelledby="tab-pasti" hidden>
+    <div class="sec-head"><h2 class="h-card">Pasti del giorno</h2><span id="oggiKcal"></span></div>
+    <div id="oggiMacros"></div>
+    <div id="oggiMeals" class="meals-c"></div>
+  </div>
+  <div class="card sec tab-panel" id="giornata" role="tabpanel" aria-labelledby="tab-giornata" hidden></div>
 </section>
 
 <!-- ALIMENTAZIONE -->
@@ -560,17 +638,26 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 
 <!-- SPESA -->
 <section class="view" id="v-spesa" hidden>
-  <header class="ph"><div><span class="lbl">Quantità e prezzi del menù</span><h1>Spesa</h1></div><button class="btn" type="button" id="shopOpen"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>Modalità spesa</button></header>
-  <div class="sec">
-    <p class="lead">Quantità calcolate dal menù, prezzi medi di fine ottobre 2026. Metti i prezzi del tuo supermercato nella colonna €: il totale si aggiorna da solo.</p>
-    <div class="days-tabs" id="spesaRot" role="group" aria-label="Settimana del menù"></div>
-    <div class="strip" id="spesaStrip"></div>
+  <header class="ph"><div><span class="lbl">Dal menù della settimana</span><h1>Spesa</h1></div></header>
+  <div class="days-tabs" id="spesaRot" role="group" aria-label="Settimana del menù"></div>
+  <button class="shop-cta" type="button" id="shopOpen">
+    <span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>
+    <span class="t"><b>Modalità spesa</b><span id="shopOpenSub">Lista da spuntare al supermercato</span></span>
+    <span class="arr" aria-hidden="true">›</span>
+  </button>
+  <div class="strip strip-2" id="spesaStrip"></div>
+  <div class="sec" data-fold="spesa-lista">
+    <div class="sec-head"><h2>Lista e prezzi</h2><button class="btn ghost small" type="button" id="prezziEdit">Modifica prezzi</button></div>
+    <p class="small muted" id="prezziHint" hidden>Scrivi i prezzi del tuo supermercato: il totale si aggiorna da solo. Poi premi Salva.</p>
     <div class="tw"><table id="spesaTable"></table></div>
-    <div class="row">
+    <div class="row" id="prezziRow" hidden>
       <button class="btn" type="button" id="prezziSave">Salva i miei prezzi</button>
       <button class="btn ghost" type="button" id="prezziReset">Ripristina prezzi medi</button>
       <span class="msg" id="prezziMsg"></span>
     </div>
+  </div>
+  <div class="sec" data-fold="spesa-info">
+    <h2>Come leggere i costi e dove risparmiare</h2>
     <div class="rules">
       <div class="card"><h3>Come leggere i costi</h3><p class="muted">Il costo è calcolato su quello che consumi in 7 giorni. Riso, olio, avena, miele e frutta secca durano più settimane: lo scontrino di una singola spesa oscilla, ma la media resta questa.</p></div>
       <div class="card"><h3>Da dove arrivano i prezzi</h3><p class="muted">C = spesa online Carrefour a fine ottobre 2026, marca del supermercato dove c'era. M = prezzo medio in Italia (prezzi-mondiali.it, ottobre 2026). MP = sito Myprotein, ottobre 2026. S = stima. Discount come Lidl ed Eurospin di solito costano il 15–25% in meno.</p></div>
@@ -643,6 +730,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 <section class="view" id="v-diario" hidden>
   <header class="ph"><div><span class="lbl">Peso, sessioni e test</span><h1>Diario</h1></div></header>
   <p class="note" id="dbNote" hidden></p>
+  <div class="strip" id="strip"></div>
   <div class="sec" data-fold="dia-peso">
     <div class="sec-head"><h2>Peso</h2><span class="legend" id="legend"></span></div>
     <div class="card chart" id="chart"></div>
@@ -655,6 +743,9 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
       <span class="msg" id="pMsg"></span>
     </form>
     <p class="note" id="advice" hidden></p>
+  </div>
+  <div class="sec" data-fold="dia-storico">
+    <h2>Storico del peso</h2>
     <div class="grid2">
       <div class="tw"><table id="weekTable"></table></div>
       <div class="tw"><table id="pesoTable"></table></div>
@@ -678,7 +769,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 
   <div class="sec" data-fold="dia-carichi">
     <h2>Carichi</h2>
-    <p class="lead">Il peso proposto per la prossima volta che fai ogni esercizio, aggiornato con quello che segni nella pagina Oggi.</p>
+    <p class="lead">Gli esercizi di questo blocco con il peso della prossima volta, aggiornato con quello che segni nella pagina Oggi.</p>
     <div class="tw"><table id="carTable"></table></div>
     <div class="tw"><table id="carLog"></table></div>
   </div>
@@ -736,7 +827,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 <section class="view" id="v-altro" hidden>
   <header class="ph"><div><span class="lbl">Piano Hyrox</span><h1>Altro</h1></div></header>
   <div class="more-grid">
-    <a class="blk more-item" href="#spesa"><span class="bn">Spesa</span><span class="small muted">Quantità e prezzi della settimana</span></a>
+    <a class="blk more-item" href="#diario"><span class="bn">Diario</span><span class="small muted">Peso, sedute, carichi e test</span></a>
     <a class="blk more-item" href="#zone"><span class="bn">Zone cardio</span><span class="small muted">Battiti per zona con il metodo Karvonen</span></a>
     <a class="blk more-item" href="#regole"><span class="bn">Regole</span><span class="small muted">Come si aggiustano calorie e carichi</span></a>
   </div>
@@ -1003,6 +1094,7 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 const MESI = ["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
 const fmtDate = d => `${d.getDate()} ${MESI[d.getMonth()]}`;
 const fmtDateLong = d => `${GIORNI[dow(d)]} ${d.getDate()} ${MESI[d.getMonth()]}`;
+const CHEV = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg>`;
 
 function zones(){
   const {max, rest} = S.zone, hrr = max - rest;
@@ -1156,6 +1248,29 @@ function prevLoad(key, ex, w, before){
 const wkLab = w => isDeload(w) ? `Scarico` : `Sett. ${w}`;
 function logFor(dk, ex){ return S.carichi.find(l => l.id === `${dk}_${ex}`); }
 
+/* pasti su una riga: si aprono con un tocco per vedere dosi, preparazione e cambio piatto */
+S.mealOpen = {};
+document.addEventListener("toggle", e => { const d = e.target; if (d && d.matches && d.matches("details.mealc")) S.mealOpen[d.dataset.mk] = d.open; }, true);
+function mealsCompactHTML(meals, swappable, ctx){
+  return meals.map(x => {
+    const lab = x.label || SLOT_LAB[x.slot], sg = x.id === "SG", key = `${ctx}|${x.slot}`;
+    const items = x.items.map(([k,g]) => { const [n,q] = itemLabel(k,g); return `<span class="item">${esc(n)} <b>${q}</b></span>`; }).join("");
+    return `<details class="mealc" data-mk="${esc(key)}" ${S.mealOpen[key] ? "open" : ""}>
+      <summary>${x.time != null ? `<span class="time">${hm(x.time)}</span>` : ""}<span class="mc-t"><span class="slot">${esc(lab)}</span><span class="nm">${esc(x.d.name)}</span></span><span class="kc">${sg ? "libero" : fmt(x.m.kcal)}</span><span class="chev">${CHEV}</span></summary>
+      <div class="mc-body">
+        ${sg ? `<span class="small muted">Pasto libero: non è contato nei totali del giorno.</span>` : macLine(x.m)}
+        ${swappable ? `<select class="swap" data-slot="${x.slot}" aria-label="Cambia ${esc(lab.toLowerCase())}">${dishOptions(x.slot, x.tipo, x.id, x.def)}</select>` : ""}
+        ${items ? `<div class="items">${items}</div>` : ""}
+        <p class="prep">${esc(x.d.prep)}</p>
+      </div>
+    </details>`;
+  }).join("");
+}
+function macrosCompactHTML(tot, t){
+  const cell = (lab, col, v, g) => `<span class="mc-m"><span class="lab">${lab}</span><span class="v"><b>${fmt(v)}</b><span class="of">/${fmt(g)}</span></span><span class="mbar"><i style="width:${Math.min(100, v/g*100)}%;background:${col}"></i></span></span>`;
+  return `<div class="mcomp">${cell("Kcal","var(--ink)",tot.kcal,t.kcal)}${cell("Proteine","var(--p)",tot.P,t.P)}${cell("Carbo","var(--c)",tot.C,t.C)}${cell("Grassi","var(--f)",tot.F,t.F)}</div><p class="small muted mc-note">Proteine, carbo e grassi in grammi. Fibre ${fmt(tot.fib)} g, obiettivo 30 o più.</p>`;
+}
+
 /* ---------- sessioni ----------
    ctx: {w, dk, log, key} per la pagina Oggi (una settimana, con registrazione),
         {weeks:[...], key} per la pagina Allenamento (tutte le settimane del blocco). */
@@ -1178,26 +1293,30 @@ function loadHTML(m, ctx){
   }
   const w = clampW(ctx.w), ex = metaEx(m, w), x = EX[ex], kg = loadKg(ex, w, m.r, m.rpe, ctx.dk);
   if (m.alt) return `<span class="load"><span class="small">Corpo libero. Se non chiudi le ripetizioni, lat machine <b class="kgs">${kgTxt(x.t, kg)}</b></span></span>`;
+  return loadParts(m, ctx).below;
+}
+/* pagina Oggi: il peso va sulla stessa riga di serie e ripetizioni, i pulsanti sotto */
+function loadParts(m, ctx){
+  const w = clampW(ctx.w), ex = metaEx(m, w), x = EX[ex], kg = loadKg(ex, w, m.r, m.rpe, ctx.dk);
   const pv = prevLoad(ctx.key, ex, w, ctx.dk), pk = pv ? pv.kg : null, newScheme = pv && (pv.r !== m.r || pv.rpe !== m.rpe);
   let trend = "";
-  if (w === x.w0 || pk === null) trend = `<span class="small">primo peso, da tarare alla prima serie</span>`;
-  else if (kg > pk) trend = `<span class="small"><span class="up">+${kgNum(kg - pk)} kg</span> sulla settimana scorsa${newScheme ? ", con meno ripetizioni" : ""}</span>`;
-  else if (kg === pk) trend = `<span class="small">${isDeload(w) ? "scarico: stesso peso, meno serie" : newScheme ? "stesso peso, nuovo schema di serie" : "stesso peso: chiudi le serie più pulite"}</span>`;
-  else trend = `<span class="small">${kgNum(pk - kg)} kg in meno: cambiano serie e ripetizioni</span>`;
-  let out = `<span class="load"><b>${kgTxt(x.t, kg)}</b>${trend}</span>`;
-  if (ctx.log){
-    const id = `${ctx.dk}_${ex}`, done = logFor(ctx.dk, ex);
-    if (done && !S.relog[id]){
-      out += `<span class="logged"><span class="chip-ok">✓ ${kgTxt(x.t, done.kg)} · ${ESITO[done.esito] ? ESITO[done.esito].lab : esc(done.esito)}</span><button type="button" class="linkbtn" data-relog="${esc(id)}">Modifica</button></span>`;
-    } else {
-      const val = done ? done.kg : kg;
-      out += `<span class="logx" data-ex="${ex}" data-r="${m.r}" data-rpe="${m.rpe}" data-w="${w}" data-dk="${ctx.dk}">
-        <label class="kgin"><input type="number" step="0.5" min="1" max="400" inputmode="decimal" value="${val}" aria-label="Peso usato per ${esc(x.n)}${x.t==="db2"?", kg per manubrio":", kg"}"><span>${x.t==="db2"?"kg/mano":"kg"}</span></label>
-        <span class="seg" role="group" aria-label="Com'è andata ${esc(x.n)}">${Object.entries(ESITO).map(([k,v])=>`<button type="button" data-esito="${k}">${v.lab}</button>`).join("")}</span>
-        <span class="msg" id="lm_${ex}" aria-live="polite"></span></span>`;
-    }
+  if (pk !== null && w !== x.w0){
+    if (kg > pk) trend = `<span class="up">+${kgNum(kg - pk)} kg</span> sulla settimana scorsa${newScheme ? ", con meno ripetizioni" : ""}`;
+    else if (kg === pk && isDeload(w)) trend = "Scarico: stesso peso, meno serie";
+    else if (kg < pk) trend = `${kgNum(pk - kg)} kg in meno: cambiano serie e ripetizioni`;
   }
-  return out;
+  const tr = trend ? `<span class="trend small">${trend}</span>` : "";
+  if (!ctx.log) return {right:`<b class="kgv">${kgTxt(x.t, kg)}</b>`, below:tr};
+  const id = `${ctx.dk}_${ex}`, done = logFor(ctx.dk, ex);
+  if (done && !S.relog[id]){
+    return {right:`<span class="chip-ok kgv-done">✓ ${kgTxt(x.t, done.kg)}</span>`,
+      below:`<span class="logged small">${ESITO[done.esito] ? ESITO[done.esito].lab : esc(done.esito)} · <button type="button" class="linkbtn" data-relog="${esc(id)}">Modifica</button></span>`};
+  }
+  const val = done ? done.kg : kg;
+  return {
+    right:`<label class="kgin"><input type="number" step="0.5" min="1" max="400" inputmode="decimal" value="${val}" aria-label="Peso usato per ${esc(x.n)}${x.t==="db2"?", kg per manubrio":", kg"}"><span>${x.t==="db2"?"kg ×2":"kg"}</span></label>`,
+    below:`<span class="logx" data-ex="${ex}" data-r="${m.r}" data-rpe="${m.rpe}" data-w="${w}" data-dk="${ctx.dk}"><span class="seg seg-full" role="group" aria-label="Com'è andata ${esc(x.n)}">${Object.entries(ESITO).map(([k,v])=>`<button type="button" data-esito="${k}">${v.lab}</button>`).join("")}</span><span class="msg" id="lm_${ex}" aria-live="polite"></span></span>${tr}`
+  };
 }
 function sessLines(key, block, ctx){
   const lines = REST_LINES[key] || block.s[key];
@@ -1205,6 +1324,10 @@ function sessLines(key, block, ctx){
   return `<ul class="lines">${lines.map(l => {
     if (typeof l === "string") return `<li class="h">${fillZ(l.slice(1))}</li>`;
     const [es,dose,nota] = l, m = metaOf(l);
+    if (m && c && !c.weeks && m.ex && !m.alt){
+      const lp = loadParts(m, c);
+      return `<li class="exl"><span class="ex">${fillZ(es)}</span><span class="dose-row"><span class="dose">${fillZ(dose || "")}</span>${lp.right}</span>${nota?`<span class="nota">${fillZ(nota)}</span>`:""}${lp.below}</li>`;
+    }
     return `<li><span class="ex">${fillZ(es)}</span>${dose?`<span class="dose">${fillZ(dose)}</span>`:""}${nota?`<span class="nota">${fillZ(nota)}</span>`:""}${m && c ? loadHTML(m, c) : ""}</li>`;
   }).join("")}</ul>`;
 }
@@ -1212,7 +1335,7 @@ document.addEventListener("click", e => {
   const t = e.target.closest ? e.target : null; if (!t) return;
   const b = t.closest("[data-esito]");
   if (b){
-    const box = b.closest(".logx"), kg = Number(String(box.querySelector("input").value).replace(",", "."));
+    const box = b.closest(".logx"), inp = b.closest("li").querySelector(".kgin input"), kg = Number(String(inp ? inp.value : "").replace(",", "."));
     const msgId = box.querySelector(".msg").id;
     if (!(kg > 0)){ const el = $(msgId); el.className = "msg err"; el.textContent = "Scrivi il peso che hai usato."; return; }
     const {ex, r, rpe, w, dk} = box.dataset, id = `${dk}_${ex}`;
@@ -1528,8 +1651,8 @@ function renderOggi(){
   if (!(ae && sBox.contains(ae) && ae.tagName === "INPUT")){
     const canLog = dd <= 0 && (blk.s[plan.key] || []).some(l => { const m = metaOf(l); return m && m.ex && !m.alt; });
     sBox.innerHTML = `
-      <div class="sess-title"><div><span class="eyebrow">Blocco ${blk.n} · ${esc(blk.nome)}${w>=1&&w<=WEEKS?` · settimana ${w}`:""}</span><h3>${esc(sess.nome)} · ${esc(sess.sotto)}</h3></div><span class="tag ${plan.slot?"train":""}">${slotTxt}</span></div>
-      ${canLog ? `<p class="small muted">Dopo ogni esercizio correggi il peso se ne hai usato un altro e tocca com'è andata: i pesi delle sedute successive si aggiornano da soli.</p>` : ""}
+      <div class="sess-mini"><span class="eyebrow">${esc(sess.nome)} · ${esc(sess.sotto)}</span><span class="small muted">Blocco ${blk.n} ${esc(blk.nome)}${w>=1&&w<=WEEKS?` · settimana ${w}`:""}${tipo==="train" ? ` · ${slotTxt}` : ""}</span></div>
+      ${canLog ? `<p class="small muted">Dopo ogni esercizio correggi i kg se ne hai usati altri e tocca com'è andata: le sedute dopo si aggiornano.</p>` : ""}
       ${sessLines(plan.key, blk, {w, dk, log:canLog})}${bevelBox(plan.key, blk, w, dk)}`;
   }
 
@@ -1540,8 +1663,8 @@ function renderOggi(){
   meals.sort((a,b)=>(a.time ?? 0) - (b.time ?? 0));
   const tot = sumMac(meals.map(x=>x.m));
   $("oggiKcal").innerHTML = `<span class="tag">Menù ${rot}</span>`;
-  $("oggiMacros").innerHTML = macrosHTML(tot, TARGET[tipo]) + (meals.some(m=>m.id==="SG") ? `<p class="small muted">Oggi c'è lo sgarro: il pasto libero non è contato nei totali.</p>` : "");
-  $("oggiMeals").innerHTML = mealsHTML(meals, true);
+  $("oggiMacros").innerHTML = macrosCompactHTML(tot, TARGET[tipo]);
+  $("oggiMeals").innerHTML = mealsCompactHTML(meals, true, dk);
   $("oggiMeals").querySelectorAll("select.swap").forEach(sel=>sel.onchange=()=>{
     const key = `${dk}|${sel.dataset.slot}`, def = meals.find(m=>m.slot===sel.dataset.slot).def;
     if (sel.value===def) delete S.swaps[key]; else S.swaps[key] = sel.value;
@@ -1567,7 +1690,28 @@ function renderOggi(){
     };
   } else box.innerHTML = `<div class="qs"><span class="lbl">Seduta del giorno</span><p class="small muted">Giorno di riposo: niente da registrare oltre al peso.</p></div>`;
   renderStrip();
+  const lastP = S.peso.length ? S.peso[S.peso.length-1] : null, m7 = lastP ? avg7(lastP.data) : null;
+  $("qPesoInfo").textContent = m7 !== null ? `Media 7 giorni ${fmt(m7,1)} kg · mancano ${fmt(Math.max(0, m7-(OBIETTIVO-0.1)),1)} kg` : "Pesati al mattino, prima di colazione";
+  applyTab();
 }
+/* schede della pagina Oggi */
+let OGGI_TAB = "allen";
+try { const v = localStorage.getItem("piano-hyrox-tab"); if (["allen","pasti","giornata"].includes(v)) OGGI_TAB = v; } catch(_){}
+function applyTab(){
+  const panels = {allen:"panel-allen", pasti:"panel-pasti", giornata:"giornata"};
+  document.querySelectorAll(".seg-tabs [data-tab]").forEach(b => { const on = b.dataset.tab === OGGI_TAB; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; });
+  for (const [k, id] of Object.entries(panels)) $(id).hidden = k !== OGGI_TAB;
+}
+document.querySelector(".seg-tabs").addEventListener("click", e => {
+  const b = e.target.closest("[data-tab]"); if (!b) return;
+  OGGI_TAB = b.dataset.tab; try { localStorage.setItem("piano-hyrox-tab", OGGI_TAB); } catch(_){}
+  applyTab();
+});
+document.querySelector(".seg-tabs").addEventListener("keydown", e => {
+  if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+  const order = ["allen","pasti","giornata"], i = order.indexOf(OGGI_TAB);
+  OGGI_TAB = order[(i + (e.key === "ArrowRight" ? 1 : 2)) % 3]; applyTab(); $("tab-" + OGGI_TAB).focus();
+});
 const WK_FULL = {A:"Hyrox A", B:"Hyrox B", C:"Hyrox C", INT:"Ripetute", Z2:"Zona 2", R1:"Riposo", R2:"Riposo"};
 const WK_SHORT = {A:"A", B:"B", C:"C", INT:"INT", Z2:"Z2", R1:"—", R2:"—"};
 function renderWeekStrip(d){
@@ -1669,8 +1813,8 @@ function renderAlimentazione(){
   $("menuDays").innerHTML = GIORNI.map((g,i)=>`<button type="button" data-d="${i}" aria-pressed="${i===S.menuDay}">${g.slice(0,3)} · ${W[i][1]==="train"?"all.":"rip."}</button>`).join("");
   $("menuDays").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.menuDay=+b.dataset.d; renderAlimentazione();});
   const meals = dayMeals(S.menuDay, R), tot = sumMac(meals.map(x=>x.m)), tipo = W[S.menuDay][1];
-  $("menuDay").innerHTML = `<div class="sec-head"><h3>${GIORNI[S.menuDay]} · ${tipo==="train"?"allenamento":"riposo"}</h3><span class="tag">${esc(W[S.menuDay][2])}</span></div>${mealsHTML(meals)}`;
-  $("menuMacros").innerHTML = macrosHTML(tot, TARGET[tipo]);
+  $("menuDay").innerHTML = `<div class="sec-head"><h3>${GIORNI[S.menuDay]} · ${tipo==="train"?"allenamento":"riposo"}</h3><span class="tag">${esc(W[S.menuDay][2])}</span></div><div class="meals-c">${mealsCompactHTML(meals, false, "menu" + R + S.menuDay)}</div>`;
+  $("menuMacros").innerHTML = macrosCompactHTML(tot, TARGET[tipo]);
   // piatti
   const slots = ["colazione","pranzo","pre","cena","spuntino"];
   const ids = Object.keys(PLAN.dishes).filter(id=>id!=="SG").sort((a,b)=>slots.indexOf(PLAN.dishes[a].slot)-slots.indexOf(PLAN.dishes[b].slot));
@@ -1717,7 +1861,7 @@ function renderSpesa(){
   const R = S.spesaRot;
   $("spesaRot").innerHTML = ["A","B"].map(r=>`<button type="button" data-r="${r}" aria-pressed="${r===R}">Settimana ${r}${r===rotOf(today())?" · questa":""}</button>`).join("");
   $("spesaRot").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.spesaRot=b.dataset.r; renderSpesa();});
-  const t = weekTotals(R);
+  const t = weekTotals(R), edit = !!S.prezziEdit;
   let total = 0, rows = "";
   const catTot = [];
   for (const [cat, keys] of Object.entries(CAT)){
@@ -1727,22 +1871,23 @@ function renderSpesa(){
     const body = ks.map(k=>{
       const price = priceOf(k), c = costOf(k, t[k], price); sub += c;
       const edited = typeof S.prezzi[k] === "number" && S.prezzi[k] !== PRICES[k].p;
-      return `<tr><td>${esc(PLAN.foods[k][0])}</td><td class="n">${qtyLabel(k,t[k])}</td><td class="small">${esc(packLabel(k,t[k]))}</td>
-        <td class="n"><input class="price" type="number" step="0.01" min="0" id="pr-${k}" data-k="${k}" value="${price.toFixed(2)}" aria-label="Prezzo ${esc(PLAN.foods[k][0])} in ${UNIT_LAB[PRICES[k].u]}"> <span class="src">${UNIT_LAB[PRICES[k].u]} · ${edited?"tuo":PRICES[k].src}</span></td>
+      return `<tr><td><b class="sp-n">${esc(PLAN.foods[k][0])}</b><div class="small muted">${esc(packLabel(k,t[k]))} · ${qtyLabel(k,t[k])}</div></td>
+        ${edit ? `<td class="n"><input class="price" type="number" step="0.01" min="0" id="pr-${k}" data-k="${k}" value="${price.toFixed(2)}" aria-label="Prezzo ${esc(PLAN.foods[k][0])} in ${UNIT_LAB[PRICES[k].u]}"><div class="src">${UNIT_LAB[PRICES[k].u]} · ${edited?"tuo":PRICES[k].src}</div></td>` : ""}
         <td class="n"><b>${fmt(c,2)} €</b></td></tr>`;
     }).join("");
     total += sub; catTot.push([cat, sub]);
-    rows += `<tr class="cat-row"><td colspan="4">${cat}</td><td class="n">${fmt(sub,2)} €</td></tr>${body}`;
+    rows += `<tr class="cat-row"><td colspan="${edit?2:1}">${cat}</td><td class="n">${fmt(sub,2)} €</td></tr>${body}`;
   }
-  rows += `<tr class="tot-row"><td colspan="4">Totale settimana ${R}</td><td class="n">${fmt(total,2)} €</td></tr>`;
-  $("spesaTable").innerHTML = `<thead><tr><th>Alimento</th><th class="n">Quantità</th><th>Cosa comprare</th><th class="n">Prezzo</th><th class="n">Costo</th></tr></thead><tbody>${rows}</tbody>`;
+  rows += `<tr class="tot-row"><td colspan="${edit?2:1}">Totale settimana ${R}</td><td class="n">${fmt(total,2)} €</td></tr>`;
+  $("spesaTable").innerHTML = `<thead><tr><th>Prodotto</th>${edit?`<th class="n">Prezzo</th>`:""}<th class="n">Costo</th></tr></thead><tbody>${rows}</tbody>`;
+  $("spesaTable").classList.toggle("sp-edit", edit);
+  $("prezziRow").hidden = !edit; $("prezziHint").hidden = !edit;
+  $("prezziEdit").textContent = edit ? "Fine" : "Modifica prezzi";
   const top = catTot.slice().sort((a,b)=>b[1]-a[1])[0];
   $("spesaStrip").innerHTML = `
-    <div><span class="eyebrow">Settimana ${R}</span><span class="v">${fmt(total,0)}<small>€</small></span><span class="small muted">costo del menù di 7 giorni</span></div>
-    <div><span class="eyebrow">Al giorno</span><span class="v">${fmt(total/7,2)}<small>€</small></span><span class="small muted">5 pasti</span></div>
-    <div><span class="eyebrow">Al mese</span><span class="v">${fmt(total*4.33,0)}<small>€</small></span><span class="small muted">media di 4,33 settimane</span></div>
-    <div><span class="eyebrow">Voce più pesante</span><span class="v" style="font-size:24px">${esc(top?top[0]:"—")}</span><span class="small muted">${top?`${fmt(top[1]/total*100)}% del totale`:""}</span></div>`;
-  if (S.shop){ const pg = shopProgress(R), lab = $("shopOpen").lastChild; if (lab) lab.textContent = pg.done ? `Modalità spesa · ${pg.done}/${pg.tot}` : "Modalità spesa"; }
+    <div><span class="eyebrow">Settimana ${R}</span><span class="v">${fmt(total,0)}<small>€</small></span><span class="small muted">circa ${fmt(total/7,2)} € al giorno</span></div>
+    <div><span class="eyebrow">Al mese</span><span class="v">${fmt(total*4.33,0)}<small>€</small></span><span class="small muted">${top?`${esc(top[0].split(",")[0].toLowerCase())}: ${fmt(top[1]/total*100)}% del totale`:""}</span></div>`;
+  if (S.shop){ const pg = shopProgress(R); $("shopOpenSub").textContent = pg.done ? `${pg.done} di ${pg.tot} già nel carrello` : `${pg.tot} prodotti da spuntare al supermercato`; }
   $("spesaTable").querySelectorAll("input.price").forEach(inp=>inp.onchange=()=>{
     const v = Number(inp.value);
     if (v > 0) S.prezzi[inp.dataset.k] = v; else delete S.prezzi[inp.dataset.k];
@@ -1750,6 +1895,7 @@ function renderSpesa(){
     $("prezziMsg").className = "msg"; $("prezziMsg").textContent = "Prezzi modificati: premi Salva per conservarli.";
   });
 }
+$("prezziEdit").onclick = () => { S.prezziEdit = !S.prezziEdit; if (S.prezziEdit && isFolded("spesa-lista")){ FOLD["spesa-lista"] = false; try { localStorage.setItem("piano-hyrox-fold", JSON.stringify(FOLD)); } catch(_){} decorateFolds(); } renderSpesa(); };
 $("prezziSave").onclick = async ()=>{
   const data = {}; for (const [k,v] of Object.entries(S.prezzi)) if (typeof v==="number" && v>0) data[k]=v;
   const m = $("prezziMsg");
@@ -1884,9 +2030,10 @@ function renderDiario(){
     for (let w = from; w <= WEEKS; w++) for (const k of ["A","B"]) for (const l of blockOf(w).s[k]){ const m = metaOf(l); if (m && m.ex && !m.alt && metaEx(m, w) === ex) return {w, kg:loadKg(ex, w, m.r, m.rpe, before), dose:l[1]}; }
     return null;
   };
-  const crow = order.map(ex => { const last = lastLog([ex], "9999-12-31"), nx = nextOcc(ex); return (last || nx) ? {ex, last, nx} : null; }).filter(Boolean);
-  $("carTable").innerHTML = `<thead><tr><th>Esercizio</th><th>Ultima volta</th><th class="n">Prossima volta</th></tr></thead><tbody>${crow.map(({ex,last,nx})=>{ const t = EX[ex].t;
-    return `<tr><td>${esc(EX[ex].n)}</td><td class="small">${last ? `${fmtDate(parse(last.data))} · <b>${kgTxt(t, last.kg)}</b> · ${ESITO[last.esito].lab.toLowerCase()}` : `<span class="muted">non ancora segnato</span>`}</td><td class="n" style="white-space:nowrap">${nx ? `<b>${kgTxt(t, nx.kg)}</b> <span class="small muted">sett. ${nx.w} · ${esc(nx.dose.split(" · ")[0])}</span>` : "—"}</td></tr>`; }).join("")}</tbody>`;
+  const blkEnd = blockOf(tw0).w[1];
+  const crow = order.map(ex => { const last = lastLog([ex], "9999-12-31"), nx = nextOcc(ex); return (last || (nx && nx.w <= blkEnd)) ? {ex, last, nx} : null; }).filter(Boolean);
+  $("carTable").innerHTML = `<thead><tr><th>Esercizio</th><th class="n">Prossima volta</th></tr></thead><tbody>${crow.map(({ex,last,nx})=>{ const t = EX[ex].t;
+    return `<tr><td><b>${esc(EX[ex].n)}</b><div class="small muted">${last ? `ultima ${fmtDate(parse(last.data))}: ${kgTxt(t, last.kg)}, ${ESITO[last.esito].lab.toLowerCase()}` : "non ancora segnato"}</div></td><td class="n" style="white-space:nowrap">${nx ? `<b>${kgTxt(t, nx.kg)}</b><div class="small muted">sett. ${nx.w} · ${esc(nx.dose.split(" · ")[0])}</div>` : "—"}</td></tr>`; }).join("")}</tbody>`;
   const cl = S.carichi.slice().sort((a,b)=>b.data.localeCompare(a.data) || a.ex.localeCompare(b.ex)).slice(0,40);
   $("carLog").innerHTML = cl.length ? `<thead><tr><th>Data</th><th>Esercizio</th><th class="n">Peso</th><th>Com'è andata</th><th></th></tr></thead><tbody>${cl.map(l=>`<tr><td style="white-space:nowrap">${fmtDate(parse(l.data))}</td><td>${esc(EX[l.ex].n)}</td><td class="n"><b>${kgTxt(EX[l.ex].t, l.kg)}</b></td><td>${ESITO[l.esito] ? ESITO[l.esito].lab : esc(l.esito)}</td><td class="n">${delBtn("carichi", l.id)}</td></tr>`).join("")}</tbody>` : `<tbody><tr><td class="muted">Nessun carico segnato. Nella pagina Oggi, sotto ogni esercizio, tocca Leggero, Giusto o Pesante.</td></tr></tbody>`;
   const lp = S.peso.slice().reverse().slice(0,14);
@@ -1923,9 +2070,9 @@ async function save(col, id, data, msgId, okText){
 /* ---------- form ---------- */
 $("fPesoQuick").addEventListener("submit", e=>{ e.preventDefault();
   const kg = Number($("qPeso").value); if (!kg) return;
-  const vita = Number($("qVita").value) || null, data = iso(S.oggi);
+  const data = iso(S.oggi);
   const prev = S.peso.find(p=>p.data===data);
-  save("peso", data, {data, kg, vita: vita ?? (prev?prev.vita:null) ?? null, nota: prev?prev.nota||"":""}, "qPesoMsg", `Salvato: ${fmt(kg,1)} kg il ${fmtDate(S.oggi)}`);
+  save("peso", data, {data, kg, vita: prev && prev.vita ? prev.vita : null, nota: prev?prev.nota||"":""}, "qPesoMsg", `Salvato: ${fmt(kg,1)} kg il ${fmtDate(S.oggi)}`);
 });
 $("fPeso").addEventListener("submit", e=>{ e.preventDefault();
   const data = $("pData").value, kg = Number($("pKg").value); if (!data||!kg) return;
@@ -1950,12 +2097,12 @@ $("fZone").addEventListener("submit", async e=>{ e.preventDefault();
   if (S.db && S.canWrite!==false){ try { await S.db.doc("config/profilo").set({fcmax:max, fcrest:rest}); $("zMsg").className="msg ok"; $("zMsg").textContent="Zone aggiornate e salvate"; } catch(_){ $("zMsg").className="msg err"; $("zMsg").textContent="Zone aggiornate, ma non salvate."; } }
   else { $("zMsg").className="msg"; $("zMsg").textContent="Zone aggiornate in questa vista"; }
 });
-function fillQuick(){ const p = S.peso.find(x=>x.data===iso(S.oggi)); $("qPeso").value = p ? p.kg : ""; $("qVita").value = p && p.vita ? p.vita : ""; }
+function fillQuick(){ const p = S.peso.find(x=>x.data===iso(S.oggi)); $("qPeso").value = p ? p.kg : ""; }
 $("oggiDate").addEventListener("change", ()=>{ if ($("oggiDate").value){ S.oggi = parse($("oggiDate").value); renderOggi(); fillQuick(); } });
 
 /* ---------- routing ---------- */
 const VIEWS = ["oggi","alimentazione","spesa","allenamento","zone","diario","regole","altro"];
-const IN_MORE = ["spesa","zone","regole","altro"];
+const IN_MORE = ["diario","zone","regole","altro"];
 function route(){
   let v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "oggi";
   if (v === "altro" && !PWA) v = "oggi";
@@ -1979,11 +2126,10 @@ route(); renderAll(); fillQuick();
 
 /* ---------- sezioni richiudibili ----------
    Ogni contenitore con data-fold ha una freccia nell'intestazione; lo stato resta su questo dispositivo. */
-const FOLD_CLOSED = new Set(["ali-piatti","ali-swap","ali-integ","all-gara","all-settimana","all-s-A","all-s-INT","all-s-B","all-s-Z2","all-s-C","dia-test"]);
+const FOLD_CLOSED = new Set(["ali-macro","ali-piatti","ali-swap","ali-integ","all-gara","all-settimana","all-prog","all-s-A","all-s-INT","all-s-B","all-s-Z2","all-s-C","dia-storico","dia-sess","dia-test","spesa-info","spesa-lista"]);
 let FOLD = {};
 try { FOLD = JSON.parse(localStorage.getItem("piano-hyrox-fold") || "{}") || {}; } catch(_){ FOLD = {}; }
 const isFolded = k => (k in FOLD) ? !!FOLD[k] : FOLD_CLOSED.has(k);
-const CHEV = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"></path></svg>`;
 function decorateFolds(){
   document.querySelectorAll("[data-fold]").forEach(el => {
     const k = el.dataset.fold, head = el.firstElementChild;

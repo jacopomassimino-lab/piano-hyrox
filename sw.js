@@ -1,6 +1,6 @@
 // Piano Hyrox · service worker: l'app si apre anche senza rete; la pagina si aggiorna dalla rete quando c'è.
-const V = "hyrox-8befb453e5";
-const CORE = ["./", "index.html", "supabase.js", "manifest.webmanifest", "icons/apple-touch-icon.png", "icons/icon-192.png", "icons/icon-512.png", "icons/favicon.png"];
+const V = "hyrox-b3455abc27";
+const CORE = ["./", "index.html", "supabase.js", "manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "favicon.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(V).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V && k !== "hyrox-fonts").map(k => caches.delete(k)))).then(() => self.clients.claim()));
