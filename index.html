@@ -296,6 +296,20 @@ ul.mi{list-style:none;margin:0;padding:2px 14px;background:var(--in);border-radi
 ul.mi li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.3}
 ul.mi li:first-child{border-top:0}
 ul.mi li b{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+/* profili: Jacopo e lei vedono testi diversi nelle pagine fisse */
+html:not([data-prof="lei"]) .only-l, html[data-prof="lei"] .only-j{display:none!important}
+ul.mi.guide li b{white-space:normal;text-align:right;max-width:52%}
+ul.mi.ltrend li{padding:8px 0}
+ul.mi.ltrend li.cur{background:var(--me-soft);margin:0 -10px;padding:8px 10px;border-radius:10px;border-top-color:transparent}
+ul.mi.ltrend li.cur + li{border-top-color:transparent}
+table.sv-t2 td:last-child,table.sv-t2 th:last-child{text-align:right}
+.lw-days{display:flex;flex-direction:column;gap:6px}
+.lw-day{display:grid;grid-template-columns:40px minmax(0,1fr) 112px;gap:8px;align-items:center}
+.lw-at:disabled{visibility:hidden}
+.lw-n{font-weight:600}
+.lw-day select,.lw-day input{min-width:0;width:100%}
+.inv-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.inv-list li{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border-radius:14px;background:var(--in)}
 ul.mi.dark{background:transparent;padding:0;border-radius:0}
 ul.mi.dark li,ul.mi.dark li:first-child{border-top:1px solid rgba(255,255,255,.14)}
 .nm-prep{font-size:14px;line-height:1.4;color:rgba(255,255,255,.72)}
@@ -676,7 +690,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
   <div class="side-in">
     <div class="brand">
       <span class="avatar" aria-hidden="true">JM</span>
-      <div><b>Piano Hyrox</b><small><span id="bibWeek">Si parte lun 2 nov</span> · <span id="bibBlock">Base</span></small></div>
+      <div><b id="brandName">Piano Hyrox</b><small><span id="bibWeek">Si parte lun 2 nov</span> · <span id="bibBlock">Base</span></small></div>
     </div>
     <nav class="tabs" aria-label="Sezioni">
       <a href="#oggi" data-v="oggi" data-short="Oggi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg><span>Oggi</span></a>
@@ -684,11 +698,11 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
       <a href="#allenamento" data-v="allenamento" data-short="Allenamento"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"></path></svg><span>Allenamento</span></a>
       <a href="#spesa" data-v="spesa" data-short="Spesa"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5h2.2l2.2 10.5h10.3l2.1-7.5H7"></path><circle cx="9.5" cy="19.5" r="1.2"></circle><circle cx="17" cy="19.5" r="1.2"></circle></svg><span>Spesa</span></a>
       <a href="#diario" data-v="diario" data-short="Diario" class="in-more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5h16"></path><path d="M5 15l4-4 3 3 6.5-7"></path></svg><span>Diario</span></a>
-      <a href="#zone" data-v="zone" data-short="Zone" class="in-more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-8.5-8.8A4.6 4.6 0 0 1 12 6.6a4.6 4.6 0 0 1 8.5 4.6C19 15.6 12 20 12 20z"></path><path d="M7 12h2.5l1.5-2.5 2 5 1.5-2.5H17"></path></svg><span>Zone cardio</span></a>
+      <a href="#zone" data-v="zone" data-short="Zone" class="in-more only-j"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-8.5-8.8A4.6 4.6 0 0 1 12 6.6a4.6 4.6 0 0 1 8.5 4.6C19 15.6 12 20 12 20z"></path><path d="M7 12h2.5l1.5-2.5 2 5 1.5-2.5H17"></path></svg><span>Zone cardio</span></a>
       <a href="#regole" data-v="regole" data-short="Regole" class="in-more"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7h12M8 12h12M8 17h12M4 7h.01M4 12h.01M4 17h.01"></path></svg><span>Regole</span></a>
       <a href="#altro" data-v="altro" data-short="Altro" class="more-link"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="12" r="1.4"></circle><circle cx="12" cy="12" r="1.4"></circle><circle cx="18.5" cy="12" r="1.4"></circle></svg><span>Altro</span></a>
     </nav>
-    <div class="side-foot"><span class="lbl">Obiettivo</span><b>Sotto i 70 kg</b><span class="small muted">2.000 kcal allenamento · 1.800 riposo</span><button type="button" class="linkbtn pwa-only side-out" data-logout>Esci dall'account</button></div>
+    <div class="side-foot"><span class="lbl">Obiettivo</span><b id="sideGoal">Sotto i 70 kg</b><span class="small muted" id="sideKcal">2.000 kcal allenamento · 1.800 riposo</span><button type="button" class="linkbtn pwa-only side-out" data-logout>Esci dall'account</button></div>
   </div>
 </aside>
 <main class="main">
@@ -738,7 +752,8 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
   <header class="ph"><div><span class="lbl">Menù a rotazione su due settimane</span><h1>Alimentazione</h1></div></header>
   <div class="sec" data-fold="ali-macro">
     <h2>Calorie e macro</h2>
-    <p class="lead">Deficit deciso, circa 800 kcal al giorno, con proteine alte per proteggere il muscolo. Il riso resta fisso a 70 g sia a pranzo sia a cena: a cambiare tra allenamento e riposo sono colazione e spuntini.</p>
+    <p class="lead only-j">Deficit deciso, circa 800 kcal al giorno, con proteine alte per proteggere il muscolo. Il riso resta fisso a 70 g sia a pranzo sia a cena: a cambiare tra allenamento e riposo sono colazione e spuntini.</p>
+    <p class="lead only-l">Un deficit di circa 650 kcal al giorno, con proteine a ogni pasto e senza polveri né semi. Latticini solo senza lattosio, spuntini secchi da portare in ufficio e il pranzo in mensa con la guida su cosa prendere.</p>
     <div class="grid3" id="targets"></div>
     <div class="tw"><table id="calcTable"></table></div>
   </div>
@@ -771,7 +786,20 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
     <div class="grid3" id="swaps"></div>
   </div>
 
-  <div class="sec" data-fold="ali-integ">
+  <div class="sec only-l" data-fold="ali-integ">
+    <h2>Acqua e integratori</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Cosa</th><th>Dose</th><th>Perché</th></tr></thead>
+      <tbody>
+        <tr><td>Acqua</td><td class="mono">2–2,5 L + 0,5 L per ora di allenamento</td><td>Una borraccia sulla scrivania aiuta: spesso la fame del pomeriggio è sete.</td></tr>
+        <tr><td>Proteine in polvere</td><td class="mono">Nessuna</td><td>Non servono: il menù arriva a 125 g di proteine con carne, pesce, uova, legumi e un latticino al giorno.</td></tr>
+        <tr><td>Pesce</td><td class="mono">2 volte a settimana</td><td>Merluzzo e salmone sono già nel menù: coprono gli omega-3 senza integratori.</td></tr>
+        <tr><td>Caffè (facoltativo)</td><td class="mono">1 caffè 45' prima</td><td>Utile prima delle sedute serali, ma non dopo le 16 se poi dormi male.</td></tr>
+        <tr><td>Ferro e vitamina D</td><td class="mono">Solo dopo esami</td><td>Sono spesso bassi d'inverno e nelle donne: chiedi al medico gli esami prima di integrare.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="sec only-j" data-fold="ali-integ">
     <h2>Integratori e idratazione</h2>
     <div class="tw"><table>
       <thead><tr><th>Cosa</th><th>Dose</th><th>Perché</th></tr></thead>
@@ -824,8 +852,15 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
     <h2>Come leggere i costi e dove risparmiare</h2>
     <div class="rules">
       <div class="card"><h3>Come leggere i costi</h3><p class="muted">Il costo conta solo quello che mangi nei giorni scelti. Riso, olio, avena, miele e frutta secca durano più spese: lo scontrino di una singola spesa oscilla, ma la media resta questa.</p></div>
-      <div class="card"><h3>Da dove arrivano i prezzi</h3><p class="muted">C = spesa online Carrefour a fine ottobre 2026, marca del supermercato dove c'era. M = prezzo medio in Italia (prezzi-mondiali.it, ottobre 2026). MP = sito Myprotein, ottobre 2026. S = stima. Discount come Lidl ed Eurospin di solito costano il 15–25% in meno.</p></div>
-      <div class="card"><h3>Dove si risparmia</h3><ul class="plain">
+      <div class="card only-l"><h3>Da dove arrivano i prezzi</h3><p class="muted">C = spesa online Carrefour a fine ottobre 2026, M = prezzo medio in Italia, S = stima. Metti i prezzi del tuo supermercato nella sezione qui sopra: i costi si aggiornano da soli.</p></div>
+      <div class="card only-l"><h3>Dove si risparmia</h3><ul class="plain">
+        <li><b>Proteine più economiche</b>: uova, albume, legumi in scatola, pollo e merluzzo surgelato. Bresaola e salmone costano di più: nel menù ci sono, ma si possono cambiare.</li>
+        <li><b>La mensa non entra nella spesa</b>: dal lunedì al venerdì il pranzo non si compra. Se un giorno porti il pranzo da casa, cambialo qui sopra e la lista si aggiorna.</li>
+        <li><b>Latte e yogurt senza lattosio</b>: quelli della marca del supermercato costano molto meno e sono uguali.</li>
+        <li><b>Frutta e verdura di stagione</b>: a novembre clementine, kiwi, mele, cavoli, finocchi e zucca.</li>
+      </ul></div>
+      <div class="card only-j"><h3>Da dove arrivano i prezzi</h3><p class="muted">C = spesa online Carrefour a fine ottobre 2026, marca del supermercato dove c'era. M = prezzo medio in Italia (prezzi-mondiali.it, ottobre 2026). MP = sito Myprotein, ottobre 2026. S = stima. Discount come Lidl ed Eurospin di solito costano il 15–25% in meno.</p></div>
+      <div class="card only-j"><h3>Dove si risparmia</h3><ul class="plain">
         <li><b>Proteine più economiche</b>, a parità di 10 g di proteine: albume 0,33 €, uova 0,42 €, yogurt greco 0,50 €, tonno 0,57 €, pollo 0,60 €, proteine in polvere 0,62 €. Bresaola e prosciutto cotto costano più di 1 € e li ho tolti dal menù.</li>
         <li><b>Discount e marca del supermercato</b> per yogurt greco, albume, tonno, avena, riso e pasta: sono prodotti semplici, la differenza di qualità è minima.</li>
         <li><b>Pollo e macinato</b>: prendili in confezione grande o in offerta e congela a porzioni da 150–170 g.</li>
@@ -846,12 +881,23 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
   <p class="small muted al-focus" id="alFocus"></p>
   <div class="chips-row" id="alSess" role="tablist" aria-label="Sedute"></div>
   <section class="card sec sv-card" id="alCard"></section>
-  <div class="sec" data-fold="all-gara">
+  <div class="sec only-j" data-fold="all-gara">
     <h2>Il formato gara</h2>
     <p class="lead">8 km di corsa divisi in 8 tratti da 1 km, ognuno seguito da una stazione. Pesi categoria Open uomini, stagione 2026/27.</p>
     <div class="race" id="race"></div>
   </div>
-  <div class="sec" data-fold="all-prog">
+  <div class="sec only-l" data-fold="all-come">
+    <h2>Come si progredisce senza pesi</h2>
+    <div class="card"><ul class="plain">
+      <li><b>Al posto dei chili</b> salgono tre cose, in quest'ordine: le ripetizioni (da 10–12 fino a 15–20), la variante (push-up dal tavolo, poi dal divano, poi a terra; squat su sedia, poi con pausa, poi su una sedia più bassa) e il tempo (3 secondi in discesa e una pausa in fondo).</li>
+      <li><b>Dopo ogni esercizio segna</b> nella pagina Oggi quante ne hai fatte e com'è andata. <b>Leggero</b>: te ne restavano 4 o più, la volta dopo ne proponi 2 in più. <b>Giusto</b>: 2 o 3 in canna, si resta lì. <b>Pesante</b>: le ultime non venivano pulite, la volta dopo si scende.</li>
+      <li><b>Elastici.</b> Per le tirate (rematore, lat pulldown, face pull) chiudi l'elastico in una porta, all'altezza giusta, o tienilo sotto i piedi. Per spinte e croci tienilo dietro la schiena. Più corto lo prendi, più è duro: è il tuo modo di aggiungere peso.</li>
+      <li><b>La corda</b> è il cardio della seduta: salti bassi e polsi che girano. Se il ginocchio protesta, fai passi veloci sul posto.</li>
+      <li><b>Ginocchio.</b> Niente squat profondi né affondi con peso: squat su sedia, step-up e hip thrust a range controllato. Il Bulgarian split squat entra solo nei blocchi di forza e solo se non fa male. Dolore acuto o che peggiora: fermati e cambia esercizio.</li>
+      <li><b>Calisthenics al corso.</b> Conta come allenamento: qui segni solo che l'hai fatto e quanto è stato duro. Se il giorno dopo hai la seduta a casa e sei a pezzi, fai lo Scarico.</li>
+    </ul></div>
+  </div>
+  <div class="sec only-j" data-fold="all-prog">
     <h2>Come funzionano i pesi</h2>
     <div class="card"><ul class="plain">
       <li><b>I pesi sono già nelle schede</b> e salgono da soli ogni settimana: circa il 6% nel blocco Base (si parte bassi apposta), il 3% in Costruzione, poi meno quando le serie si accorciano. Nelle settimane di scarico resta il peso della settimana prima, con meno serie.</li>
@@ -927,7 +973,13 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
     <div class="tw"><table id="sessTable"></table></div>
   </div>
 
-  <div class="sec" data-fold="dia-carichi">
+  <div class="sec only-l" data-fold="dia-rip">
+    <h2>Ripetizioni</h2>
+    <p class="lead">L'ultima volta per ogni esercizio, aggiornata con quello che segni nella pagina Oggi.</p>
+    <div class="tw"><table id="ripTable"></table></div>
+    <div class="tw"><table id="ripLog"></table></div>
+  </div>
+  <div class="sec only-j" data-fold="dia-carichi">
     <h2>Carichi</h2>
     <p class="lead">Gli esercizi di questo blocco con il peso della prossima volta, aggiornato con quello che segni nella pagina Oggi.</p>
     <div class="tw"><table id="carTable"></table></div>
@@ -936,7 +988,8 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 
   <div class="sec" data-fold="dia-test">
     <h2>Test</h2>
-    <p class="lead">Da ripetere nella settimana 1, nella 7 e nella 16, nelle stesse condizioni.</p>
+    <p class="lead only-j">Da ripetere nella settimana 1, nella 7 e nella 16, nelle stesse condizioni.</p>
+    <p class="lead only-l">Nelle settimane 1, 8 e 16, nella seduta Test massimale: i risultati segnati lì finiscono qui.</p>
     <form class="row card" id="fTest">
       <label class="f">Data<input type="date" id="tData" required></label>
       <label class="f">Prova<select id="tProva"></select></label>
@@ -952,7 +1005,36 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 <!-- REGOLE -->
 <section class="view" id="v-regole" hidden>
   <header class="ph"><div><span class="lbl">Come si aggiusta il piano</span><h1>Regole</h1></div></header>
-  <div class="sec">
+  <div class="sec only-l">
+    <p class="lead">I numeri di partenza sono stime. Sono le pesate delle prossime 2–3 settimane a dire se vanno corretti.</p>
+    <div class="rules">
+      <div class="card"><h3>Pesati così</h3><ul class="plain">
+        <li>Al mattino, dopo il bagno, prima di bere e mangiare. Anche 3–4 volte a settimana vanno bene.</li>
+        <li>Guarda la media settimanale: il peso del singolo giorno oscilla di 1–2 kg per acqua, sale e ciclo.</li>
+        <li>Nella settimana del ciclo è normale che salga: non cambiare niente per quella settimana.</li>
+        <li>Una volta a settimana misura la vita all'altezza dell'ombelico.</li>
+      </ul></div>
+      <div class="card"><h3>Quando cambiare le calorie</h3><ul class="plain">
+        <li><b>Calo sotto 0,3 kg a settimana per 2 settimane</b>: prima aggiungi 2.000 passi al giorno. Se non basta, togli 100 kcal nei giorni di riposo. Non scendere sotto 1.500.</li>
+        <li><b>Calo oltre 1 kg a settimana</b> o allenamenti che crollano: aggiungi un frutto e una fetta di pane nei giorni di allenamento.</li>
+        <li><b>Peso fermo ma vita in calo</b>: stai perdendo grasso e mettendo muscolo. Non tagliare.</li>
+      </ul></div>
+      <div class="card"><h3>Obiettivo</h3><p class="muted">Il primo traguardo è scendere sotto gli 87 kg entro febbraio, circa 0,6 kg a settimana. È un ritmo che si tiene senza patire la fame. Arrivata lì si rifanno i conti e si fissa il traguardo dopo.</p><p class="muted">Le prime 1–2 settimane la bilancia può scendere più in fretta per l'acqua: non conta.</p></div>
+      <div class="card"><h3>Passi</h3><p class="muted">Oggi sono circa 3.000 al giorno: è la leva più semplice e non pesa sul ginocchio. Obiettivo 5.000 nel primo blocco, poi 1.000 in più a ogni blocco fino a 8.000. Una camminata in pausa pranzo, dopo la mensa, ne vale 2.000.</p></div>
+      <div class="card"><h3>In mensa</h3><ul class="plain">
+        <li>Prima il piatto di verdure, poi il secondo, poi il pane o il primo.</li>
+        <li>Secondo di carne bianca, pesce, uova o legumi. Formaggi freschi e mozzarella hanno lattosio: meglio evitarli come secondo.</li>
+        <li>Fritti e piatti con panna: una volta a settimana non succede niente, ogni giorno sì.</li>
+      </ul></div>
+      <div class="card"><h3>Pasto libero</h3><p class="muted">Uno a settimana, al posto della cena: nel menù è il sabato sera, ma lo puoi spostare su qualsiasi cena dalla pagina Oggi. Un pasto, non una giornata, e niente compensazioni il giorno dopo.</p><p class="muted">Settimana 8 (21–27 dicembre): scarico, test e calorie di mantenimento, circa 2.400 al giorno. È una pausa dalla dieta programmata a Natale.</p></div>
+      <div class="card"><h3>Quando fermarti</h3><ul class="plain">
+        <li>Dolore al ginocchio acuto o che peggiora durante l'esercizio: cambia esercizio e, se continua, fallo vedere a un fisioterapista.</li>
+        <li>Stanchezza che non passa, sonno disturbato, fame incontrollabile: una settimana di scarico.</li>
+        <li>Questo piano non sostituisce il medico o un dietista. Se hai patologie, prendi farmaci o hai dubbi, fallo vedere a un professionista.</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="sec only-j">
     <p class="lead">I numeri di partenza sono stime. Sono i tuoi dati delle prossime 2–3 settimane a dire se vanno corretti.</p>
     <div class="rules">
       <div class="card"><h3>Pesati così</h3><ul class="plain">
@@ -985,11 +1067,22 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 
 <!-- ALTRO (solo app sul telefono) -->
 <section class="view" id="v-altro" hidden>
-  <header class="ph"><div><span class="lbl">Piano Hyrox</span><h1>Altro</h1></div></header>
+  <header class="ph"><div><span class="lbl" id="altroLbl">Piano Hyrox</span><h1>Altro</h1></div></header>
   <div class="more-grid">
     <a class="blk more-item" href="#diario"><span class="bn">Diario</span><span class="small muted">Peso, sedute, carichi e test</span></a>
-    <a class="blk more-item" href="#zone"><span class="bn">Zone cardio</span><span class="small muted">Battiti per zona con il metodo Karvonen</span></a>
+    <a class="blk more-item only-j" href="#zone"><span class="bn">Zone cardio</span><span class="small muted">Battiti per zona con il metodo Karvonen</span></a>
     <a class="blk more-item" href="#regole"><span class="bn">Regole</span><span class="small muted">Come si aggiustano calorie e carichi</span></a>
+  </div>
+  <div class="card sec only-j pwa-only">
+    <h2 class="h-card">Piano per la tua ragazza</h2>
+    <p class="muted">Scrivi il suo nome e la sua email. Lei apre lo stesso link, tocca "Primo accesso" e sceglie la sua password: vede solo il suo piano, la sua spesa e il suo peso.</p>
+    <form class="row" id="fInvita">
+      <label class="f">Nome<input type="text" id="invNome" maxlength="40" autocomplete="off"></label>
+      <label class="f">Email<input type="email" id="invEmail" maxlength="120" autocomplete="off" autocapitalize="off" inputmode="email"></label>
+      <button class="btn" type="submit">Invita</button>
+    </form>
+    <p class="msg" id="invMsg" aria-live="polite"></p>
+    <ul class="inv-list" id="invList" hidden></ul>
   </div>
   <div class="card sec">
     <h2 class="h-card">Account</h2>
@@ -1031,26 +1124,224 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 </div>
 
 <script>
-const PLAN = {"foods":{"avena":["Fiocchi d'avena",13.0,60.0,7.0,10.0],"yogurt":["Yogurt greco 0%",10.0,3.5,0.2,0],"bosco":["Frutti di bosco (anche surgelati)",0.8,9.0,0.3,4.0],"arachidi":["Burro d'arachidi 100%",26.0,10.0,50.0,7.0],"uovo":["Uova intere",12.5,0.7,9.5,0],"albume":["Albume (in brick)",11.0,0.7,0.2,0],"pane_int":["Pane integrale",9.0,41.0,3.0,7.0],"pane":["Pane comune / bianco",8.5,60.0,1.0,3.0],"mela":["Mela",0.3,11.5,0.2,2.4],"banana":["Banana",1.1,20.0,0.3,2.6],"riso":["Riso basmati (crudo)",7.5,78.0,0.6,1.0],"pasta":["Pasta di semola (cruda)",13.0,71.0,1.5,3.0],"pasta_int":["Pasta integrale (cruda)",13.5,64.0,2.5,8.0],"fagiolini":["Fagiolini",2.0,3.5,0.1,3.0],"couscous":["Cous cous (crudo)",12.0,72.0,1.0,5.0],"patate":["Patate (crude)",2.0,17.0,0.1,2.0],"pollo":["Petto di pollo (crudo)",23.0,0.0,1.5,0],"tacchino":["Petto di tacchino (crudo)",24.0,0.0,1.0,0],"manzo":["Manzo magro / macinato 5%",21.0,0.0,5.0,0],"bresaola":["Bresaola",32.0,0.5,2.6,0],"fesa":["Fesa di tacchino affettata",22.0,1.0,1.5,0],"maiale":["Lonza di maiale (cruda)",21.5,0.0,4.0,0],"cotto":["Prosciutto cotto magro",20.0,0.0,2.2,0],"tonno":["Tonno al naturale (sgocciolato)",25.0,0.0,1.0,0],"salmone":["Salmone (crudo)",20.0,0.0,12.0,0],"verdure":["Verdure miste",1.5,3.5,0.3,2.5],"pomodorini":["Pomodorini",1.0,3.0,0.2,1.5],"passata":["Passata di pomodoro",1.3,4.5,0.2,1.0],"olio":["Olio extravergine",0.0,0.0,100.0,0],"avocado":["Avocado",2.0,2.0,15.0,6.7],"gallette":["Gallette di riso",8.0,80.0,3.0,3.0],"miele":["Miele",0.3,80.0,0.0,0],"mandorle":["Mandorle",21.0,5.0,52.0,12.0],"noci":["Noci",15.0,4.0,65.0,6.5],"cracker":["Cracker Galbusera Belle Buone avena",12.0,58.0,18.0,8.0],"cacao":["Cacao amaro in polvere",20.0,12.0,14.0,30.0],"whey":["Proteine in polvere Myprotein Impact Whey vaniglia",72.0,8.9,5.9,0.0],"parmigiano":["Parmigiano Reggiano",33.0,0.0,28.0,0]},"dishes":{"C1":{"slot":"colazione","name":"Porridge proteico","prep":"Cuoci l'avena in acqua (o metà latte), lascia intiepidire e aggiungi yogurt, frutti di bosco e burro d'arachidi. Si prepara anche la sera prima (overnight oats).","train":[["bosco",100],["yogurt",230],["avena",50],["arachidi",15]],"rest":[["bosco",50],["yogurt",300],["avena",25],["arachidi",20]]},"C2":{"slot":"colazione","name":"Uova, cracker d'avena e banana","prep":"1 uovo + albume strapazzati in padella antiaderente senza olio, con i cracker Belle Buone al posto del pane. Banana a parte.","train":[["uovo",55],["albume",210],["banana",150],["cracker",35]],"rest":[["uovo",55],["albume",260],["cracker",40]]},"C3":{"slot":"colazione","name":"Pancake avena e albumi","prep":"Frulla avena, 1 uovo, albume e mezza banana; cuoci in padella. Sopra il resto della banana e il burro d'arachidi.","train":[["uovo",55],["banana",80],["albume",170],["avena",55],["arachidi",5]],"rest":[["uovo",55],["banana",50],["albume",250],["avena",25],["arachidi",10]]},"P1":{"slot":"pranzo","name":"Riso, pollo e verdure","prep":"Ottimo da preparare in batch: pollo alla piastra o al forno con spezie, riso basmati, verdure grigliate. Olio a crudo.","train":[["riso",70],["verdure",200],["pollo",160],["olio",10]],"rest":[["riso",70],["verdure",200],["pollo",160],["olio",10]]},"P2":{"slot":"pranzo","name":"Pasta integrale tonno e pomodorini","prep":"85 g di pasta integrale valgono quanto 70 g di riso. Pomodorini saltati con aglio, tonno a fuoco spento, olio a crudo.","train":[["pasta_int",85],["pomodorini",150],["tonno",130],["olio",10]],"rest":[["pasta_int",85],["pomodorini",150],["tonno",130],["olio",10]]},"P3":{"slot":"pranzo","name":"Bowl riso, pollo teriyaki e avocado","prep":"Tipo poke: riso, pollo a straccetti scottato con salsa di soia e zenzero, verdure crude (carote, cetrioli, cavolo cappuccio), avocado a cubetti.","train":[["riso",70],["verdure",150],["pollo",160],["avocado",60]],"rest":[["riso",70],["verdure",150],["pollo",160],["avocado",80]]},"P4":{"slot":"pranzo","name":"Pasta integrale al ragù magro","prep":"Ragù veloce: macinato rosolato con l'olio, passata, sale ed erbe; 15-20 minuti. Si conserva 3 giorni in frigo.","train":[["pasta_int",85],["passata",120],["parmigiano",10],["manzo",140]],"rest":[["pasta_int",85],["passata",120],["parmigiano",10],["manzo",140],["olio",5]]},"P5":{"slot":"pranzo","name":"Insalata di patate, tonno e fagiolini","prep":"Patate e fagiolini lessi (pesa le patate crude), tonno, cipolla rossa, olio e aceto. Si prepara la sera prima e si porta al lavoro.","train":[["patate",320],["fagiolini",150],["tonno",140],["olio",10]],"rest":[["patate",320],["fagiolini",150],["tonno",140],["olio",15]]},"W1":{"slot":"pre","name":"Gallette, tonno e banana","prep":"60-90 minuti prima. Tonno al naturale sulle gallette con un filo di limone, banana a parte. Comodo da portare al lavoro.","train":[["banana",100],["tonno",50],["gallette",16]],"rest":null},"W2":{"slot":"pre","name":"Yogurt greco, banana e miele","prep":"60 minuti prima. Se ti appesantisce, usa W1 o W3.","train":[["banana",120],["yogurt",140],["miele",10]],"rest":null},"W3":{"slot":"pre","name":"Cracker d'avena, yogurt greco e mela","prep":"60-90 minuti prima. I cracker portano qualche grammo di grassi in più: non mangiarli a ridosso della seduta.","train":[["cracker",30],["yogurt",110],["mela",120]],"rest":null},"D1":{"slot":"cena","name":"Manzo, riso e verdure","prep":"Tagliata o hamburger di macinato 5% alla piastra, riso basmati, verdure a volontà.","train":[["riso",70],["verdure",250],["manzo",170],["olio",5]],"rest":[["riso",70],["verdure",250],["manzo",200],["olio",5]]},"D2":{"slot":"cena","name":"Tortilla di patate e verdure","prep":"Frittata alta di patate e cipolla, al forno 25' a 180°C. 320 g di patate valgono quanto 70 g di riso: stasera il riso lo salti.","train":[["uovo",110],["patate",320],["verdure",150],["albume",210],["olio",5]],"rest":[["uovo",110],["patate",320],["verdure",150],["albume",250],["olio",5]]},"D3":{"slot":"cena","name":"Uova in purgatorio con riso","prep":"Sugo di passata con cipolla e basilico; quando bolle aggiungi l'albume e le 2 uova intere, coperchio e 6-8 minuti. Riso basmati a parte per raccogliere il sugo.","train":[["riso",70],["passata",200],["verdure",150],["uovo",110],["albume",190],["olio",5]],"rest":[["riso",70],["passata",200],["verdure",150],["uovo",110],["albume",240],["olio",5]]},"D4":{"slot":"cena","name":"Pollo al curry, riso e verdure","prep":"Pollo a cubetti con curry, curcuma e un goccio di yogurt greco, verdure saltate, riso basmati.","train":[["riso",70],["verdure",250],["pollo",160],["olio",10]],"rest":[["riso",70],["verdure",250],["pollo",180],["olio",15]]},"D5":{"slot":"cena","name":"Hamburger di manzo, patate lesse e rucola","prep":"Hamburger di macinato magro alla piastra, patate lesse con olio e prezzemolo, rucola e pomodori. 320 g di patate crude valgono quanto 70 g di riso.","train":[["patate",320],["verdure",200],["manzo",170],["olio",5]],"rest":[["patate",320],["verdure",200],["manzo",190],["olio",5]]},"S1":{"slot":"spuntino","name":"Yogurt greco, frutta e mandorle","prep":"Va bene a metà mattina, dopo cena o al lavoro.","train":[["yogurt",95],["mela",55],["mandorle",25]],"rest":[["yogurt",150],["mela",80],["mandorle",20]]},"S2":{"slot":"spuntino","name":"Uova sode, frutta e noci","prep":"Rassoda le uova in batch: in frigo durano 5 giorni.","train":[["uovo",110],["mela",85],["noci",5]],"rest":[["uovo",165],["mela",80]]},"C4":{"slot":"colazione","name":"Oatmeal di albumi, mela e cannella","prep":"Avena cotta in acqua con la mela a pezzetti e cannella; a fine cottura aggiungi l'albume mescolando finché diventa cremoso. Sopra il burro d'arachidi.","train":[["mela",150],["albume",220],["avena",50],["arachidi",15]],"rest":[["mela",100],["albume",280],["avena",20],["arachidi",20]]},"C5":{"slot":"colazione","name":"Overnight oats al cacao","prep":"La sera prima mescola avena, yogurt, cacao e un po' d'acqua in un barattolo; al mattino aggiungi le noci tritate.","train":[["cacao",8],["yogurt",230],["avena",70],["noci",10]],"rest":[["cacao",8],["yogurt",330],["avena",20],["noci",20]]},"C6":{"slot":"colazione","name":"Uova, gallette e avocado","prep":"Uovo e albume strapazzati, avocado schiacciato sulle gallette con sale e pepe. Mela a parte.","train":[["uovo",55],["gallette",32],["albume",230],["mela",200],["avocado",35]],"rest":[["uovo",55],["gallette",16],["albume",280],["mela",85],["avocado",55]]},"P6":{"slot":"pranzo","name":"Riso alla cantonese con pollo","prep":"Riso cotto il giorno prima, saltato in padella con piselli, carote, pollo a cubetti, l'uovo strapazzato e salsa di soia.","train":[["riso",70],["verdure",200],["uovo",55],["pollo",130],["olio",5]],"rest":[["riso",70],["verdure",200],["uovo",55],["pollo",130],["olio",5]]},"P7":{"slot":"pranzo","name":"Carbonara leggera di zucchine","prep":"Zucchine a rondelle in padella. A fuoco spento manteca la pasta con 1 uovo, l'albume, il parmigiano e pepe nero: si fa la crema senza strapazzare.","train":[["pasta_int",85],["verdure",200],["uovo",55],["parmigiano",15],["albume",170]],"rest":[["pasta_int",85],["verdure",200],["uovo",55],["parmigiano",15],["albume",170],["olio",5]]},"P8":{"slot":"pranzo","name":"Burger di pollo, patate al forno e insalata","prep":"Burger di macinato di pollo (o pollo tritato al mixer) alla piastra, patate a spicchi al forno 35' a 200°C con rosmarino.","train":[["patate",320],["verdure",150],["pollo",160],["olio",10]],"rest":[["patate",320],["verdure",150],["pollo",160],["olio",10]]},"D6":{"slot":"cena","name":"Polpette di manzo al sugo con riso","prep":"Polpette di macinato magro con prezzemolo e un albume, cotte nel sugo 20'. Riso basmati a parte.","train":[["riso",70],["passata",150],["verdure",150],["manzo",170],["olio",5]],"rest":[["riso",70],["passata",150],["verdure",150],["manzo",190],["olio",5]]},"D7":{"slot":"cena","name":"Pollo al limone, patate lesse e fagiolini","prep":"Fettine di pollo in padella con limone e prezzemolo, patate e fagiolini lessi conditi con l'olio.","train":[["patate",320],["fagiolini",200],["pollo",150],["olio",10]],"rest":[["patate",320],["fagiolini",200],["pollo",170],["olio",15]]},"D8":{"slot":"cena","name":"Risotto leggero pollo e zucchine","prep":"Riso tostato a secco, poi brodo vegetale; a metà cottura zucchine e pollo a cubetti, mantecato con parmigiano e olio.","train":[["riso",70],["verdure",200],["parmigiano",10],["pollo",150],["olio",10]],"rest":[["riso",70],["verdure",200],["parmigiano",10],["pollo",170],["olio",10]]},"C7":{"slot":"colazione","name":"Porridge con proteine in polvere","prep":"Avena cotta in acqua; quando è tiepida mescola le proteine in polvere (con il calore forte fanno grumi). Frutti di bosco e burro d'arachidi sopra.","train":[["bosco",100],["whey",30],["avena",60],["arachidi",10]],"rest":[["bosco",100],["whey",45],["avena",20],["arachidi",20]]},"W5":{"slot":"pre","name":"Shake proteico e banana","prep":"Proteine con acqua nello shaker, banana a parte. Si porta al lavoro e si beve 60 minuti prima.","train":[["whey",20],["banana",170]],"rest":null},"S6":{"slot":"spuntino","name":"Shake proteico, mela e mandorle","prep":"Lo shaker in borsa: acqua al momento, mela e mandorle a parte. Perfetto in negozio.","train":[["whey",15],["mela",75],["mandorle",25]],"rest":[["whey",20],["mela",60],["mandorle",20]]},"W4":{"slot":"pre","name":"Gallette, miele e yogurt greco","prep":"60 minuti prima. Il miele sulle gallette, lo yogurt a parte.","train":[["miele",10],["yogurt",130],["gallette",32]],"rest":null},"S3":{"slot":"spuntino","name":"Budino proteico cacao e arachidi","prep":"Yogurt greco mescolato con cacao amaro, sopra il burro d'arachidi e qualche fetta di mela.","train":[["cacao",5],["yogurt",70],["mela",45],["arachidi",25]],"rest":[["cacao",5],["yogurt",130],["mela",20],["arachidi",20]]},"S4":{"slot":"spuntino","name":"Tonno, avocado e gallette","prep":"Avocado schiacciato con il tonno e limone, sulle gallette. Comodo al lavoro.","train":[["tonno",50],["gallette",8],["avocado",90]],"rest":[["tonno",70],["gallette",8],["avocado",75]]},"S5":{"slot":"spuntino","name":"Yogurt greco, avena e burro d'arachidi","prep":"Lo yogurt con un cucchiaio di avena e cannella, il burro d'arachidi sopra. Si prepara anche in barattolo da portare al lavoro.","train":[["yogurt",70],["avena",10],["arachidi",25]],"rest":[["yogurt",150],["avena",10],["arachidi",20]]},"SG":{"slot":"cena","name":"Sgarro · pasto libero","prep":"Pizza, hamburger, sushi, quello che ti va: un pasto, non una giornata. Salta lo spuntino della sera e non compensare il giorno dopo.","train":[],"rest":[]}},"weeks":{"A":[["Lun","train","Hyrox A · Forza gambe + sled",["C1","P1","W1","D7","S1"]],["Mar","train","Corsa · Intervalli",["C2","P2","W5","D4","S2"]],["Mer","rest","Riposo · mobilità",["C3","P3","S1","D2"]],["Gio","train","Hyrox B · Forza busto + ergometri",["C1","P4","W3","D3","S3"]],["Ven","train","Corsa · Zona 2",["C2","P5","W1","D1","S6"]],["Sab","train","Hyrox C · Compromised running",["C3","P1","W3","SG"]],["Dom","rest","Riposo · camminata",["C1","P4","S2","D4"]]],"B":[["Lun","train","Hyrox A · Forza gambe + sled",["C7","P6","W4","D7","S4"]],["Mar","train","Corsa · Intervalli",["C5","P7","W2","D6","S5"]],["Mer","rest","Riposo · mobilità",["C6","P8","S3","D8"]],["Gio","train","Hyrox B · Forza busto + ergometri",["C4","P2","W1","D7","S6"]],["Ven","train","Corsa · Zona 2",["C5","P6","W4","D6","S3"]],["Sab","train","Hyrox C · Compromised running",["C6","P7","W2","SG"]],["Dom","rest","Riposo · camminata",["C5","P5","S1","D1"]]]}};
 const PWA = !!(window.HYROX_PWA && window.HYROX_PWA.url);
+/* profilo: Jacopo (turni, Hyrox) oppure la sua ragazza (ufficio, corpo libero). Arriva dall'account e resta sul telefono. */
+const SAVED_USER = (() => { try { return JSON.parse(localStorage.getItem("piano-hyrox-user") || "null"); } catch(_){ return null; } })();
+const PLAN_L = {"foods":{"avena":["Fiocchi d'avena",13.0,60.0,7.0,10.0],"uovo":["Uova intere",12.5,0.7,9.5,0],"albume":["Albume (in brick)",11.0,0.7,0.2,0],"pane_int":["Pane integrale",9.0,41.0,3.0,7.0],"pane":["Pane comune / bianco",8.5,60.0,1.0,3.0],"mela":["Mela",0.3,11.5,0.2,2.4],"banana":["Banana",1.1,20.0,0.3,2.6],"riso":["Riso basmati (crudo)",7.5,78.0,0.6,1.0],"pasta":["Pasta di semola (cruda)",13.0,71.0,1.5,3.0],"pasta_int":["Pasta integrale (cruda)",13.5,64.0,2.5,8.0],"couscous":["Cous cous (crudo)",12.0,72.0,1.0,5.0],"patate":["Patate (crude)",2.0,17.0,0.1,2.0],"pollo":["Petto di pollo (crudo)",23.0,0.0,1.5,0],"manzo":["Manzo magro / macinato 5%",21.0,0.0,5.0,0],"bresaola":["Bresaola",32.0,0.5,2.6,0],"cotto":["Prosciutto cotto magro",20.0,0.0,2.2,0],"tonno":["Tonno al naturale (sgocciolato)",25.0,0.0,1.0,0],"salmone":["Salmone (crudo)",20.0,0.0,12.0,0],"verdure":["Verdure miste",1.5,3.5,0.3,2.5],"pomodorini":["Pomodorini",1.0,3.0,0.2,1.5],"passata":["Passata di pomodoro",1.3,4.5,0.2,1.0],"olio":["Olio extravergine",0.0,0.0,100.0,0],"gallette":["Gallette di riso",8.0,80.0,3.0,3.0],"miele":["Miele",0.3,80.0,0.0,0],"mandorle":["Mandorle",21.0,5.0,52.0,12.0],"noci":["Noci",15.0,4.0,65.0,6.5],"parmigiano":["Parmigiano Reggiano (senza lattosio di natura)",33.0,0.0,28.0,0],"fagiolini":["Fagiolini",2.0,3.5,0.1,3.0],"latte_sl":["Latte parz. scremato senza lattosio",3.3,4.9,1.6,0],"yogurt_sl":["Yogurt greco senza lattosio 0%",9.5,4.0,0.4,0],"ceci":["Ceci lessati (in scatola, scolati)",7.0,15.5,2.4,6.5],"lenticchie":["Lenticchie lessate (in scatola, scolate)",7.5,13.5,0.5,5.0],"merluzzo":["Merluzzo o platessa (anche surgelati)",17.5,0.0,0.7,0],"fondente":["Cioccolato fondente 70%",8.0,34.0,41.0,11.0],"clementine":["Clementine",0.8,9.0,0.1,1.8],"kiwi":["Kiwi",1.1,9.0,0.5,3.0],"marmellata":["Marmellata o composta di frutta",0.4,50.0,0.1,1.0]},"dishes":{"C1":{"slot":"colazione","name":"Pane integrale, uova e kiwi","prep":"2 uova strapazzate o in camicia, più qualche cucchiaio di albume per arrivare alle proteine. Pane integrale tostato, kiwi a parte.","train":[["uovo",110],["pane_int",70],["kiwi",150],["albume",30]],"rest":[["uovo",110],["pane_int",50],["kiwi",80],["albume",40]]},"C2":{"slot":"colazione","name":"Porridge di avena con latte senza lattosio","prep":"Avena cotta 3-4 minuti nel latte senza lattosio; a fuoco basso aggiungi l'albume e mescola finché diventa cremoso. Banana a fette e mandorle tritate sopra.","train":[["latte_sl",200],["avena",50],["albume",80],["banana",60],["mandorle",10]],"rest":[["latte_sl",150],["avena",40],["albume",100],["banana",30],["mandorle",10]]},"C3":{"slot":"colazione","name":"Toast integrale con prosciutto cotto e clementine","prep":"Due toast di pane integrale con prosciutto cotto. Clementine e qualche noce a parte.","train":[["pane_int",80],["cotto",60],["clementine",150],["noci",10]],"rest":[["pane_int",60],["cotto",70],["clementine",100],["noci",10]]},"C4":{"slot":"colazione","name":"Yogurt senza lattosio, avena, mela e noci","prep":"L'unico latticino della giornata: yogurt greco senza lattosio con fiocchi d'avena, mela a cubetti e noci. Si prepara anche la sera prima.","train":[["noci",10],["yogurt_sl",160],["avena",35],["mela",190]],"rest":[["noci",10],["yogurt_sl",160],["avena",40],["mela",70]]},"C5":{"slot":"colazione","name":"Pancake di avena e uova con marmellata","prep":"Frulla avena, uovo, albume e mezza banana; cuoci in padella antiaderente 2 minuti per lato. Sopra marmellata e il resto della banana.","train":[["uovo",55],["marmellata",15],["avena",65],["albume",60],["banana",10]],"rest":[["uovo",55],["marmellata",15],["avena",50],["albume",80]]},"S1":{"slot":"spuntino","name":"Mela e mandorle","prep":"In borsa senza problemi: una mela e una manciata di mandorle.","train":[["mela",150],["mandorle",15]],"rest":[["mela",110],["mandorle",15]]},"S2":{"slot":"spuntino","name":"Gallette e Parmigiano","prep":"Il Parmigiano stagionato non ha lattosio: due gallette e qualche scaglia, in un contenitore piccolo.","train":[["gallette",24],["parmigiano",15]],"rest":[["gallette",16],["parmigiano",20]]},"S3":{"slot":"spuntino","name":"Clementine e noci","prep":"Clementine e qualche noce già sgusciata.","train":[["clementine",200],["noci",15]],"rest":[["clementine",160],["noci",15]]},"S4":{"slot":"spuntino","name":"Uovo sodo e kiwi","prep":"Rassoda le uova la sera prima: in frigo durano 5 giorni. Kiwi da mangiare con il cucchiaino.","train":[["uovo",55],["kiwi",190]],"rest":[["uovo",55],["kiwi",150]]},"S5":{"slot":"spuntino","name":"Banana e cioccolato fondente","prep":"Banana e due quadretti di fondente al 70%.","train":[["banana",60],["fondente",20]],"rest":[["banana",40],["fondente",20]]},"M1":{"slot":"pranzo","name":"Mensa: secondo, verdure e pane","prep":"Il pranzo più semplice da comporre: proteine, tante verdure e poco pane. Evita fritti, formaggi come secondo e salse.","train":[["pollo",140],["verdure",200],["pane",60],["olio",10],["mela",120]],"rest":[["pollo",150],["verdure",250],["pane",30],["olio",10],["mela",130]],"mensa":true,"guide":{"train":[["Secondo di carne bianca, pesce, uova o legumi","1 porzione piena"],["Verdure cotte o crude, non fritte","1 piatto abbondante"],["Pane","1 panino piccolo o 2 fette"],["Olio","1 cucchiaio: se puoi mettilo tu"],["Frutta","1 frutto"]],"rest":[["Secondo di carne bianca, pesce, uova o legumi","1 porzione piena"],["Verdure cotte o crude, non fritte","1 piatto abbondante"],["Pane","1 fetta"],["Olio","1 cucchiaio"],["Frutta","1 frutto"]]}},"M2":{"slot":"pranzo","name":"Mensa: primo piccolo e secondo","prep":"Se il primo è al ragù, alla panna o al formaggio, prendi M1 al suo posto.","train":[["pasta",55],["passata",60],["pollo",110],["verdure",150],["olio",10]],"rest":[["pasta",35],["passata",60],["pollo",120],["verdure",200],["olio",10]],"mensa":true,"guide":{"train":[["Primo al pomodoro o alle verdure","mezza porzione"],["Secondo magro","1 porzione"],["Verdure","1 piatto"],["Pane","niente: c'è già il primo"]],"rest":[["Primo al pomodoro o alle verdure","un terzo di porzione"],["Secondo magro","1 porzione"],["Verdure","1 piatto abbondante"],["Pane","niente"]]}},"M3":{"slot":"pranzo","name":"Mensa: insalatona con proteine","prep":"Mozzarella e formaggi freschi hanno lattosio: meglio tonno, uova, pollo o legumi.","train":[["verdure",250],["tonno",80],["uovo",55],["pane",60],["olio",10],["mela",120]],"rest":[["verdure",300],["tonno",90],["uovo",55],["pane",35],["olio",10],["mela",120]],"mensa":true,"guide":{"train":[["Insalata con tonno, uova o pollo","1 piatto grande"],["Pane","1 panino piccolo"],["Olio","1 cucchiaio"],["Frutta","1 frutto"]],"rest":[["Insalata con tonno, uova o pollo","1 piatto grande"],["Pane","1 fetta"],["Olio","1 cucchiaio"],["Frutta","1 frutto"]]}},"M4":{"slot":"pranzo","name":"Mensa: legumi e secondo piccolo","prep":"I legumi da soli hanno poche proteine: aggiungi sempre mezza porzione di secondo.","train":[["lenticchie",150],["pasta",40],["pollo",70],["verdure",150],["olio",10]],"rest":[["lenticchie",150],["pasta",20],["pollo",80],["verdure",200],["olio",10]],"mensa":true,"guide":{"train":[["Pasta e fagioli, zuppa o piatto di legumi","1 porzione"],["Secondo magro","mezza porzione"],["Verdure","1 piatto"],["Pane","niente"]],"rest":[["Zuppa o piatto di legumi, poca pasta","1 porzione"],["Secondo magro","mezza porzione"],["Verdure","1 piatto"],["Pane","niente"]]}},"P1":{"slot":"pranzo","name":"Pasta integrale al ragù magro","prep":"Ragù veloce: macinato magro rosolato con l'olio, passata ed erbe, 15-20 minuti. Si conserva 3 giorni in frigo.","train":[["passata",120],["parmigiano",10],["pasta_int",80],["manzo",110],["olio",5]],"rest":[["passata",120],["parmigiano",10],["pasta_int",55],["manzo",120],["olio",5]]},"P2":{"slot":"pranzo","name":"Riso, pollo e verdure","prep":"Pollo alla piastra o al forno con spezie, riso basmati, verdure grigliate. Olio a crudo. Si porta anche in ufficio.","train":[["verdure",200],["riso",60],["pollo",130],["olio",15]],"rest":[["verdure",200],["riso",45],["pollo",140],["olio",15]]},"P3":{"slot":"pranzo","name":"Cous cous con tonno, ceci e pomodorini","prep":"Cous cous con acqua bollente e un pizzico di sale, 5 minuti coperto. Poi tonno, ceci sciacquati, pomodorini, olio e basilico. Si mangia anche freddo.","train":[["pomodorini",150],["couscous",65],["tonno",110],["ceci",35],["olio",15]],"rest":[["pomodorini",150],["couscous",45],["tonno",120],["ceci",30],["olio",15]]},"P4":{"slot":"pranzo","name":"Panino integrale con bresaola, rucola e Parmigiano","prep":"Il pranzo da portare: bresaola, rucola, scaglie di Parmigiano e un filo di limone. Mela a parte.","train":[["verdure",50],["parmigiano",15],["pane_int",130],["bresaola",70]],"rest":[["verdure",50],["parmigiano",15],["pane_int",100],["bresaola",70]]},"P5":{"slot":"pranzo","name":"Insalata tiepida di lenticchie, uova e verdure","prep":"Lenticchie sciacquate e scaldate in padella con carote e sedano a cubetti, 2 uova sode, olio e pane integrale.","train":[["verdure",150],["uovo",110],["lenticchie",250],["pane_int",40],["olio",5]],"rest":[["verdure",150],["uovo",110],["lenticchie",280],["olio",5]]},"E1":{"slot":"merenda","name":"Panino integrale con prosciutto cotto","prep":"Il panino della mattina regge fino al pomeriggio. Nei giorni di allenamento mangialo almeno 90 minuti prima.","train":[["pane_int",80],["cotto",40]],"rest":[["pane_int",40],["cotto",50]]},"E2":{"slot":"merenda","name":"Gallette, bresaola e mela","prep":"Bresaola in vaschetta, gallette e una mela: tutto secco, niente frigo.","train":[["gallette",24],["bresaola",40],["mela",150]],"rest":[["gallette",16],["bresaola",40],["mela",80]]},"E3":{"slot":"merenda","name":"Tonno al naturale, gallette e clementine","prep":"Una scatoletta di tonno al naturale con l'apertura facile, gallette e clementine.","train":[["tonno",50],["gallette",24],["clementine",150]],"rest":[["tonno",50],["gallette",16],["clementine",80]]},"E4":{"slot":"merenda","name":"Panino integrale con frittata","prep":"Frittatina di uovo e albume fatta la sera prima, dentro il pane integrale. Si porta bene.","train":[["uovo",55],["pane_int",80]],"rest":[["uovo",55],["pane_int",40],["albume",30]]},"D1":{"slot":"cena","name":"Pollo al forno, patate e verdure","prep":"Pollo e patate a spicchi nella stessa teglia, 35' a 200°C con rosmarino. Verdure a volontà.","train":[["verdure",250],["pollo",170],["patate",150],["olio",15]],"rest":[["verdure",250],["pollo",170],["patate",110],["olio",15]]},"D2":{"slot":"cena","name":"Frittata di verdure e pane integrale","prep":"Frittata alta di 2 uova e albume con zucchine, spinaci o cipolla, in padella o al forno. Pane integrale a parte.","train":[["uovo",110],["verdure",250],["albume",200],["pane_int",60],["olio",10]],"rest":[["uovo",110],["verdure",250],["albume",200],["pane_int",40],["olio",10]]},"D3":{"slot":"cena","name":"Merluzzo al forno, patate e fagiolini","prep":"Filetti di merluzzo o platessa (vanno bene surgelati) al forno con limone e pangrattato leggero, patate e fagiolini lessi.","train":[["fagiolini",200],["merluzzo",220],["patate",160],["olio",15]],"rest":[["fagiolini",200],["merluzzo",220],["patate",120],["olio",15]]},"D4":{"slot":"cena","name":"Hamburger di manzo, verdure grigliate e pane","prep":"Hamburger di macinato magro alla piastra, verdure grigliate, pane integrale. Senza formaggio fuso.","train":[["verdure",250],["manzo",170],["pane_int",60],["olio",10]],"rest":[["verdure",250],["manzo",180],["pane_int",50],["olio",10]]},"D5":{"slot":"cena","name":"Salmone, riso e zucchine","prep":"Salmone al forno o in padella, riso basmati e zucchine saltate. Il salmone ha già i suoi grassi: poco olio.","train":[["verdure",200],["salmone",190],["riso",35]],"rest":[["verdure",200],["salmone",190],["riso",25]]},"D6":{"slot":"cena","name":"Polpette di pollo al sugo con pane","prep":"Polpette di macinato di pollo con prezzemolo e un albume, cotte nel sugo 20'. Pane integrale per la scarpetta.","train":[["passata",150],["verdure",150],["pollo",160],["pane_int",60],["olio",15]],"rest":[["passata",150],["verdure",150],["pollo",160],["pane_int",40],["olio",15]]},"SG":{"slot":"cena","name":"Sgarro · pasto libero","prep":"Pizza, sushi, quello che ti va: un pasto, non una giornata. Il giorno dopo riprendi il menù normale, senza compensare.","train":[],"rest":[]}},"weeks":{"A":[["Lun","train","Calisthenics",["C1","S1","M1","E1","D1"]],["Mar","rest","Riposo · camminata",["C2","S2","M2","E2","D2"]],["Mer","train","Corpo libero a casa",["C3","S5","M3","E4","D3"]],["Gio","train","Calisthenics",["C4","S2","M4","E3","D4"]],["Ven","rest","Riposo · camminata",["C1","S3","M1","E2","D5"]],["Sab","train","Corpo libero a casa",["C5","S4","P1","E1","SG"]],["Dom","rest","Riposo · camminata",["C2","S1","P2","E3","D6"]]],"B":[["Lun","train","Calisthenics",["C3","S2","M2","E4","D3"]],["Mar","rest","Riposo · camminata",["C5","S1","M3","E1","D6"]],["Mer","train","Corpo libero a casa",["C1","S5","M4","E2","D4"]],["Gio","train","Calisthenics",["C2","S4","M1","E3","D1"]],["Ven","rest","Riposo · camminata",["C4","S3","M2","E4","D2"]],["Sab","train","Corpo libero a casa",["C3","S2","P3","E1","SG"]],["Dom","rest","Riposo · camminata",["C1","S5","P5","E2","D5"]]]}};
+const LEI = PWA && !!PLAN_L && !!SAVED_USER && SAVED_USER.profilo === "lei";
+const NOME = LEI ? String(SAVED_USER.nome || "").trim() : "Jacopo";
+document.documentElement.dataset.prof = LEI ? "lei" : "jacopo";
+const PLAN = LEI ? PLAN_L : {"foods":{"avena":["Fiocchi d'avena",13.0,60.0,7.0,10.0],"yogurt":["Yogurt greco 0%",10.0,3.5,0.2,0],"bosco":["Frutti di bosco (anche surgelati)",0.8,9.0,0.3,4.0],"arachidi":["Burro d'arachidi 100%",26.0,10.0,50.0,7.0],"uovo":["Uova intere",12.5,0.7,9.5,0],"albume":["Albume (in brick)",11.0,0.7,0.2,0],"pane_int":["Pane integrale",9.0,41.0,3.0,7.0],"pane":["Pane comune / bianco",8.5,60.0,1.0,3.0],"mela":["Mela",0.3,11.5,0.2,2.4],"banana":["Banana",1.1,20.0,0.3,2.6],"riso":["Riso basmati (crudo)",7.5,78.0,0.6,1.0],"pasta":["Pasta di semola (cruda)",13.0,71.0,1.5,3.0],"pasta_int":["Pasta integrale (cruda)",13.5,64.0,2.5,8.0],"fagiolini":["Fagiolini",2.0,3.5,0.1,3.0],"couscous":["Cous cous (crudo)",12.0,72.0,1.0,5.0],"patate":["Patate (crude)",2.0,17.0,0.1,2.0],"pollo":["Petto di pollo (crudo)",23.0,0.0,1.5,0],"tacchino":["Petto di tacchino (crudo)",24.0,0.0,1.0,0],"manzo":["Manzo magro / macinato 5%",21.0,0.0,5.0,0],"bresaola":["Bresaola",32.0,0.5,2.6,0],"fesa":["Fesa di tacchino affettata",22.0,1.0,1.5,0],"maiale":["Lonza di maiale (cruda)",21.5,0.0,4.0,0],"cotto":["Prosciutto cotto magro",20.0,0.0,2.2,0],"tonno":["Tonno al naturale (sgocciolato)",25.0,0.0,1.0,0],"salmone":["Salmone (crudo)",20.0,0.0,12.0,0],"verdure":["Verdure miste",1.5,3.5,0.3,2.5],"pomodorini":["Pomodorini",1.0,3.0,0.2,1.5],"passata":["Passata di pomodoro",1.3,4.5,0.2,1.0],"olio":["Olio extravergine",0.0,0.0,100.0,0],"avocado":["Avocado",2.0,2.0,15.0,6.7],"gallette":["Gallette di riso",8.0,80.0,3.0,3.0],"miele":["Miele",0.3,80.0,0.0,0],"mandorle":["Mandorle",21.0,5.0,52.0,12.0],"noci":["Noci",15.0,4.0,65.0,6.5],"cracker":["Cracker Galbusera Belle Buone avena",12.0,58.0,18.0,8.0],"cacao":["Cacao amaro in polvere",20.0,12.0,14.0,30.0],"whey":["Proteine in polvere Myprotein Impact Whey vaniglia",72.0,8.9,5.9,0.0],"parmigiano":["Parmigiano Reggiano",33.0,0.0,28.0,0]},"dishes":{"C1":{"slot":"colazione","name":"Porridge proteico","prep":"Cuoci l'avena in acqua (o metà latte), lascia intiepidire e aggiungi yogurt, frutti di bosco e burro d'arachidi. Si prepara anche la sera prima (overnight oats).","train":[["bosco",100],["yogurt",230],["avena",50],["arachidi",15]],"rest":[["bosco",50],["yogurt",300],["avena",25],["arachidi",20]]},"C2":{"slot":"colazione","name":"Uova, cracker d'avena e banana","prep":"1 uovo + albume strapazzati in padella antiaderente senza olio, con i cracker Belle Buone al posto del pane. Banana a parte.","train":[["uovo",55],["albume",210],["banana",150],["cracker",35]],"rest":[["uovo",55],["albume",260],["cracker",40]]},"C3":{"slot":"colazione","name":"Pancake avena e albumi","prep":"Frulla avena, 1 uovo, albume e mezza banana; cuoci in padella. Sopra il resto della banana e il burro d'arachidi.","train":[["uovo",55],["banana",80],["albume",170],["avena",55],["arachidi",5]],"rest":[["uovo",55],["banana",50],["albume",250],["avena",25],["arachidi",10]]},"P1":{"slot":"pranzo","name":"Riso, pollo e verdure","prep":"Ottimo da preparare in batch: pollo alla piastra o al forno con spezie, riso basmati, verdure grigliate. Olio a crudo.","train":[["riso",70],["verdure",200],["pollo",160],["olio",10]],"rest":[["riso",70],["verdure",200],["pollo",160],["olio",10]]},"P2":{"slot":"pranzo","name":"Pasta integrale tonno e pomodorini","prep":"85 g di pasta integrale valgono quanto 70 g di riso. Pomodorini saltati con aglio, tonno a fuoco spento, olio a crudo.","train":[["pasta_int",85],["pomodorini",150],["tonno",130],["olio",10]],"rest":[["pasta_int",85],["pomodorini",150],["tonno",130],["olio",10]]},"P3":{"slot":"pranzo","name":"Bowl riso, pollo teriyaki e avocado","prep":"Tipo poke: riso, pollo a straccetti scottato con salsa di soia e zenzero, verdure crude (carote, cetrioli, cavolo cappuccio), avocado a cubetti.","train":[["riso",70],["verdure",150],["pollo",160],["avocado",60]],"rest":[["riso",70],["verdure",150],["pollo",160],["avocado",80]]},"P4":{"slot":"pranzo","name":"Pasta integrale al ragù magro","prep":"Ragù veloce: macinato rosolato con l'olio, passata, sale ed erbe; 15-20 minuti. Si conserva 3 giorni in frigo.","train":[["pasta_int",85],["passata",120],["parmigiano",10],["manzo",140]],"rest":[["pasta_int",85],["passata",120],["parmigiano",10],["manzo",140],["olio",5]]},"P5":{"slot":"pranzo","name":"Insalata di patate, tonno e fagiolini","prep":"Patate e fagiolini lessi (pesa le patate crude), tonno, cipolla rossa, olio e aceto. Si prepara la sera prima e si porta al lavoro.","train":[["patate",320],["fagiolini",150],["tonno",140],["olio",10]],"rest":[["patate",320],["fagiolini",150],["tonno",140],["olio",15]]},"W1":{"slot":"pre","name":"Gallette, tonno e banana","prep":"60-90 minuti prima. Tonno al naturale sulle gallette con un filo di limone, banana a parte. Comodo da portare al lavoro.","train":[["banana",100],["tonno",50],["gallette",16]],"rest":null},"W2":{"slot":"pre","name":"Yogurt greco, banana e miele","prep":"60 minuti prima. Se ti appesantisce, usa W1 o W3.","train":[["banana",120],["yogurt",140],["miele",10]],"rest":null},"W3":{"slot":"pre","name":"Cracker d'avena, yogurt greco e mela","prep":"60-90 minuti prima. I cracker portano qualche grammo di grassi in più: non mangiarli a ridosso della seduta.","train":[["cracker",30],["yogurt",110],["mela",120]],"rest":null},"D1":{"slot":"cena","name":"Manzo, riso e verdure","prep":"Tagliata o hamburger di macinato 5% alla piastra, riso basmati, verdure a volontà.","train":[["riso",70],["verdure",250],["manzo",170],["olio",5]],"rest":[["riso",70],["verdure",250],["manzo",200],["olio",5]]},"D2":{"slot":"cena","name":"Tortilla di patate e verdure","prep":"Frittata alta di patate e cipolla, al forno 25' a 180°C. 320 g di patate valgono quanto 70 g di riso: stasera il riso lo salti.","train":[["uovo",110],["patate",320],["verdure",150],["albume",210],["olio",5]],"rest":[["uovo",110],["patate",320],["verdure",150],["albume",250],["olio",5]]},"D3":{"slot":"cena","name":"Uova in purgatorio con riso","prep":"Sugo di passata con cipolla e basilico; quando bolle aggiungi l'albume e le 2 uova intere, coperchio e 6-8 minuti. Riso basmati a parte per raccogliere il sugo.","train":[["riso",70],["passata",200],["verdure",150],["uovo",110],["albume",190],["olio",5]],"rest":[["riso",70],["passata",200],["verdure",150],["uovo",110],["albume",240],["olio",5]]},"D4":{"slot":"cena","name":"Pollo al curry, riso e verdure","prep":"Pollo a cubetti con curry, curcuma e un goccio di yogurt greco, verdure saltate, riso basmati.","train":[["riso",70],["verdure",250],["pollo",160],["olio",10]],"rest":[["riso",70],["verdure",250],["pollo",180],["olio",15]]},"D5":{"slot":"cena","name":"Hamburger di manzo, patate lesse e rucola","prep":"Hamburger di macinato magro alla piastra, patate lesse con olio e prezzemolo, rucola e pomodori. 320 g di patate crude valgono quanto 70 g di riso.","train":[["patate",320],["verdure",200],["manzo",170],["olio",5]],"rest":[["patate",320],["verdure",200],["manzo",190],["olio",5]]},"S1":{"slot":"spuntino","name":"Yogurt greco, frutta e mandorle","prep":"Va bene a metà mattina, dopo cena o al lavoro.","train":[["yogurt",95],["mela",55],["mandorle",25]],"rest":[["yogurt",150],["mela",80],["mandorle",20]]},"S2":{"slot":"spuntino","name":"Uova sode, frutta e noci","prep":"Rassoda le uova in batch: in frigo durano 5 giorni.","train":[["uovo",110],["mela",85],["noci",5]],"rest":[["uovo",165],["mela",80]]},"C4":{"slot":"colazione","name":"Oatmeal di albumi, mela e cannella","prep":"Avena cotta in acqua con la mela a pezzetti e cannella; a fine cottura aggiungi l'albume mescolando finché diventa cremoso. Sopra il burro d'arachidi.","train":[["mela",150],["albume",220],["avena",50],["arachidi",15]],"rest":[["mela",100],["albume",280],["avena",20],["arachidi",20]]},"C5":{"slot":"colazione","name":"Overnight oats al cacao","prep":"La sera prima mescola avena, yogurt, cacao e un po' d'acqua in un barattolo; al mattino aggiungi le noci tritate.","train":[["cacao",8],["yogurt",230],["avena",70],["noci",10]],"rest":[["cacao",8],["yogurt",330],["avena",20],["noci",20]]},"C6":{"slot":"colazione","name":"Uova, gallette e avocado","prep":"Uovo e albume strapazzati, avocado schiacciato sulle gallette con sale e pepe. Mela a parte.","train":[["uovo",55],["gallette",32],["albume",230],["mela",200],["avocado",35]],"rest":[["uovo",55],["gallette",16],["albume",280],["mela",85],["avocado",55]]},"P6":{"slot":"pranzo","name":"Riso alla cantonese con pollo","prep":"Riso cotto il giorno prima, saltato in padella con piselli, carote, pollo a cubetti, l'uovo strapazzato e salsa di soia.","train":[["riso",70],["verdure",200],["uovo",55],["pollo",130],["olio",5]],"rest":[["riso",70],["verdure",200],["uovo",55],["pollo",130],["olio",5]]},"P7":{"slot":"pranzo","name":"Carbonara leggera di zucchine","prep":"Zucchine a rondelle in padella. A fuoco spento manteca la pasta con 1 uovo, l'albume, il parmigiano e pepe nero: si fa la crema senza strapazzare.","train":[["pasta_int",85],["verdure",200],["uovo",55],["parmigiano",15],["albume",170]],"rest":[["pasta_int",85],["verdure",200],["uovo",55],["parmigiano",15],["albume",170],["olio",5]]},"P8":{"slot":"pranzo","name":"Burger di pollo, patate al forno e insalata","prep":"Burger di macinato di pollo (o pollo tritato al mixer) alla piastra, patate a spicchi al forno 35' a 200°C con rosmarino.","train":[["patate",320],["verdure",150],["pollo",160],["olio",10]],"rest":[["patate",320],["verdure",150],["pollo",160],["olio",10]]},"D6":{"slot":"cena","name":"Polpette di manzo al sugo con riso","prep":"Polpette di macinato magro con prezzemolo e un albume, cotte nel sugo 20'. Riso basmati a parte.","train":[["riso",70],["passata",150],["verdure",150],["manzo",170],["olio",5]],"rest":[["riso",70],["passata",150],["verdure",150],["manzo",190],["olio",5]]},"D7":{"slot":"cena","name":"Pollo al limone, patate lesse e fagiolini","prep":"Fettine di pollo in padella con limone e prezzemolo, patate e fagiolini lessi conditi con l'olio.","train":[["patate",320],["fagiolini",200],["pollo",150],["olio",10]],"rest":[["patate",320],["fagiolini",200],["pollo",170],["olio",15]]},"D8":{"slot":"cena","name":"Risotto leggero pollo e zucchine","prep":"Riso tostato a secco, poi brodo vegetale; a metà cottura zucchine e pollo a cubetti, mantecato con parmigiano e olio.","train":[["riso",70],["verdure",200],["parmigiano",10],["pollo",150],["olio",10]],"rest":[["riso",70],["verdure",200],["parmigiano",10],["pollo",170],["olio",10]]},"C7":{"slot":"colazione","name":"Porridge con proteine in polvere","prep":"Avena cotta in acqua; quando è tiepida mescola le proteine in polvere (con il calore forte fanno grumi). Frutti di bosco e burro d'arachidi sopra.","train":[["bosco",100],["whey",30],["avena",60],["arachidi",10]],"rest":[["bosco",100],["whey",45],["avena",20],["arachidi",20]]},"W5":{"slot":"pre","name":"Shake proteico e banana","prep":"Proteine con acqua nello shaker, banana a parte. Si porta al lavoro e si beve 60 minuti prima.","train":[["whey",20],["banana",170]],"rest":null},"S6":{"slot":"spuntino","name":"Shake proteico, mela e mandorle","prep":"Lo shaker in borsa: acqua al momento, mela e mandorle a parte. Perfetto in negozio.","train":[["whey",15],["mela",75],["mandorle",25]],"rest":[["whey",20],["mela",60],["mandorle",20]]},"W4":{"slot":"pre","name":"Gallette, miele e yogurt greco","prep":"60 minuti prima. Il miele sulle gallette, lo yogurt a parte.","train":[["miele",10],["yogurt",130],["gallette",32]],"rest":null},"S3":{"slot":"spuntino","name":"Budino proteico cacao e arachidi","prep":"Yogurt greco mescolato con cacao amaro, sopra il burro d'arachidi e qualche fetta di mela.","train":[["cacao",5],["yogurt",70],["mela",45],["arachidi",25]],"rest":[["cacao",5],["yogurt",130],["mela",20],["arachidi",20]]},"S4":{"slot":"spuntino","name":"Tonno, avocado e gallette","prep":"Avocado schiacciato con il tonno e limone, sulle gallette. Comodo al lavoro.","train":[["tonno",50],["gallette",8],["avocado",90]],"rest":[["tonno",70],["gallette",8],["avocado",75]]},"S5":{"slot":"spuntino","name":"Yogurt greco, avena e burro d'arachidi","prep":"Lo yogurt con un cucchiaio di avena e cannella, il burro d'arachidi sopra. Si prepara anche in barattolo da portare al lavoro.","train":[["yogurt",70],["avena",10],["arachidi",25]],"rest":[["yogurt",150],["avena",10],["arachidi",20]]},"SG":{"slot":"cena","name":"Sgarro · pasto libero","prep":"Pizza, hamburger, sushi, quello che ti va: un pasto, non una giornata. Salta lo spuntino della sera e non compensare il giorno dopo.","train":[],"rest":[]}},"weeks":{"A":[["Lun","train","Hyrox A · Forza gambe + sled",["C1","P1","W1","D7","S1"]],["Mar","train","Corsa · Intervalli",["C2","P2","W5","D4","S2"]],["Mer","rest","Riposo · mobilità",["C3","P3","S1","D2"]],["Gio","train","Hyrox B · Forza busto + ergometri",["C1","P4","W3","D3","S3"]],["Ven","train","Corsa · Zona 2",["C2","P5","W1","D1","S6"]],["Sab","train","Hyrox C · Compromised running",["C3","P1","W3","SG"]],["Dom","rest","Riposo · camminata",["C1","P4","S2","D4"]]],"B":[["Lun","train","Hyrox A · Forza gambe + sled",["C7","P6","W4","D7","S4"]],["Mar","train","Corsa · Intervalli",["C5","P7","W2","D6","S5"]],["Mer","rest","Riposo · mobilità",["C6","P8","S3","D8"]],["Gio","train","Hyrox B · Forza busto + ergometri",["C4","P2","W1","D7","S6"]],["Ven","train","Corsa · Zona 2",["C5","P6","W4","D6","S3"]],["Sab","train","Hyrox C · Compromised running",["C6","P7","W2","SG"]],["Dom","rest","Riposo · camminata",["C5","P5","S1","D1"]]]}};
 
 /* ---------- costanti ---------- */
 const START = new Date(2026, 10, 2); // lunedì 2 novembre 2026
 const WEEKS = 16;
-const PESO_START = 77, OBIETTIVO = 70, PESO_TARGET_FINE = 69.5;
-const TARGET = {
+const PESO_START = LEI ? 95 : 77, OBIETTIVO = LEI ? 87 : 70, PESO_TARGET_FINE = LEI ? 86.5 : 69.5, CALO_SETT = LEI ? 0.6 : 0.7;
+const sottoKg = n => `sotto ${/^(8|11)/.test(String(n)) ? "gli" : "i"} ${n} kg`;
+const TARGET = LEI ? {
+  train:{kcal:1800,P:125,C:190,F:60},
+  rest:{kcal:1600,P:125,C:140,F:60}
+} : {
   train:{kcal:2000,P:155,C:220,F:55},
   rest:{kcal:1800,P:155,C:160,F:60}
 };
-const MANTENIMENTO = 2750;
-const SLOT_LAB = {colazione:"Colazione", pranzo:"Pranzo", pre:"Pre-allenamento", spuntino:"Spuntino", cena:"Cena"};
-const SLOT_ORDER = {train:["colazione","pranzo","pre","cena","spuntino"], rest:["colazione","pranzo","spuntino","cena"]};
+const MANTENIMENTO = LEI ? 2400 : 2750;
+const SLOT_LAB = {colazione:"Colazione", pranzo:"Pranzo", pre:"Pre-allenamento", spuntino:"Spuntino", merenda:"Merenda", cena:"Cena"};
+const SLOT_ORDER = LEI ? {train:["colazione","spuntino","pranzo","merenda","cena"], rest:["colazione","spuntino","pranzo","merenda","cena"]} : {train:["colazione","pranzo","pre","cena","spuntino"], rest:["colazione","pranzo","spuntino","cena"]};
 const GIORNI = ["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
+/* =====================================================================
+   PROFILO 2 · corpo libero a casa (di solito mercoledì e sabato, 90'),
+   calisthenics al corso, ufficio 8:30–17:30 con la mensa alle 12:45.
+   Senza pesi la progressione è: più ripetizioni, varianti più difficili, tempo più lento.
+   Ginocchio: niente squat profondi né affondi caricati.
+   ===================================================================== */
+const L_FAM = {
+  SQ:{n:["Squat su sedia","Squat su sedia","Squat su sedia, 2\" fermi in basso","Squat su una sedia più bassa"], note:"Scendi in 3 secondi, sfiora la sedia senza lasciarti cadere e risali spingendo con i talloni. Ginocchia in linea con le punte. Se il ginocchio protesta, usa una sedia più alta."},
+  SUMO:{n:["Squat sumo a range controllato","Squat sumo a range controllato","Squat sumo, 2\" fermi in basso","Squat sumo con elastico sopra le ginocchia"], note:"Piedi larghi e punte verso l'esterno. Scendi solo fin dove il ginocchio è tranquillo."},
+  STEP:{n:["Step-up su un gradino basso","Step-up su un gradino basso","Step-up su un gradino più alto","Step-up su un gradino alto, discesa in 3\""], side:"per gamba", note:"Tutto il piede sul gradino, spingi con il tallone e scendi piano. Tieniti al muro se serve."},
+  BULG:{n:[null,null,"Bulgarian split squat con appoggio","Bulgarian split squat con appoggio"], side:"per gamba", note:"Piede dietro sul divano, una mano al muro. Scendi solo finché il ginocchio non dà fastidio. Se fa male, al suo posto fai step-up su un gradino alto."},
+  HIP:{n:["Ponte glutei a terra","Hip thrust con le spalle sul divano","Hip thrust sul divano, 2\" fermi in alto","Hip thrust sul divano, 2\" fermi in alto"], note:"Spingi con i talloni e stringi i glutei in alto. Sale il bacino, non le costole."},
+  HIP1:{n:[null,null,"Hip thrust a una gamba","Hip thrust a una gamba, 2\" fermi in alto"], side:"per gamba", note:"Spalle sul divano, un piede a terra e l'altra gamba in aria."},
+  RDL:{n:["Stacco rumeno con elastico","Stacco rumeno con elastico","Stacco rumeno a una gamba con appoggio","Stacco rumeno a una gamba con elastico"], side:[null,null,"per gamba","per gamba"], note:"Schiena dritta: porta indietro il bacino finché senti tirare dietro le cosce, poi risali. Con l'elastico sotto i piedi."},
+  PU:{n:["Push-up con le mani sul tavolo","Push-up con le mani sul divano o su una sedia","Push-up a terra sulle ginocchia","Push-up a terra (le ultime anche sulle ginocchia)"], note:"Corpo dritto, gomiti a 45° dal busto, petto che sfiora l'appoggio."},
+  PUF:{n:[null,null,"Push-up a terra, anche sulle ginocchia","Push-up stretti con le mani sul divano"], note:"Lenti e completi. Quelli stretti, mani vicine, sono il passo verso i push-up diamante."},
+  ROW:{n:["Rematore con elastico alla porta","Rematore con elastico alla porta","Rematore con elastico più corto","Rematore con elastico più corto, 1\" fermo"], note:"Elastico chiuso nella porta all'altezza della pancia. Tira i gomiti indietro e stringi le scapole."},
+  ROW1:{n:["Rematore a un braccio con elastico","Rematore a un braccio con elastico","Rematore a un braccio con elastico","Rematore a un braccio, discesa in 3\""], side:"per braccio", note:"Elastico sotto un piede, busto inclinato in avanti, l'altra mano sul ginocchio."},
+  PULL:{n:["Lat pulldown con elastico alla porta","Lat pulldown con elastico alla porta","Lat pulldown con elastico doppio","Lat pulldown con elastico doppio"], note:"Elastico chiuso in cima alla porta, tu in ginocchio: porta i gomiti verso i fianchi."},
+  FLY:{n:["Croci con elastico","Croci con elastico","Croci con elastico","Croci con elastico, 1\" fermo"], note:"Elastico dietro la schiena, braccia appena piegate: chiudi le mani davanti al petto."},
+  PRESS:{n:["Lento avanti con elastico","Lento avanti con elastico","Lento avanti con elastico","Lento avanti con elastico, discesa in 3\""], note:"In piedi sull'elastico, spingi sopra la testa senza inarcare la schiena."},
+  FACE:{n:["Face pull con elastico"], note:"Elastico alla porta all'altezza del viso: tira verso la fronte aprendo i gomiti."},
+  CURL:{n:["Curl con elastico"], note:"Gomiti fermi accanto al busto."},
+  TRIC:{n:["Estensioni dei tricipiti con elastico","Dip su sedia con ginocchia piegate"], note:"Nei dip scendi finché i gomiti fanno 90°, non di più."},
+  ABD:{n:["Abduzioni in piedi con elastico"], side:"per gamba", note:"Elastico alle caviglie o sopra le ginocchia, busto fermo."},
+  CALF:{n:["Calf raise sul gradino"], note:"Talloni giù oltre il gradino, poi su in punta."},
+  PLANK:{u:"s", n:["Plank sugli avambracci","Plank sugli avambracci","Plank alzando un piede alla volta","Plank alzando un piede alla volta"], note:"Glutei stretti e pancia in dentro: il bacino non deve cadere."},
+  SIDE:{u:"s", n:["Plank laterale sulle ginocchia","Plank laterale sulle ginocchia","Plank laterale","Plank laterale"], side:"per lato"},
+  DEAD:{n:["Dead bug"], side:"per lato", note:"Schiena incollata a terra, braccio e gamba opposti si allungano piano."},
+  BIRD:{n:["Bird dog"], side:"per lato", note:"A quattro zampe, allunga braccio e gamba opposti e tieni 2 secondi."},
+  MC:{u:"s", n:["Mountain climbers lenti"], note:"Con le mani sul divano se a terra è troppo."},
+  PALL:{n:["Pallof press con elastico"], side:"per lato", note:"Elastico di lato, alla porta: spingi le mani in avanti senza farti ruotare."},
+  HOLL:{u:"s", n:["Hollow hold con ginocchia piegate"], note:"Zona lombare a terra, spalle staccate."}
+};
+const L_REPS = {
+  H:[[10,12,12],[12,14,15],[12,12,15],[15,18,20]],
+  A:[[12,15,15],[15,15,18],[15,15,18],[18,20,20]],
+  F:[[8,9,10],[8,9,10],[8,9,10],[8,9,10]]
+};
+const L_SECS = {PLANK:[[25,30,35],[35,40,45],[40,45,50],[45,50,60]], MC:[[20,20,25],[25,30,30],[30,30,35],[35,40,40]]};
+const L_ROPE = ["6 × 30\" · pausa 30\"","8 × 30\" · pausa 30\"","6 × 45\" · pausa 30\"","8 × 45\" · pausa 30\""];
+const L_ROPE2 = ["8 × 20\" forte · pausa 40\"","10 × 20\" forte · pausa 40\"","8 × 30\" forte · pausa 30\"","10 × 30\" forte · pausa 30\""];
+const L_ROPE_NOTE = "Salti bassi sulle punte, girano i polsi. Se il ginocchio dà fastidio: passi veloci sul posto o jumping jack senza salto.";
+const L_STEPS = [5000, 6000, 7000, 8000];
+const L_TPL = {
+  IA:[["Esercizi",[["SQ","H"],["PU","H"],["STEP","H"],["FLY","A"],["HIP","H"],["ROW","H"]]],["Core",[["PLANK","C"],["MC","C"]]],["rope",1]],
+  IB:[["Esercizi",[["RDL","H"],["PULL","H"],["HIP","H"],["PRESS","H"],["SUMO","H"],["FACE","A"]]],["Core",[["DEAD","A"],["SIDE","C"]]],["rope",1]],
+  ID:[["Esercizi",[["HIP","H"],["PU","H"],["ROW1","H"],["ABD","A"],["CALF","A"],["TRIC","A"]]],["Core",[["PALL","A"],["BIRD","A"]]],["rope",2]],
+  FA:[["Forza",[["BULG","F"],["PUF","F"],["HIP1","F"],["ROW","F"],["PRESS","F"]]],["Core",[["PLANK","C"]]],["rope",1]],
+  FB:[["Forza",[["SQ","F"],["PULL","F"],["RDL","F"],["TRIC","F"],["FACE","A"]]],["Core",[["HOLL","C"],["SIDE","C"]]],["rope",1]]
+};
+const L_SCHED = [["TM","IA"],["IB","IC"],["ID","IA"],["SC","SC"],["IB","IC"],["ID","IA"],["IB","IC"],["SC","TM"],["FA","ID"],["FB","IA"],["FA","IB"],["SC","SC"],["FB","IC"],["FA","ID"],["FB","IA"],["SC","TM"]];
+const L_WARM = [["Corda leggera o passo sul posto","2'"],["Mobilità di anche, caviglie e spalle","5'"],["Ponte glutei e pull-apart con elastico","2 × 10"]];
+const L_COOL = ["#Defaticamento",["Allungamento di cosce, glutei, petto e schiena","5–8'"]];
+function lName(f, b){ const a = L_FAM[f].n; let x = a[Math.min(b, a.length-1)]; if (!x) x = a.find(Boolean); return x; }
+function lId(f, b){ const a = L_FAM[f].n, x = lName(f, b); return f + Math.max(0, a.indexOf(x)); }
+function lSide(f, b){ const s = L_FAM[f].side; return Array.isArray(s) ? s[Math.min(b, s.length-1)] : s; }
+function lLine(f, kind, b, wi, o){
+  o = o || {};
+  const F = L_FAM[f], side = lSide(f, b), secs = F.u === "s";
+  let n, sets, rec;
+  if (secs){
+    const tab = L_SECS[f] || L_SECS.PLANK; n = tab[b][wi];
+    if (f === "SIDE" || f === "HOLL") n = Math.max(15, Math.round(n*0.6/5)*5);
+    sets = 3; rec = 45;
+  } else if (kind === "F"){ n = L_REPS.F[b][wi]; sets = 4; rec = 90; }
+  else if (kind === "A" || kind === "C"){ n = L_REPS.A[b][wi]; sets = 3; rec = 45; }
+  else { n = L_REPS.H[b][wi]; sets = 3; rec = 60; }
+  if (side && !secs && f !== "PALL" && f !== "DEAD" && f !== "BIRD") n = Math.min(n, 15);
+  if (o.n != null) n = o.n;
+  if (o.sets != null) sets = o.sets;
+  const name = lName(f, b), tempo = !o.circ && kind === "H" && b >= 2 && !/discesa|fermi|fermo/.test(name) && !secs ? " · discesa in 3\"" : "";
+  const qty = secs ? `${n}"` : `${n}`;
+  const dose = o.circ ? `${qty}${secs ? "" : " ripetizioni"}${side ? " " + side : ""}` : `${sets} × ${qty}${side ? " " + side : ""}${tempo} · rec ${rec}"`;
+  return [name, dose, F.note || "", {bw:lId(f, b), n, u:secs ? "s" : "r"}];
+}
+function leiLines(key, w){
+  const wc = clampW(w), b = bIdx(wc), wi = Math.min(2, (wc - 1) % 4), out = ["#Riscaldamento · 10'", ...L_WARM];
+  if (key === "SC"){
+    out.push("#Scarico · 2 serie facili");
+    for (const f of ["SQ","PU","ROW","HIP"]) out.push(lLine(f, "H", b, 0, {n:10, sets:2}));
+    out.push(lLine("PLANK", "C", b, 0, {n:20, sets:2}));
+    out.push("#Finale", ["Corda leggera","4 × 20\" · pausa 40\"", L_ROPE_NOTE], ["Mobilità e allungamento","10'"]);
+    return out;
+  }
+  if (key === "TM"){
+    out.push("#Test · 3' di pausa tra uno e l'altro",
+      ["Push-up: più ripetizioni che puoi","1 serie", `Con la variante di questo blocco (${lName("PU", b).toLowerCase()}). Ti fermi quando la tecnica cede.`, {test:"Push-up massimi", u:"r", n:null}],
+      ["Squat su sedia: più ripetizioni che puoi","1 serie","Ritmo costante. Fermati subito se il ginocchio fa male.", {test:"Squat su sedia massimi", u:"r", n:null}],
+      ["Plank: più a lungo che puoi","1 serie","Ti fermi quando il bacino cade.", {test:"Plank massimo", u:"s", n:null}],
+      ["Corda: salti in 60\"","1 serie","Conta i giri della corda. Se il ginocchio dà fastidio, salta questo test.", {test:"Corda 60\" (salti)", u:"salti", n:null}],
+      ...L_COOL);
+    return out;
+  }
+  if (key === "IC"){
+    const giri = b === 0 ? 3 : 4;
+    out.push(`#Circuito · ${giri} giri, 90" di pausa tra un giro e l'altro`,
+      lLine("SQ", "H", b, wi, {circ:true}), lLine("PU", "H", b, wi, {circ:true, n:Math.max(6, L_REPS.H[b][wi] - 2)}),
+      lLine("ROW", "A", b, wi, {circ:true}), lLine("HIP", "A", b, wi, {circ:true}), lLine("MC", "C", b, wi, {circ:true}),
+      ["Corda", b < 2 ? "45\"" : "60\"", L_ROPE_NOTE]);
+    out.push("#Braccia e polpacci", lLine("CURL", "A", b, wi), lLine("TRIC", "A", b, wi), lLine("CALF", "A", b, wi));
+    out.push("#Core", lLine("PLANK", "C", b, wi), ...L_COOL);
+    return out;
+  }
+  const tpl = L_TPL[key] || L_TPL.IA;
+  for (const [g, list] of tpl){
+    if (g === "rope"){ out.push("#Finale con la corda", ["Corda", (list === 2 ? L_ROPE2 : L_ROPE)[b], L_ROPE_NOTE]); continue; }
+    out.push("#" + g, ...list.map(([f, k]) => lLine(f, k, b, wi)));
+  }
+  out.push(...L_COOL);
+  return out;
+}
+const L_CAL = [
+  ["Segui la lezione del corso","90'"],
+  ["Ginocchio","", "Squat e affondi a range controllato; nei salti, se fa male, fai la versione senza salto. Dillo all'istruttore."],
+  ["Dopo il corso","", "Segna la seduta come fatta con la fatica da 1 a 10: serve a capire se la settimana è troppo carica."]
+];
+function leiRest(w){
+  const b = bIdx(clampW(w));
+  return [["Camminata a passo svelto", `30' · in tutto ${fmt(L_STEPS[b])} passi`], ["Mobilità di anche e caviglie","10'"], ["Niente allenamento intenso","", "Il riposo fa parte del piano: è oggi che il corpo si adatta."]];
+}
+const BLOCKS_L = [
+  {n:1, nome:"Base", w:[1,4], date:"2 – 29 nov", focus:"Imparare bene i movimenti e abituare ginocchia e tendini. 3 serie da 10–12 con 2–3 ripetizioni ancora in canna. La settimana 4 è di scarico."},
+  {n:2, nome:"Volume", w:[5,8], date:"30 nov – 27 dic", focus:"Più ripetizioni, da 12 a 15 per serie, e push-up più bassi. La settimana 8 è di scarico, con il test e le calorie di mantenimento a Natale."},
+  {n:3, nome:"Forza", w:[9,12], date:"28 dic – 24 gen", focus:"Entrano Forza A e B: 4 serie da 8–10 con varianti più difficili. Nelle sedute di ipertrofia scendi in 3 secondi. La settimana 12 è di scarico."},
+  {n:4, nome:"Consolidamento", w:[13,16], date:"25 gen – 21 feb", focus:"Varianti più dure e fino a 20 ripetizioni. La settimana 16 è di scarico con il test finale, per vedere quanto sei migliorata."}
+].map(b => ({...b, s:{}}));
+const SESS_L = {
+  CAL:{nome:"Calisthenics", sotto:"Al corso", dur:"90'"},
+  IA:{nome:"Ipertrofia A", sotto:"Gambe e spinta", dur:"75–90'"},
+  IB:{nome:"Ipertrofia B", sotto:"Schiena e glutei", dur:"75–90'"},
+  IC:{nome:"Ipertrofia C", sotto:"Circuito full body", dur:"60–75'"},
+  ID:{nome:"Ipertrofia D", sotto:"Glutei, spalle e core", dur:"75–90'"},
+  FA:{nome:"Forza A", sotto:"Gambe e spinta", dur:"75–90'"},
+  FB:{nome:"Forza B", sotto:"Tirata e glutei", dur:"75–90'"},
+  SC:{nome:"Scarico", sotto:"2 serie facili", dur:"45'"},
+  TM:{nome:"Test massimale", sotto:"Push-up, squat, plank, corda", dur:"45'"},
+  R1:{nome:"Riposo", sotto:"Camminata", dur:"30'"},
+  R2:{nome:"Riposo", sotto:"Camminata", dur:"30'"}
+};
+const SESS_UI_L = {
+  CAL:{t:"Calisthenics al corso", p:"Segui il corso: qui segni solo che l'hai fatto e quanto è stato duro."},
+  IA:{t:"Gambe e spinta", p:"Squat su sedia, step-up e push-up, poi core e corda."},
+  IB:{t:"Schiena e glutei", p:"Tirate con l'elastico, stacco e hip thrust per tutta la parte dietro."},
+  IC:{t:"Circuito full body", p:"Un giro di tutto il corpo ripetuto più volte, poi braccia e core: si suda."},
+  ID:{t:"Glutei, spalle e core", p:"Glutei e tirate a un braccio, poi core in stabilità e corda a intervalli."},
+  FA:{t:"Forza: gambe e spinta", p:"Meno ripetizioni e varianti più dure: 4 serie da 8–10, pause più lunghe."},
+  FB:{t:"Forza: tirata e glutei", p:"Meno ripetizioni e varianti più dure: 4 serie da 8–10, pause più lunghe."},
+  SC:{t:"Scarico", p:"Due serie facili e mobilità: il corpo assorbe le settimane di lavoro."},
+  TM:{t:"Test massimale", p:"Misuri dove sei: push-up, squat, plank e corda. Segna i risultati qui sotto."}
+};
+/* settimana tipo: giorno → calisthenics, corpo libero a casa o riposo, con l'orario */
+const L_WEEK_DEF = [{t:"cal",at:"18:30"},{t:"r"},{t:"casa",at:"18:30"},{t:"cal",at:"18:30"},{t:"r"},{t:"casa",at:"10:00"},{t:"r"}];
+const L_OFFICE_DEF = {in:"08:30", mensa:"12:45", out:"17:30"};
+function leiWeek(){ const w = S.leiWeek; return Array.isArray(w) && w.length === 7 ? w : L_WEEK_DEF; }
+function leiOffice(){ return {...L_OFFICE_DEF, ...(S.leiOffice || {})}; }
+function leiHomeKey(d){
+  const wc = clampW(weekOf(d)), di = dow(d), wk = leiWeek();
+  let occ = 0; for (let i = 0; i < di; i++) if (wk[i].t === "casa") occ++;
+  return L_SCHED[wc-1][occ % 2];
+}
+function leiDayNames(t){
+  const ds = leiWeek().map((x,i) => x.t === t ? GIORNI[i].toLowerCase() : null).filter(Boolean);
+  return ds.length ? ds.length === 1 ? ds[0] : ds.slice(0,-1).join(", ") + " e " + ds[ds.length-1] : "nessun giorno";
+}
+function dayPlanLei(d){
+  const dk = iso(d), di = dow(d), c = leiWeek()[di], O = leiOffice();
+  const key = c.t === "cal" ? "CAL" : c.t === "casa" ? leiHomeKey(d) : "R1";
+  const tipo = key === "R1" ? "rest" : "train";
+  let slot = null;
+  if (tipo === "train"){ const s = toMin(c.at || "18:30"), dur = key === "SC" || key === "TM" ? 45 : key === "IC" ? 75 : 90; slot = {start:s, end:s + dur, when:c.t === "cal" ? "al corso" : "a casa", q:3}; }
+  const pausa = toMin(O.mensa), turno = di < 5 ? {kind:"lavoro", s1:O.in, e1:O.mensa, s2:hm(pausa + 60), e2:O.out, fonte:"ufficio"} : null;
+  return {dk, di, key, tipo, turno, slot, moved:false};
+}
+function mealTimesLei(plan){
+  const O = leiOffice(), we = plan.di >= 5, sl = plan.slot, T = {};
+  if (!we){ T.colazione = toMin(O.in) - 75; T.spuntino = 10*60 + 30; T.pranzo = toMin(O.mensa); T.merenda = 16*60 + 30; T.cena = 19*60 + 45; }
+  else { T.colazione = 8*60 + 30; T.spuntino = 11*60; T.pranzo = 13*60; T.merenda = 16*60 + 30; T.cena = 20*60; }
+  if (sl){
+    if (sl.start < 12*60){ T.colazione = Math.min(T.colazione, sl.start - 90); T.spuntino = sl.end + 15; T.pranzo = Math.max(T.pranzo, sl.end + 105); }
+    else if (sl.start < 16*60){ T.merenda = sl.end + 15; }
+    else { T.merenda = Math.max(T.pranzo + 150, Math.min(T.merenda, sl.start - 105)); T.cena = Math.max(T.cena, sl.end + 30); }
+  }
+  for (const k in T) T[k] = Math.round(T[k]/15)*15;
+  T.preLab = "Pre-allenamento";
+  return T;
+}
+
 const WEEKPLAN = [
   {key:"A", tipo:"train"}, {key:"INT", tipo:"train"}, {key:"R1", tipo:"rest"},
   {key:"B", tipo:"train"}, {key:"Z2", tipo:"train"}, {key:"C", tipo:"train"}, {key:"R2", tipo:"rest"}
 ];
-const SESS = {
+const SESS = LEI ? SESS_L : {
   A:  {nome:"Hyrox A", sotto:"Forza gambe + sled", dur:"70–75'"},
   INT:{nome:"Corsa", sotto:"Intervalli", dur:"45–55'"},
   B:  {nome:"Hyrox B", sotto:"Forza busto + ergometri", dur:"70–75'"},
@@ -1059,13 +1350,13 @@ const SESS = {
   R1: {nome:"Riposo attivo", sotto:"Camminata + mobilità", dur:"45'"},
   R2: {nome:"Riposo", sotto:"Camminata", dur:"—"}
 };
-const LOGGABLE = ["A","INT","B","Z2","C"];
+const LOGGABLE = LEI ? ["CAL","IA","IB","IC","ID","FA","FB","SC","TM"] : ["A","INT","B","Z2","C"];
 const REST_LINES = {
   R1:[["Camminata a passo svelto","30–45' in Z1"],["Mobilità: anche, caviglie, colonna toracica","15'"],["Nessun lavoro intenso","", "Il recupero fa parte del piano: è oggi che il corpo si adatta alle sedute di lunedì e martedì."]],
   R2:[["Camminata","8.000–10.000 passi"],["Prepara i pasti della settimana","", "Pollo, riso e ragù in batch la domenica ti salvano nei giorni di turno lungo."]]
 };
 const WARM = [["Remo o SkiErg","5' Z1–Z2"],["Mobilità anche/spalle + 2 × 10 glute bridge","5'"]];
-const BLOCKS = [
+const BLOCKS = LEI ? BLOCKS_L : [
  {n:1, nome:"Base", w:[1,4], date:"2 – 29 nov",
   focus:"Riprendere il gesto e preparare tendini e articolazioni dopo un anno di stop. Carichi al 70%: chiudi ogni serie con 3 ripetizioni ancora in canna (RPE 7). La settimana 4 è di scarico.",
   s:{
@@ -1180,13 +1471,14 @@ const RACE = [
   ["SkiErg","1000 m"],["Sled push","50 m · 152 kg"],["Sled pull","50 m · 103 kg"],["Burpee broad jump","80 m"],
   ["Remo","1000 m"],["Farmers carry","200 m · 2×24 kg"],["Sandbag lunges","100 m · 20 kg"],["Wall balls","100 · 6 kg"]
 ];
-const TESTS = ["1 km a tutta","5 km corsa","SkiErg 1000 m","Remo 1000 m","100 wall balls (6 kg)","Altro"];
+const TESTS = LEI ? ["Push-up massimi","Squat su sedia massimi","Plank massimo","Corda 60\" (salti)","Altro"] : ["1 km a tutta","5 km corsa","SkiErg 1000 m","Remo 1000 m","100 wall balls (6 kg)","Altro"];
 const CAT = {
-  "Carne, pesce e uova":["pollo","manzo","bresaola","cotto","tonno","uovo","albume"],
-  "Latticini":["yogurt","parmigiano"],
+  "Carne, pesce e uova":["pollo","manzo","bresaola","cotto","tonno","salmone","merluzzo","uovo","albume"],
+  "Latticini":["yogurt","yogurt_sl","latte_sl","parmigiano"],
+  "Pane":["pane_int"],
   "Riso, pasta e cereali":["riso","pasta_int","pasta","couscous","patate","avena","cracker","gallette"],
-  "Frutta e verdura":["verdure","fagiolini","pomodorini","passata","mela","banana","bosco","avocado"],
-  "Dispensa":["whey","olio","arachidi","mandorle","noci","miele","cacao"]
+  "Frutta e verdura":["verdure","fagiolini","pomodorini","passata","mela","banana","clementine","kiwi","bosco","avocado"],
+  "Dispensa":["whey","olio","arachidi","mandorle","noci","fondente","miele","marmellata","cacao","ceci","lenticchie"]
 };
 /* prezzo: €/kg (u:"kg"), €/litro (u:"L", 1 L ≈ 920 g d'olio), €/uovo (u:"pz", 55 g a uovo).
    resa: parte edibile (banana senza buccia ecc.). pz: grammi edibili per pezzo per gli sfusi. */
@@ -1223,7 +1515,17 @@ const PRICES = {
   mandorle:{p:20.00,u:"kg",pack:250,lab:"busta da 250 g",src:"C"},
   noci:{p:29.40,u:"kg",pack:170,lab:"busta da 170 g",src:"C"},
   cacao:{p:14.00,u:"kg",pack:250,lab:"confezione da 250 g",src:"S"},
-  whey:{p:44.43,u:"kg",pack:900,lab:"busta da 900 g (ce l'hai già)",src:"MP"}
+  whey:{p:44.43,u:"kg",pack:900,lab:"busta da 900 g (ce l'hai già)",src:"MP"},
+  pane_int:{p:4.80,u:"kg",pack:400,lab:"pan bauletto integrale da 400 g",src:"S"},
+  latte_sl:{p:1.65,u:"kg",pack:1000,ml:true,lab:"brick da 1 L",src:"S"},
+  yogurt_sl:{p:7.20,u:"kg",pack:500,lab:"vasetto da 500 g",src:"S"},
+  merluzzo:{p:11.00,u:"kg",pack:400,lab:"busta surgelata da 400 g",src:"S"},
+  ceci:{p:3.20,u:"kg",pack:240,lab:"barattolo da 400 g (240 g scolati)",src:"S"},
+  lenticchie:{p:3.20,u:"kg",pack:240,lab:"barattolo da 400 g (240 g scolati)",src:"S"},
+  fondente:{p:19.90,u:"kg",pack:100,lab:"tavoletta da 100 g",src:"S"},
+  marmellata:{p:7.50,u:"kg",pack:340,lab:"vasetto da 340 g",src:"S"},
+  clementine:{p:2.20,u:"kg",resa:0.75,pz:60,lab:"sfuse",src:"S"},
+  kiwi:{p:3.00,u:"kg",resa:0.85,pz:75,lab:"sfusi",src:"S"}
 };
 const UNIT_LAB = {kg:"€/kg", L:"€/L", pz:"€/uovo"};
 
@@ -1234,9 +1536,11 @@ const S = {
   db:null, user:null, canWrite:null,
   menuDay:0, blockSel:null, oggi:null,
   menuRot:null, spesaRot:null, swaps:{}, prezzi:{},
+  rip:[], leiWeek:null, leiOffice:null,
   turni:{}, giornata:{commute:25, pranzoNegozio:true}, mcp:null, syncInfo:"", syncCls:"", turnoOpen:false
 };
 try { S.swaps = JSON.parse(localStorage.getItem("piano-hyrox-swaps") || "{}") || {}; } catch(_) { S.swaps = {}; }
+if (LEI){ try { const x = JSON.parse(localStorage.getItem("piano-hyrox-settimana") || "null"); if (x && Array.isArray(x.week) && x.week.length === 7){ S.leiWeek = x.week; S.leiOffice = x.office || null; } } catch(_){} }
 
 /* cambi piatto: su questo dispositivo e nel database, così valgono su telefono e PC */
 function saveSwaps(){
@@ -1283,6 +1587,7 @@ function itemLabel(k,g){
   const name = PLAN.foods[k][0];
   if (k==="uovo"){ const n=Math.round(g/55); return [`${n} ${n===1?"uovo":"uova"}`, `${g} g`]; }
   if (k==="gallette"){ return [name, `${Math.round(g/8)} pz · ${g} g`]; }
+  if (k==="latte_sl") return [name, `${g} ml`];
   if (k==="olio"){ const t = g===5?"1 cucchiaino":g===10?"1 cucchiaio":g===15?"1½ cucchiai":`${g/10} cucchiai`; return [name, `${g} g · ${t}`]; }
   return [name, `${g} g`];
 }
@@ -1301,13 +1606,14 @@ function dayMeals(dayIdx, rot, dateKey, tipoOverride){
     return id;
   };
   const sgarro = pick("cena") === "SG";
-  return SLOT_ORDER[tipo].filter(s=>!(s==="spuntino" && sgarro)).map(slot => {
+  return SLOT_ORDER[tipo].filter(s=>!(!LEI && s==="spuntino" && sgarro)).map(slot => {
     const id = pick(slot), d = PLAN.dishes[id], items = d[tipo] || [];
-    return {slot, id, d, items, tipo, m:mac(items), def:bySlot[slot]};
+    return {slot, id, d, items, tipo, m:mac(items), def:bySlot[slot], dk:dateKey || null};
   });
 }
-function dishOptions(slot, tipo, sel, def){
-  const slots = Object.keys(PLAN.dishes).filter(id=>PLAN.dishes[id].slot===slot && PLAN.dishes[id][tipo]);
+function dishOptions(slot, tipo, sel, def, dk){
+  const we = dk ? dow(parse(dk)) >= 5 : false;
+  const slots = Object.keys(PLAN.dishes).filter(id=>PLAN.dishes[id].slot===slot && PLAN.dishes[id][tipo] && (id === sel || !(we && PLAN.dishes[id].mensa)));
   return slots.map(id=>`<option value="${id}" ${id===sel?"selected":""}>${esc(PLAN.dishes[id].name)}${id===def && id!==sel?" · da menù":""}</option>`).join("");
 }
 function mealsHTML(meals, swappable){
@@ -1531,7 +1837,7 @@ function runViewHTML(key, w){
 }
 
 /* ---------- seduta: stessa vista in Oggi (con registrazione) e in Allenamento (programma) ---------- */
-const SESS_UI = {
+const SESS_UI = LEI ? SESS_UI_L : {
   A:{t:"Gambe e slitta", p:"Prima la forza delle gambe, poi un finale breve con le stazioni di gara.", d:"lunedì"},
   INT:{t:"Ripetute", p:"Tratti veloci e recuperi lenti: alzano il ritmo che reggi in gara.", d:"martedì"},
   B:{t:"Busto ed ergometri", p:"Spinta e tirata per la parte alta, poi remo e SkiErg.", d:"giovedì"},
@@ -1548,21 +1854,38 @@ function svGroups(lines){
   return out;
 }
 const kgShort = (t, kg) => t === "db2" ? `2×${kgNum(kg)}` : kgNum(kg);
+/* righe della seduta: per lei si generano settimana per settimana */
+function sLines(key, blk, w){
+  if (LEI) return ["IA","IB","IC","ID","FA","FB","SC","TM"].includes(key) ? leiLines(key, w) : [];
+  return blk.s[key] || [];
+}
+function restLinesOf(key, w){
+  if (LEI) return key === "CAL" ? L_CAL : (key === "R1" || key === "R2") ? leiRest(w) : null;
+  return REST_LINES[key] || null;
+}
+const isLogLine = m => !!(m && ((m.ex && !m.alt) || m.bw || m.test));
 function sessionViewHTML(key, blk, w, o){
   o = o || {};
-  if (key === "INT" || key === "Z2") return runViewHTML(key, w);
-  if (REST_LINES[key]) return `<div class="sv-box">${REST_LINES[key].map(([es,dose,nota]) => `<div class="sv-li"><span class="sv-es">${fillZ(es)}</span>${dose ? `<span class="sv-dose">${fillZ(dose)}</span>` : ""}${nota ? `<span class="small muted">${fillZ(nota)}</span>` : ""}</div>`).join("")}</div>`;
+  if (!LEI && (key === "INT" || key === "Z2")) return runViewHTML(key, w);
+  const RL = restLinesOf(key, w);
+  if (RL) return `<div class="sv-box">${RL.map(([es,dose,nota]) => `<div class="sv-li"><span class="sv-es">${fillZ(es)}</span>${dose ? `<span class="sv-dose">${fillZ(dose)}</span>` : ""}${nota ? `<span class="small muted">${fillZ(nota)}</span>` : ""}</div>`).join("")}</div>`;
   const before = o.dk || tomorrowIso(), wc = clampW(w);
   let html = "";
-  for (const g of svGroups(blk.s[key] || [])){
+  for (const g of svGroups(sLines(key, blk, w))){
     if (/^Riscaldamento/i.test(g.title)){
       html += `<div class="sv-warm"><span class="eyebrow">${fillZ(g.title)}</span><span>${g.lines.map(l => fillZ(l[0])).join(" · ")}</span></div>`;
       continue;
     }
-    const strength = g.lines.some(l => { const m = metaOf(l); return m && m.ex; });
+    const strength = g.lines.some(l => { const m = metaOf(l); return m && (m.ex || m.bw || m.test); });
     const gt = g.title ? `<span class="eyebrow sv-gt">${fillZ(g.title)}</span>` : "";
     if (strength && o.log){
       html += `<div class="sv-group">${gt}${linesListHTML(g.lines, {w:wc, dk:o.dk, log:true, key})}</div>`;
+    } else if (strength && LEI){
+      const rows = g.lines.map(l => {
+        const [es, dose] = l, parts = String(dose || "").split(" · ");
+        return `<tr><td><b>${esc(es)}</b>${parts.length > 1 ? `<div class="small muted">${esc(parts.slice(1).join(" · "))}</div>` : ""}</td><td class="sv-se">${esc(parts[0])}</td></tr>`;
+      }).join("");
+      html += `<div class="sv-group">${gt}<table class="sv-table sv-t2"><thead><tr><th scope="col">Esercizio</th><th scope="col">Serie</th></tr></thead><tbody>${rows}</tbody></table></div>`;
     } else if (strength){
       const rows = g.lines.map(l => {
         const [es, dose, nota] = l, m = metaOf(l), parts = String(dose || "").split(" · ");
@@ -1588,6 +1911,18 @@ function sessionViewHTML(key, blk, w, o){
   }
   return html;
 }
+/* come cambia un esercizio nei 4 blocchi: la variante e le ripetizioni dell'ultima settimana di carico */
+function leiTrendHTML(key, w){
+  const l = sLines(key, blockOf(w), w).find(x => { const m = metaOf(x); return m && m.bw && m.u === "r"; });
+  if (!l) return "";
+  const kind = key === "FA" || key === "FB" ? "F" : "H", cur = bIdx(clampW(w)), show = kind === "F" ? [2,3] : [0,1,2,3];
+  const fams = sLines(key, blockOf(w), w).map(x => metaOf(x)).filter(m => m && m.bw && m.u === "r").map(m => m.bw.replace(/\d+$/, ""));
+  const fam = fams.find(f => new Set(show.map(b => L_FAM[f].n[b] || null)).size > 1 && show.every(b => L_FAM[f].n[Math.min(b, L_FAM[f].n.length-1)])) || fams[0];
+  return `<div class="sv-trend"><span class="sv-bt">${kind === "F" ? "Come progredisce nei blocchi di forza" : "Come progredisce nei 4 blocchi"}</span><ul class="mi ltrend">${show.map(b => {
+    const n = (kind === "F" ? L_REPS.F : L_REPS.H)[b][2], name = lName(fam, b), sets = kind === "F" ? 4 : 3;
+    return `<li class="${b === cur ? "cur" : ""}"><span><span class="small muted">Blocco ${b+1}</span><br>${esc(name)}</span><b>${sets} × ${b >= 2 && kind === "H" ? n + ", lente" : n}</b></li>`;
+  }).join("")}</ul></div>`;
+}
 function planTrendHTML(key, blk, w){
   const l = (blk.s[key] || []).find(x => { const m = metaOf(x); return m && m.ex && !m.alt; });
   if (!l) return "";
@@ -1601,7 +1936,12 @@ function mealItemsUL(items, cls){
   return `<ul class="mi ${cls || ""}">${items.map(([k,g]) => { const [n,q] = itemLabel(k,g); return `<li><span>${esc(n)}</span><b>${q}</b></li>`; }).join("")}</ul>`;
 }
 function swapPill(x, cls){
-  return `<label class="swap-pill ${cls || ""}"><span>Cambia piatto</span><select class="swap" data-slot="${x.slot}" aria-label="Cambia ${esc((x.label || SLOT_LAB[x.slot]).toLowerCase())}">${dishOptions(x.slot, x.tipo, x.id, x.def)}</select></label>`;
+  return `<label class="swap-pill ${cls || ""}"><span>Cambia piatto</span><select class="swap" data-slot="${x.slot}" aria-label="Cambia ${esc((x.label || SLOT_LAB[x.slot]).toLowerCase())}">${dishOptions(x.slot, x.tipo, x.id, x.def, x.dk)}</select></label>`;
+}
+/* mensa: invece delle grammature, cosa prendere al bancone */
+function mealBodyUL(x, cls){
+  if (x.d.guide){ const g = x.d.guide[x.tipo] || x.d.guide.train || []; return `<ul class="mi guide ${cls || ""}">${g.map(([a,b]) => `<li><span>${esc(a)}</span><b>${esc(b)}</b></li>`).join("")}</ul>`; }
+  return mealItemsUL(x.items, cls);
 }
 function macroStackHTML(tot, t){
   return `<div class="mstack" role="img" aria-label="Proteine ${fmt(tot.P)} grammi, carboidrati ${fmt(tot.C)}, grassi ${fmt(tot.F)}"><i style="flex:${tot.P*4};background:var(--p)"></i><i style="flex:${tot.C*4};background:var(--c)"></i><i style="flex:${tot.F*9};background:var(--f)"></i></div>
@@ -1612,9 +1952,9 @@ function nextMealHTML(x, lab){
   return `<section class="next-meal" aria-label="${esc(lab)}">
     <div class="nm-top"><span class="eyebrow">${esc(lab)} · ${esc(slot.toLowerCase())}</span>${x.time != null ? `<span class="nm-time">${hm(x.time)}</span>` : ""}</div>
     <h2>${esc(x.d.name)}</h2>
-    ${sg ? `<p class="nm-prep">Pasto libero: goditelo, non è contato nei totali.</p>` : mealItemsUL(x.items, "dark")}
+    ${sg ? `<p class="nm-prep">Pasto libero: goditelo, non è contato nei totali.</p>` : mealBodyUL(x, "dark")}
     ${x.d.prep && !sg ? `<p class="nm-prep">${esc(x.d.prep)}</p>` : ""}
-    <div class="nm-foot"><span>${sg ? "" : macroShort(x.m)}</span>${swapPill(x, "light")}</div>
+    <div class="nm-foot"><span>${sg ? "" : (x.d.mensa ? "circa " : "") + macroShort(x.m)}</span>${swapPill(x, "light")}</div>
   </section>`;
 }
 function mealRowsHTML(meals, o){
@@ -1622,7 +1962,7 @@ function mealRowsHTML(meals, o){
     const lab = x.label || SLOT_LAB[x.slot], sg = x.id === "SG", key = `${o.ctx}|${x.slot}`, done = o.done ? o.done[i] : false;
     return `<details class="mrw ${done ? "done" : ""}" data-mk="${esc(key)}" ${S.mealOpen[key] ? "open" : ""}>
       <summary class="${x.time != null ? "" : "nt"}">${x.time != null ? `<span class="mr-t">${hm(x.time)}</span>` : ""}<span class="mr-n"><span class="mr-s">${esc(lab)}</span><span class="mr-d">${esc(x.d.name)}</span></span><span class="mr-r">${done ? `<span class="ok">✓</span>` : sg ? "libero" : fmt(x.m.kcal)}</span><span class="chev">${CHEV}</span></summary>
-      <div class="mr-body">${sg ? `<p class="small muted">Pasto libero: non è contato nei totali.</p>` : mealItemsUL(x.items)}<p class="prep">${esc(x.d.prep)}</p><div class="mr-foot"><span class="small muted">${sg ? "" : macroShort(x.m)}</span>${o.swappable ? swapPill(x) : ""}</div></div>
+      <div class="mr-body">${sg ? `<p class="small muted">Pasto libero: non è contato nei totali.</p>` : mealBodyUL(x)}<p class="prep">${esc(x.d.prep)}</p><div class="mr-foot"><span class="small muted">${sg ? "" : (x.d.mensa ? "circa " : "") + macroShort(x.m)}</span>${o.swappable ? swapPill(x) : ""}</div></div>
     </details>`;
   }).join("")}</div>`;
 }
@@ -1630,10 +1970,44 @@ function mealRowsHTML(meals, o){
 function sessLines(key, block, ctx){
   return linesListHTML(REST_LINES[key] || block.s[key], ctx ? {...ctx, key} : null);
 }
+const bwUnit = u => u === "s" ? "sec" : u === "salti" ? "salti" : "rip.";
+const testSlug = p => String(p).replace(/[^A-Za-z0-9]+/g,"-").replace(/^-|-$/g,"");
+/* corpo libero: si segnano ripetizioni (o secondi) e com'è andata; la volta dopo propone a quanto puntare */
+function bwParts(m, ctx){
+  const dk = ctx.dk, isTest = !!m.test, id = isTest ? `${dk}_${testSlug(m.test)}` : `${dk}_${m.bw}`;
+  const done = isTest ? S.test.find(t => t.id === id) : S.rip.find(r => r.id === id);
+  const last = isTest ? null : S.rip.filter(r => r.ex === m.bw && r.data < dk).sort((a,b) => b.data.localeCompare(a.data))[0];
+  let sug = m.n, hint = "";
+  if (last && ESITO[last.esito]){
+    const step = m.u === "s" ? 5 : 1;
+    if (last.esito === "leggero") sug = Math.max(m.n, last.n + 2*step);
+    else if (last.esito === "giusto") sug = Math.max(m.n, last.n);
+    else sug = Math.min(m.n, last.n);
+    hint = `Ultima volta ${last.n} ${bwUnit(m.u)}, ${ESITO[last.esito].lab.toLowerCase()}${sug !== m.n ? `: oggi punta a ${sug}` : ""}.`;
+    if (last.esito === "leggero" && m.u !== "s" && last.n >= 15) hint += " Se resta facile, passa alla variante più difficile.";
+  }
+  const tr = hint ? `<span class="trend small">${esc(hint)}</span>` : "";
+  if (done && !S.relog[id]){
+    const v = isTest ? done.valore : done.n;
+    return {right:`<span class="chip-ok kgv-done">✓ ${esc(String(v).replace(/"$/, ""))} ${bwUnit(m.u)}</span>`,
+      below:`<span class="logged small">${isTest ? "Nel diario dei test" : ESITO[done.esito] ? ESITO[done.esito].lab : ""} · <button type="button" class="linkbtn" data-relog="${esc(id)}">Modifica</button></span>`};
+  }
+  const val = done ? (isTest ? parseInt(done.valore, 10) || "" : done.n) : (sug ?? "");
+  const mid = "lm_" + (m.bw || testSlug(m.test));
+  const btns = isTest ? `<button type="button" data-bwsave="1">Salva</button>` : Object.entries(ESITO).map(([k,v]) => `<button type="button" data-esito="${k}">${v.lab}</button>`).join("");
+  return {
+    right:`<label class="kgin"><input type="number" step="1" min="1" max="999" inputmode="numeric" value="${val}" aria-label="${isTest ? "Risultato" : "Ripetizioni fatte"}"><span>${bwUnit(m.u)}</span></label>`,
+    below:`<span class="logx" data-bw="${esc(m.bw || "")}" data-test="${esc(m.test || "")}" data-u="${m.u}" data-dk="${dk}" data-w="${ctx.w}" data-key="${esc(ctx.key || "")}"><span class="seg seg-full" role="group" aria-label="Com'è andata">${btns}</span><span class="msg" id="${esc(mid)}" aria-live="polite"></span></span>${tr}`
+  };
+}
 function linesListHTML(lines, c){
   return `<ul class="lines">${lines.map(l => {
     if (typeof l === "string") return `<li class="h">${fillZ(l.slice(1))}</li>`;
     const [es,dose,nota] = l, m = metaOf(l);
+    if (m && c && c.log && (m.bw || m.test)){
+      const lp = bwParts(m, c);
+      return `<li class="exl"><span class="ex">${esc(es)}</span><span class="dose-row"><span class="dose">${esc(dose || "")}</span>${lp.right}</span>${nota?`<span class="nota">${esc(nota)}</span>`:""}${lp.below}</li>`;
+    }
     if (m && c && !c.weeks && m.ex && !m.alt){
       const lp = loadParts(m, c);
       return `<li class="exl"><span class="ex">${fillZ(es)}</span><span class="dose-row"><span class="dose">${fillZ(dose || "")}</span>${lp.right}</span>${nota?`<span class="nota">${fillZ(nota)}</span>`:""}${lp.below}</li>`;
@@ -1643,10 +2017,18 @@ function linesListHTML(lines, c){
 }
 document.addEventListener("click", e => {
   const t = e.target.closest ? e.target : null; if (!t) return;
-  const b = t.closest("[data-esito]");
+  const b = t.closest("[data-esito],[data-bwsave]");
   if (b){
     const box = b.closest(".logx"), inp = b.closest("li").querySelector(".kgin input"), kg = Number(String(inp ? inp.value : "").replace(",", "."));
     const msgId = box.querySelector(".msg").id;
+    if (box.dataset.bw || box.dataset.test){
+      if (!(kg > 0)){ const el = $(msgId); el.className = "msg err"; el.textContent = box.dataset.test ? "Scrivi il risultato." : "Scrivi quante ne hai fatte."; return; }
+      const {bw, test, u, dk, w, key} = box.dataset;
+      if (test){ const id = `${dk}_${testSlug(test)}`; delete S.relog[id]; save("test", id, {data:dk, prova:test, valore:u === "s" ? `${kg}"` : String(kg), nota:""}, msgId, "Salvato nei test"); return; }
+      const id = `${dk}_${bw}`; delete S.relog[id];
+      save("rip", id, {data:dk, ex:bw, n:kg, u, esito:b.dataset.esito, w:Number(w), key}, msgId, "Salvato");
+      return;
+    }
     if (!(kg > 0)){ const el = $(msgId); el.className = "msg err"; el.textContent = "Scrivi il peso che hai usato."; return; }
     const {ex, r, rpe, w, dk} = box.dataset, id = `${dk}_${ex}`;
     delete S.relog[id];
@@ -1702,6 +2084,14 @@ function weekLabel(d){
   return {w, txt:`Sett. ${pad(w)}/${WEEKS}`, blk:blockOf(w)};
 }
 function renderHeader(){
+  if (LEI){
+    const ini = (NOME.split(/\s+/).map(x => x[0] || "").join("").slice(0,2) || "·").toUpperCase();
+    document.querySelectorAll(".avatar").forEach(a => { a.textContent = ini; });
+    $("brandName").textContent = NOME ? `Piano di ${NOME}` : "Il tuo piano";
+    $("sideGoal").textContent = sottoKg(OBIETTIVO).replace(/^s/, "S");
+    $("sideKcal").textContent = `${fmt(TARGET.train.kcal)} kcal allenamento · ${fmt(TARGET.rest.kcal)} riposo`;
+    $("altroLbl").textContent = NOME ? `Piano di ${NOME}` : "Il tuo piano";
+  }
   const {txt, blk, w} = weekLabel(today());
   $("bibWeek").textContent = txt;
   $("bibBlock").textContent = (w>=1 && w<=WEEKS) ? (isDeload(w) ? `${blk.nome} · scarico` : blk.nome) : "Piano 16 sett.";
@@ -1741,8 +2131,8 @@ function turnoShort(t){
   return b.length ? `${hm(b[0][0])}–${hm(b[b.length-1][1])}` : "lavoro";
 }
 function whereAt(b, x){
-  for (const [s,e] of b) if (x >= s && x < e) return "in negozio";
-  if (b.length === 2 && x >= b[0][1] && x < b[1][0]) return "in pausa";
+  for (const [s,e] of b) if (x >= s && x < e) return LEI ? "in ufficio" : "in negozio";
+  if (b.length === 2 && x >= b[0][1] && x < b[1][0]) return LEI ? "in mensa" : "in pausa";
   return "";
 }
 /* finestra di allenamento migliore per un turno: q 3 = ottima, 2 = buona, 1 = scomoda */
@@ -1808,6 +2198,7 @@ function weekAssign(d, withPrev = true){
   return res;
 }
 function dayPlan(d){
+  if (LEI) return dayPlanLei(d);
   const dk = iso(d), di = dow(d), t = S.turni[dk] || null, as = weekAssign(d);
   const key = as ? as.keys[di] : WEEKPLAN[di].key;
   const tipo = (key === "R1" || key === "R2") ? "rest" : "train";
@@ -1815,6 +2206,7 @@ function dayPlan(d){
 }
 /* orari dei pasti attorno a turno e allenamento */
 function mealTimes(plan, meals){
+  if (LEI) return mealTimesLei(plan, meals);
   const has = Object.fromEntries(meals.map(m=>[m.slot, true]));
   const C = S.giornata.commute, b = blocksOf(plan.turno), sl = plan.slot;
   const first = b.length ? b[0][0] : null, last = b.length ? b[b.length-1][1] : null;
@@ -1922,7 +2314,7 @@ function renderStrip(){
   const {w} = weekLabel(today());
   $("strip").innerHTML = `
     <div><span class="eyebrow">${media!==null?"Media 7 giorni":"Peso di partenza"}</span><span class="v">${fmt(cur,1)}<small>kg</small></span><span class="small muted">${last?`ultima pesata ${fmtDate(parse(last.data))}: ${fmt(last.kg,1)} kg`:"registra la prima pesata qui sotto"}</span></div>
-    <div><span class="eyebrow">Al traguardo</span><span class="v">${fmt(Math.max(0,cur-(OBIETTIVO-0.1)),1)}<small>kg</small></span><span class="small muted">per scendere sotto i ${OBIETTIVO} kg</span></div>
+    <div><span class="eyebrow">Al traguardo</span><span class="v">${fmt(Math.max(0,cur-(OBIETTIVO-0.1)),1)}<small>kg</small></span><span class="small muted">per scendere ${sottoKg(OBIETTIVO)}</span></div>
     <div><span class="eyebrow">Progresso</span><span class="v">${fmt(pct)}<small>%</small></span><div class="bar"><i style="width:${pct}%"></i></div></div>
     <div><span class="eyebrow">Settimana</span><span class="v">${w<1?"0":w>WEEKS?WEEKS:w}<small>/ ${WEEKS}</small></span><span class="small muted">${w<1?"inizio lunedì 2 novembre":w>WEEKS?"piano concluso":`blocco ${blockOf(w).nome}${isDeload(w)?" · scarico":""}`}</span></div>`;
 }
@@ -1938,18 +2330,18 @@ function renderOggi(){
     $("heroLbl").textContent = dd === 0 ? "Allenamento di oggi" : "Allenamento del giorno";
     $("heroTime").className = "big" + (plan.slot ? "" : " word");
     $("heroTime").innerHTML = plan.slot ? `${hm(plan.slot.start)}<span>—</span>${hm(plan.slot.end)}` : "Da spostare";
-    $("heroSub").textContent = `${sess.nome} · ${sess.sotto}${plan.slot ? " · " + plan.slot.when : ""} · ${plan.turno ? "turno " + tShift : tShift}`;
+    $("heroSub").textContent = LEI ? `${sess.nome} · ${sess.sotto} · ${plan.slot.when}` : `${sess.nome} · ${sess.sotto}${plan.slot ? " · " + plan.slot.when : ""} · ${plan.turno ? "turno " + tShift : tShift}`;
   } else {
     $("heroLbl").textContent = "Giorno di riposo";
     $("heroTime").className = "big word"; $("heroTime").textContent = "Riposo";
-    $("heroSub").textContent = `${sess.sotto} · ${plan.turno ? "turno " + tShift : tShift}`;
+    $("heroSub").textContent = LEI ? `Camminata · ${fmt(L_STEPS[bIdx(clampW(w))])} passi in tutto il giorno` : `${sess.sotto} · ${plan.turno ? "turno " + tShift : tShift}`;
   }
   $("oggiTipo").className = "tag " + (tipo==="train"?"train":"");
   $("oggiTipo").textContent = tipo==="train" ? `Allenamento · ${fmt(TARGET.train.kcal)} kcal` : `Riposo · ${fmt(TARGET.rest.kcal)} kcal`;
   const notes = [];
   if (w < 1) notes.push("Il piano parte lunedì 2 novembre. Fino ad allora puoi già seguire menù e sedute del blocco Base.");
   if (w > WEEKS) notes.push("Le 16 settimane sono finite: è il momento di rivedere obiettivi e calorie insieme.");
-  if (w === 8) notes.push("Settimana 8: scarico in palestra e calorie di mantenimento (circa 2.750 kcal). Aggiungi al menù del giorno circa 700 kcal nei giorni di allenamento e 900 in quelli di riposo: più riso, olio e frutta secca.");
+  if (w === 8) notes.push(LEI ? "Settimana 8: scarico, test e calorie di mantenimento (circa 2.400 kcal): è Natale. Aggiungi circa 600 kcal al giorno, per esempio un panino in più a merenda e un cucchiaio d'olio in più a pranzo e a cena." : "Settimana 8: scarico in palestra e calorie di mantenimento (circa 2.750 kcal). Aggiungi al menù del giorno circa 700 kcal nei giorni di allenamento e 900 in quelli di riposo: più riso, olio e frutta secca.");
   else if (isDeload(w)) notes.push(`Settimana ${w} di scarico: circa il 40% di serie in meno, niente simulazioni. Il menù resta uguale.`);
   if (plan.moved) notes.push("Questa settimana sedute e riposi sono spostati in base ai tuoi turni.");
   $("oggiNote").hidden = !notes.length; $("oggiNote").textContent = notes.join(" ");
@@ -1959,10 +2351,11 @@ function renderOggi(){
   const slotTxt = plan.slot ? `${hm(plan.slot.start)}–${hm(plan.slot.end)}` : sess.dur;
   const sBox = $("oggiSess"), ae = document.activeElement;
   if (!(ae && sBox.contains(ae) && ae.tagName === "INPUT")){
-    const canLog = dd <= 0 && (blk.s[plan.key] || []).some(l => { const m = metaOf(l); return m && m.ex && !m.alt; });
+    const canLog = dd <= 0 && sLines(plan.key, blk, w).some(l => isLogLine(metaOf(l)));
     const u = SESS_UI[plan.key];
+    const logTxt = !LEI ? "Dopo ogni esercizio correggi i kg se ne hai usati altri e tocca com'è andata: le sedute dopo si aggiornano." : plan.key === "TM" ? "Scrivi il risultato di ogni test e tocca Salva: finisce nel Diario." : "Dopo ogni esercizio scrivi quante ne hai fatte e tocca com'è andata: la volta dopo ti dico a quanto puntare.";
     sBox.innerHTML = `
-      <div class="sv-head"><span class="eyebrow">Blocco ${blk.n} ${esc(blk.nome)}${w>=1&&w<=WEEKS?` · settimana ${w}`:""}${tipo==="train" ? ` · ${slotTxt}` : ""}</span><h2 class="sv-title">${u ? esc(u.t) : esc(sess.sotto)}</h2>${canLog ? `<p class="sv-purpose">Dopo ogni esercizio correggi i kg se ne hai usati altri e tocca com'è andata: le sedute dopo si aggiornano.</p>` : u ? `<p class="sv-purpose">${esc(u.p)}</p>` : ""}</div>
+      <div class="sv-head"><span class="eyebrow">Blocco ${blk.n} ${esc(blk.nome)}${w>=1&&w<=WEEKS?` · settimana ${w}`:""}${tipo==="train" ? ` · ${slotTxt}` : ""}</span><h2 class="sv-title">${u ? esc(u.t) : esc(sess.sotto)}</h2>${canLog ? `<p class="sv-purpose">${logTxt}</p>` : u ? `<p class="sv-purpose">${esc(u.p)}</p>` : ""}</div>
       ${sessionViewHTML(plan.key, blk, w, {log:canLog, dk})}${bevelBox(plan.key, blk, w, dk)}`;
   }
 
@@ -2028,15 +2421,15 @@ document.querySelector(".seg-tabs").addEventListener("keydown", e => {
   const order = ["allen","pasti","giornata"], i = order.indexOf(OGGI_TAB);
   OGGI_TAB = order[(i + (e.key === "ArrowRight" ? 1 : 2)) % 3]; applyTab(); $("tab-" + OGGI_TAB).focus();
 });
-const WK_FULL = {A:"Hyrox A", B:"Hyrox B", C:"Hyrox C", INT:"Ripetute", Z2:"Zona 2", R1:"Riposo", R2:"Riposo"};
-const WK_SHORT = {A:"A", B:"B", C:"C", INT:"INT", Z2:"Z2", R1:"—", R2:"—"};
+const WK_FULL = LEI ? {CAL:"Calisthenics", IA:"Casa A", IB:"Casa B", IC:"Casa C", ID:"Casa D", FA:"Forza A", FB:"Forza B", SC:"Scarico", TM:"Test", R1:"Riposo", R2:"Riposo"} : {A:"Hyrox A", B:"Hyrox B", C:"Hyrox C", INT:"Ripetute", Z2:"Zona 2", R1:"Riposo", R2:"Riposo"};
+const WK_SHORT = LEI ? {CAL:"Cal", IA:"A", IB:"B", IC:"C", ID:"D", FA:"FA", FB:"FB", SC:"Sc", TM:"Test", R1:"—", R2:"—"} : {A:"A", B:"B", C:"C", INT:"INT", Z2:"Z2", R1:"—", R2:"—"};
 function renderWeekStrip(d){
   const sel = iso(d), SC = m => Math.max(0, Math.min(100, (m - 360) / (1380 - 360) * 100));
   $("weekStrip").innerHTML = weekDays(d).map(x=>{
     const p = dayPlan(x), k = iso(x), b = blocksOf(p.turno), s = SESS[p.key];
     const segs = b.map(([a,e])=>`<i style="top:${SC(a)}%;height:${SC(e)-SC(a)}%"></i>`).join("")
       + (p.slot ? `<i class="tr" style="top:${SC(p.slot.start)}%;height:${SC(p.slot.end)-SC(p.slot.start)}%"></i>` : "");
-    const lab = `${GIORNI[dow(x)]} ${x.getDate()}: ${s.nome} ${s.sotto}${p.slot ? " " + hm(p.slot.start) + "–" + hm(p.slot.end) : ""}, ${turnoLabel(p.turno).toLowerCase()}`;
+    const lab = `${GIORNI[dow(x)]} ${x.getDate()}: ${s.nome} ${s.sotto}${p.slot ? " " + hm(p.slot.start) + "–" + hm(p.slot.end) : ""}, ${LEI ? (p.turno ? "ufficio" : "niente ufficio") : turnoLabel(p.turno).toLowerCase()}`;
     return `<button type="button" class="day ${p.tipo==="rest"?"rest":""} ${k===sel?"sel":""}" data-d="${k}" aria-pressed="${k===sel}" aria-label="${esc(lab)}">
       <small>${GIORNI[dow(x)].slice(0,3)} ${x.getDate()}</small>
       <span class="trk ${b.length?"":"free"}" aria-hidden="true">${segs}</span>
@@ -2046,7 +2439,51 @@ function renderWeekStrip(d){
   }).join("");
   $("weekStrip").querySelectorAll("button").forEach(btn=>btn.onclick=()=>{ S.oggi = parse(btn.dataset.d); $("oggiDate").value = btn.dataset.d; renderOggi(); fillQuick(); });
 }
+/* la sua giornata: ufficio, mensa, allenamento e pasti; sotto si cambia la settimana tipo */
+function renderGiornataLei(d, plan, meals){
+  const t = plan.turno, b = blocksOf(t), O = leiOffice(), wk = leiWeek(), ev = [];
+  if (b.length === 2){ ev.push({t:b[0][0], end:b[0][1], kind:"work", lab:"In ufficio"}); ev.push({t:b[1][0], end:b[1][1], kind:"work", lab:"In ufficio"}); }
+  if (plan.slot) ev.push({t:plan.slot.start, end:plan.slot.end, kind:"train", lab:`${SESS[plan.key].nome} · ${SESS[plan.key].sotto}`, where:plan.slot.when});
+  meals.forEach(m => { if (m.time != null) ev.push({t:m.time, kind:"meal", lab:`${m.label || SLOT_LAB[m.slot]}: ${m.d.name}`, where:whereAt(b, m.time)}); });
+  ev.sort((a,c) => a.t - c.t || (a.kind === "work" ? -1 : 1));
+  const opt = (v, cur, lab) => `<option value="${v}" ${v === cur ? "selected" : ""}>${lab}</option>`;
+  const g = $("giornata");
+  g.innerHTML = `
+    <div class="sec-head"><div><span class="lbl">La tua giornata</span><h2 style="padding:0;margin-top:4px">${b.length ? `Ufficio ${O.in}–${O.out}` : "Niente ufficio"}</h2></div><span class="tag">${esc(SESS[plan.key].nome)}</span></div>
+    <ol class="tl">${ev.map(e=>`<li class="tl-${e.kind}"><span class="tt">${hm(e.t)}${e.end?`<br><span class="muted">${hm(e.end)}</span>`:""}</span><span class="dot" aria-hidden="true"></span><span><span class="ttl">${esc(e.lab)}</span>${e.where?`<br><span class="small muted">${esc(e.where)}</span>`:""}</span></li>`).join("")}</ol>
+    <details id="turnoEdit" ${S.turnoOpen ? "open" : ""}><summary>Cambia la tua settimana</summary>
+      <form class="sec lw-form" id="fLeiWeek" style="margin-top:12px">
+        <div class="lw-days">${wk.map((x, i) => `<div class="lw-day"><span class="lw-n">${GIORNI[i].slice(0,3)}</span><select data-i="${i}" class="lw-t" aria-label="${GIORNI[i]}">${opt("cal", x.t, "Calisthenics")}${opt("casa", x.t, "A casa")}${opt("r", x.t, "Riposo")}</select><input type="time" data-i="${i}" class="lw-at" value="${esc(x.at || (i >= 5 ? "10:00" : "18:30"))}" aria-label="Orario di ${GIORNI[i].toLowerCase()}" ${x.t === "r" ? "disabled" : ""}></div>`).join("")}</div>
+        <div class="row">
+          <label class="f">Entrata in ufficio<input type="time" id="loIn" value="${esc(O.in)}"></label>
+          <label class="f">Mensa<input type="time" id="loMensa" value="${esc(O.mensa)}"></label>
+          <label class="f">Uscita<input type="time" id="loOut" value="${esc(O.out)}"></label>
+        </div>
+        <div class="row"><button class="btn ghost" type="submit">Salva</button><span class="msg" id="lwMsg"></span></div>
+        <p class="small muted">Le sedute a casa seguono l'ordine del piano (Ipertrofia A, B, C, D, Forza, Scarico, Test) nei giorni che scegli. La pausa mensa dura un'ora.</p>
+      </form>
+    </details>`;
+  $("turnoEdit").ontoggle = () => { S.turnoOpen = $("turnoEdit").open; };
+  g.querySelectorAll(".lw-t").forEach(sel => sel.onchange = () => { const at = g.querySelector(`.lw-at[data-i="${sel.dataset.i}"]`); at.disabled = sel.value === "r"; });
+  $("fLeiWeek").onsubmit = async e => {
+    e.preventDefault();
+    const week = [...g.querySelectorAll(".lw-t")].map(sel => { const i = +sel.dataset.i, at = g.querySelector(`.lw-at[data-i="${i}"]`).value; return sel.value === "r" ? {t:"r"} : {t:sel.value, at:/^\d\d:\d\d$/.test(at) ? at : (i >= 5 ? "10:00" : "18:30")}; });
+    const office = {in:$("loIn").value || L_OFFICE_DEF.in, mensa:$("loMensa").value || L_OFFICE_DEF.mensa, out:$("loOut").value || L_OFFICE_DEF.out};
+    const msg = $("lwMsg");
+    if (!(toMin(office.in) < toMin(office.mensa) && toMin(office.mensa) + 60 < toMin(office.out))){ msg.className = "msg err"; msg.textContent = "Controlla gli orari: entrata, poi mensa, poi uscita."; return; }
+    S.leiWeek = week; S.leiOffice = office;
+    try { localStorage.setItem("piano-hyrox-settimana", JSON.stringify({week, office})); } catch(_){}
+    let cls = "msg", tx = "Applicata in questa vista.";
+    if (S.db && S.canWrite !== false){
+      try { await S.db.doc("config/settimana").set({week, office}); cls = "msg ok"; tx = "Settimana salvata: piano, pasti e spesa si sono aggiornati."; }
+      catch(_){ cls = "msg err"; tx = "Applicata, ma non salvata: riprova con la rete."; }
+    }
+    renderAll();
+    const m2 = $("lwMsg"); if (m2){ m2.className = cls; m2.textContent = tx; }
+  };
+}
 function renderGiornata(d, plan, meals){
+  if (LEI) return renderGiornataLei(d, plan, meals);
   const t = plan.turno, b = blocksOf(t), dk = plan.dk;
   const ev = [];
   b.forEach(([x,y],i)=>ev.push({t:x, end:y, kind:"work", lab: b.length===2 ? (i===0 ? "Turno, prima parte" : "Turno, seconda parte") : "Turno in negozio"}));
@@ -2106,14 +2543,27 @@ function renderGiornata(d, plan, meals){
 /* ---------- ALIMENTAZIONE ---------- */
 function renderAlimentazione(){
   // target
-  const avgWeek = (5*TARGET.train.kcal + 2*TARGET.rest.kcal)/7;
+  const nT = LEI ? leiWeek().filter(x => x.t !== "r").length : 5;
+  const avgWeek = (nT*TARGET.train.kcal + (7-nT)*TARGET.rest.kcal)/7;
   const card = (t,lab,sub) => `<div class="card sec"><span class="eyebrow">${lab}</span><span class="kcal-big">${fmt(t.kcal)}<small> kcal</small></span>
     <div class="mac"><span class="P">Proteine ${t.P} g</span> · <span class="C">Carbo ${t.C} g</span> · <span class="F">Grassi ${t.F} g</span></div><p class="small muted">${sub}</p></div>`;
-  $("targets").innerHTML = card(TARGET.train,"Giorni di allenamento (5)","Lun, mar, gio, ven, sab. Più carboidrati a colazione e prima della seduta.")
+  const dl = t => leiWeek().map((x,i) => (t === "r" ? x.t === "r" : x.t !== "r") ? GIORNI[i].slice(0,3).toLowerCase() : null).filter(Boolean).join(", ");
+  $("targets").innerHTML = LEI
+    ? card(TARGET.train, `Giorni di allenamento (${nT})`, `${dl("t") || "nessuno"}. Più carboidrati a colazione, a pranzo e nella merenda prima della seduta.`)
+      + card(TARGET.rest, `Giorni di riposo (${7-nT})`, `${dl("r") || "nessuno"}. Stessi pasti con meno pane, pasta e frutta.`)
+    : card(TARGET.train,"Giorni di allenamento (5)","Lun, mar, gio, ven, sab. Più carboidrati a colazione e prima della seduta.")
     + card(TARGET.rest,"Giorni di riposo (2)","Mer e dom. Niente pre-allenamento, colazione con meno carboidrati.")
     + `<div class="card sec"><span class="eyebrow">Media settimanale</span><span class="kcal-big">${fmt(Math.round(avgWeek/10)*10)}<small> kcal</small></span>
-       <div class="mac">deficit ≈ ${fmt(Math.round((MANTENIMENTO-avgWeek)/10)*10)} kcal/giorno</div><p class="small muted">Circa ${fmt((MANTENIMENTO-avgWeek)*7/7700,1)} kg a settimana. Proteine a 2 g per kg di peso.</p></div>`;
-  $("calcTable").innerHTML = `<thead><tr><th>Voce</th><th class="n">Valore</th><th>Da dove arriva</th></tr></thead><tbody>
+       <div class="mac">deficit ≈ ${fmt(Math.round((MANTENIMENTO-avgWeek)/10)*10)} kcal/giorno</div><p class="small muted">Circa ${fmt((MANTENIMENTO-avgWeek)*7/7700,1)} kg a settimana. ${LEI ? "Proteine a circa 1,8 g per kg del peso obiettivo." : "Proteine a 2 g per kg di peso."}</p></div>`;
+  $("calcTable").innerHTML = LEI ? `<thead><tr><th>Voce</th><th class="n">Valore</th><th>Da dove arriva</th></tr></thead><tbody>
+    <tr><td>Metabolismo basale</td><td class="n">1.728 kcal</td><td>Formula di Mifflin-St Jeor: 95 kg, 171 cm, 26 anni</td></tr>
+    <tr><td>Consumo stimato</td><td class="n">2.150–2.600 kcal</td><td>Ufficio e circa 3.000 passi; il numero più alto nei giorni con 90' di allenamento</td></tr>
+    <tr><td>Mantenimento medio</td><td class="n">≈ ${fmt(MANTENIMENTO)} kcal</td><td>Media della settimana con 4 allenamenti</td></tr>
+    <tr><td>Proteine</td><td class="n">125 g</td><td>Proteggono il muscolo e saziano. Arrivano tutte dal cibo, niente polveri</td></tr>
+    <tr><td>Grassi</td><td class="n">60 g</td><td>Il minimo che conviene tenere per ormoni e sazietà</td></tr>
+    <tr><td>Carboidrati</td><td class="n">140–190 g</td><td>Il resto delle calorie: di più nei giorni di allenamento</td></tr>
+    <tr><td>Latticini</td><td class="n">1 al giorno</td><td>Solo senza lattosio. Il Parmigiano stagionato il lattosio non ce l'ha già di suo</td></tr>
+    <tr><td>Pranzo in mensa</td><td class="n">5 giorni</td><td>Le calorie sono una stima: conta scegliere bene, la guida è in ogni pranzo</td></tr></tbody>` : `<thead><tr><th>Voce</th><th class="n">Valore</th><th>Da dove arriva</th></tr></thead><tbody>
     <tr><td>Metabolismo basale</td><td class="n">1.726 kcal</td><td>Formula di Mifflin-St Jeor: 77 kg, 173 cm, 26 anni</td></tr>
     <tr><td>Consumo misurato dal Fitbit</td><td class="n">2.800–2.950 kcal</td><td>La tua media di questa settimana</td></tr>
     <tr><td>Mantenimento usato nel piano</td><td class="n">≈ ${fmt(MANTENIMENTO)} kcal</td><td>Un po' sotto il Fitbit: i braccialetti tendono a sovrastimare le calorie bruciate</td></tr>
@@ -2126,19 +2576,24 @@ function renderAlimentazione(){
   const R = S.menuRot, W = PLAN.weeks[R];
   $("menuRot").innerHTML = ["A","B"].map(r=>`<button type="button" data-r="${r}" aria-pressed="${r===R}">Settimana ${r}${r===rotOf(today())?" · questa":""}</button>`).join("");
   $("menuRot").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.menuRot=b.dataset.r; renderAlimentazione();});
-  $("menuDays").innerHTML = GIORNI.map((g,i)=>`<button type="button" data-d="${i}" aria-pressed="${i===S.menuDay}">${g.slice(0,3)} · ${W[i][1]==="train"?"all.":"rip."}</button>`).join("");
+  const tipoOf = i => LEI ? (leiWeek()[i].t === "r" ? "rest" : "train") : W[i][1];
+  const tagOf = i => LEI ? ({cal:"Calisthenics", casa:"Corpo libero a casa", r:"Riposo · camminata"})[leiWeek()[i].t] : W[i][2];
+  $("menuDays").innerHTML = GIORNI.map((g,i)=>`<button type="button" data-d="${i}" aria-pressed="${i===S.menuDay}">${g.slice(0,3)} · ${tipoOf(i)==="train"?"all.":"rip."}</button>`).join("");
   $("menuDays").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.menuDay=+b.dataset.d; renderAlimentazione();});
-  const meals = dayMeals(S.menuDay, R), tot = sumMac(meals.map(x=>x.m)), tipo = W[S.menuDay][1];
-  $("menuDay").innerHTML = `<div class="sec-head"><h3>${GIORNI[S.menuDay]} · ${tipo==="train"?"allenamento":"riposo"}</h3><span class="tag">${esc(W[S.menuDay][2])}</span></div>${mealRowsHTML(meals, {ctx:"menu" + R + S.menuDay, swappable:false})}`;
+  const tipo = tipoOf(S.menuDay), meals = dayMeals(S.menuDay, R, null, tipo), tot = sumMac(meals.map(x=>x.m));
+  $("menuDay").innerHTML = `<div class="sec-head"><h3>${GIORNI[S.menuDay]} · ${tipo==="train"?"allenamento":"riposo"}</h3><span class="tag">${esc(tagOf(S.menuDay))}</span></div>${mealRowsHTML(meals, {ctx:"menu" + R + S.menuDay, swappable:false})}`;
   $("menuMacros").innerHTML = `<div class="rest-head"><span class="small muted">Totale</span><b>${fmt(tot.kcal)} / ${fmt(TARGET[tipo].kcal)} kcal</b></div>${macroStackHTML(tot, TARGET[tipo])}`;
   // piatti
-  const slots = ["colazione","pranzo","pre","cena","spuntino"];
+  const slots = LEI ? ["colazione","spuntino","pranzo","merenda","cena"] : ["colazione","pranzo","pre","cena","spuntino"];
   const ids = Object.keys(PLAN.dishes).filter(id=>id!=="SG").sort((a,b)=>slots.indexOf(PLAN.dishes[a].slot)-slots.indexOf(PLAN.dishes[b].slot));
   const cell = items => items ? `<div class="items">${items.map(([k,g])=>{const [n,q]=itemLabel(k,g);return `<span class="item">${esc(n)} <b>${q}</b></span>`;}).join("")}</div><div style="margin-top:4px">${macLine(mac(items))}</div>` : `<span class="muted small">solo giorni di allenamento</span>`;
-  $("dishTable").innerHTML = `<thead><tr><th>Pasto</th><th>Piatto</th><th>Dose allenamento</th><th>Dose riposo</th></tr></thead><tbody>${ids.map(id=>{const d=PLAN.dishes[id];return `<tr><td class="small muted" style="white-space:nowrap">${SLOT_LAB[d.slot]}</td><td style="min-width:160px"><b>${esc(d.name)}</b><div class="small muted">${esc(d.prep)}</div></td><td style="min-width:240px">${cell(d.train)}</td><td style="min-width:240px">${cell(d.rest)}</td></tr>`;}).join("")}</tbody>`;
+  $("dishTable").innerHTML = `<thead><tr><th>Pasto</th><th>Piatto</th><th>Dose allenamento</th><th>Dose riposo</th></tr></thead><tbody>${ids.map(id=>{const d=PLAN.dishes[id];return `<tr><td class="small muted" style="white-space:nowrap">${SLOT_LAB[d.slot]}</td><td style="min-width:160px"><b>${esc(d.name)}</b><div class="small muted">${esc(d.prep)}</div></td><td style="min-width:240px">${d.guide ? mealBodyUL({d, tipo:"train"}) : cell(d.train)}</td><td style="min-width:240px">${d.guide ? mealBodyUL({d, tipo:"rest"}) : cell(d.rest)}</td></tr>`;}).join("")}</tbody>`;
   // sostituzioni
   const sw = (title, keys, idx, amt, unit) => `<div class="card sec"><h3>${title}</h3><table><tbody>${keys.map(k=>{const v=PLAN.foods[k][idx]; let g=Math.round(amt/v*100/5)*5; let lab=`${g} g`; if(k==="uovo"){const n=Math.round(g/55); lab=`${n} uova`;} return `<tr><td>${esc(PLAN.foods[k][0])}</td><td class="n">${lab}</td></tr>`;}).join("")}</tbody></table><p class="small muted">${unit}</p></div>`;
-  $("swaps").innerHTML =
+  $("swaps").innerHTML = LEI ?
+    sw("Carboidrati", ["pane_int","riso","pasta_int","pasta","patate","couscous","gallette","avena"], 2, 45, "Quantità equivalenti a 60 g di riso, pesate a crudo.")
+  + sw("Proteine", ["pollo","manzo","merluzzo","tonno","bresaola","uovo","albume","lenticchie"], 1, 25, "Quantità con circa 25 g di proteine. Le uova intere portano anche 17 g di grassi, le lenticchie 45 g di carboidrati.")
+  + sw("Grassi", ["olio","mandorle","noci","parmigiano","fondente"], 3, 10, "Quantità con circa 10 g di grassi. Il Parmigiano porta anche 12 g di proteine.") :
     sw("Carboidrati", ["riso","pasta_int","pasta","patate","couscous","gallette","avena","cracker"], 2, 55, "Quantità equivalenti a 70 g di riso, pesate a crudo. I cracker d'avena portano anche 20 g di grassi.")
   + sw("Proteine", ["pollo","manzo","tonno","albume","yogurt","whey","uovo"], 1, 30, "Quantità con circa 30 g di proteine. Le uova intere portano anche 20 g di grassi.")
   + sw("Grassi", ["olio","avocado","mandorle","noci","arachidi"], 3, 10, "Quantità con circa 10 g di grassi.");
@@ -2174,9 +2629,9 @@ function packLabel(k, g){
 }
 /* spesa per i giorni scelti: quantità dai piatti di quei giorni (cambi piatto compresi) */
 const SP_DAYS = [2,3,4,7];
-const FRESH = ["Frutta e verdura","Carne, pesce e uova","Latticini"];
+const FRESH = ["Frutta e verdura","Carne, pesce e uova","Latticini","Pane"];
 const PANTRY = ["Riso, pasta e cereali","Dispensa"];
-const PZ_NAME = {mela:["mela","mele"], banana:["banana","banane"], avocado:["avocado","avocado"]};
+const PZ_NAME = {mela:["mela","mele"], banana:["banana","banane"], avocado:["avocado","avocado"], clementine:["clementina","clementine"], kiwi:["kiwi","kiwi"]};
 function spState(){
   if (!S.sp){
     let s = null; try { s = JSON.parse(localStorage.getItem("piano-hyrox-sp") || "null"); } catch(_){}
@@ -2189,7 +2644,7 @@ function spDates(){ const s = spState(), d0 = parse(s.start), out = []; for (let
 function spDayMeals(d){ const p = dayPlan(d), dk = iso(d); return {d, dk, tipo:p.tipo, meals:dayMeals(dow(d), rotOf(d), dk, p.tipo)}; }
 function spTotals(){
   const t = {}; let n = 0;
-  for (const d of spDates()) for (const m of spDayMeals(d).meals){ if (m.id === "SG") continue; n++; for (const [k,g] of m.items) t[k] = (t[k] || 0) + g; }
+  for (const d of spDates()) for (const m of spDayMeals(d).meals){ if (m.id === "SG" || m.d.mensa) continue; n++; for (const [k,g] of m.items) t[k] = (t[k] || 0) + g; }
   return {t, n};
 }
 function buyQty(k, g){
@@ -2197,6 +2652,7 @@ function buyQty(k, g){
   if (k === "uovo"){ const n = Math.max(1, Math.ceil(g/55 - 0.05)); return `${n} ${n === 1 ? "uovo" : "uova"}`; }
   if (P.pz){ const n = Math.max(1, Math.ceil(g/P.pz - 0.15)), nm = PZ_NAME[k] || ["pezzo","pezzi"]; return `${n} ${n === 1 ? nm[0] : nm[1]}`; }
   if (k === "olio") return `${Math.ceil(g/0.92/5)*5} ml`;
+  if (P.ml) return `${Math.ceil(g/50)*50} ml`;
   const r = g < 100 ? Math.ceil(g/5)*5 : Math.ceil(g/10)*10;
   return r >= 1000 ? `${fmt(r/1000, 2)} kg` : `${r} g`;
 }
@@ -2224,12 +2680,12 @@ function renderSpesa(){
   $("spStart").min = iso(today());
   $("spDays").innerHTML = SP_DAYS.map(d => `<button type="button" data-d="${d}" aria-pressed="${d === s.days}">${d} giorni</button>`).join("");
   const last = dates[dates.length - 1];
-  $("spRange").textContent = `Da ${fmtDateLong(dates[0]).toLowerCase()} a ${fmtDateLong(last).toLowerCase()} · ${n} pasti`;
+  $("spRange").textContent = `Da ${fmtDateLong(dates[0]).toLowerCase()} a ${fmtDateLong(last).toLowerCase()} · ${n} pasti${LEI ? " a casa o da portare, la mensa esclusa" : ""}`;
   $("spDishes").innerHTML = dates.map((d, i) => {
     const x = spDayMeals(d), key = `sp|${x.dk}`, open = S.mealOpen[key] === undefined ? i === 0 : S.mealOpen[key];
     return `<details class="spday" data-mk="${key}" ${open ? "open" : ""}>
       <summary><span class="sd-d">${GIORNI[dow(d)]} ${d.getDate()} ${MESI[d.getMonth()]}</span><span class="sd-m">${x.tipo === "train" ? "allenamento" : "riposo"} · ${x.meals.length} pasti</span><span class="chev">${CHEV}</span></summary>
-      <div class="sd-body">${x.meals.map(m => `<label class="sd-row"><span class="mr-s">${esc(m.label || SLOT_LAB[m.slot])}</span><select class="swap" data-dk="${x.dk}" data-slot="${m.slot}" aria-label="${esc((m.label || SLOT_LAB[m.slot]) + " di " + GIORNI[dow(d)].toLowerCase())}">${dishOptions(m.slot, m.tipo, m.id, m.def)}</select></label>`).join("")}</div>
+      <div class="sd-body">${x.meals.map(m => `<label class="sd-row"><span class="mr-s">${esc(m.label || SLOT_LAB[m.slot])}</span><select class="swap" data-dk="${x.dk}" data-slot="${m.slot}" aria-label="${esc((m.label || SLOT_LAB[m.slot]) + " di " + GIORNI[dow(d)].toLowerCase())}">${dishOptions(m.slot, m.tipo, m.id, m.def, x.dk)}</select></label>`).join("")}</div>
     </details>`;
   }).join("");
   const row = i => `<li class="spi"><span class="spi-n">${esc(i.name)}</span><span class="spi-q">${esc(i.qty)}</span><span class="spi-p">${esc(i.pack)}</span><span class="spi-c">${fmt(i.cost, 2)} €</span></li>`;
@@ -2287,7 +2743,9 @@ function renderAllenamento(){
   $("race").innerHTML = RACE.map(([n,w],i)=>`<div class="st"><span class="k">${i+1} · dopo 1 km</span><span class="sn">${n}</span><span class="sw">${w}</span></div>`).join("");
   const tw = weekOf(today()), twc = clampW(tw);
   if (S.alWeek == null) S.alWeek = twc;
-  if (S.alSess == null){ const p = dayPlan(today()); S.alSess = AL_LAB[p.key] ? p.key : "A"; }
+  const alKeys = LEI ? [...new Set([...(leiWeek().some(x => x.t === "cal") ? ["CAL"] : []), ...L_SCHED[clampW(S.alWeek)-1]])] : Object.keys(AL_LAB);
+  if (S.alSess == null){ const p = dayPlan(today()); S.alSess = alKeys.includes(p.key) ? p.key : LEI ? L_SCHED[clampW(S.alWeek)-1][0] : "A"; }
+  if (!alKeys.includes(S.alSess)) S.alSess = LEI ? L_SCHED[clampW(S.alWeek)-1][0] : "A";
   const w = S.alWeek, blk = blockOf(w), k = S.alSess, u = SESS_UI[k];
   $("alLbl").textContent = tw < 1 ? "Si parte lunedì 2 novembre" : tw > WEEKS ? "Piano completato" : `Settimana ${tw} di ${WEEKS}`;
   $("alBlock").innerHTML = BLOCKS.map(b => `<option value="${b.n}" ${b.n === blk.n ? "selected" : ""}>Blocco ${b.n} · ${b.nome}</option>`).join("");
@@ -2297,8 +2755,9 @@ function renderAllenamento(){
     }).join("")}</div>`).join("")}</div><div class="p16-l">${BLOCKS.map(b => `<span class="${b.n === blk.n ? "on" : ""}">${b.nome}</span>`).join("")}</div>`;
   $("alWeeks").innerHTML = [0,1,2,3].map(i => { const v = blk.w[0] + i; return `<button type="button" data-w="${v}" aria-pressed="${v === w}">${isDeload(v) ? "Scarico" : `Sett. ${v}`}${v === twc && tw >= 1 ? " · ora" : ""}</button>`; }).join("");
   $("alFocus").textContent = blk.focus.split(". ")[0].replace(/\.$/, "") + ".";
-  $("alSess").innerHTML = Object.keys(AL_LAB).map(x => `<button type="button" role="tab" data-k="${x}" aria-selected="${x === k}">${AL_LAB[x]}</button>`).join("");
-  $("alCard").innerHTML = `<div class="sv-head"><span class="eyebrow">Di solito ${u.d} · ${SESS[k].dur}</span><h2 class="sv-title">${esc(u.t)}</h2><p class="sv-purpose">${esc(u.p)}</p></div>${sessionViewHTML(k, blk, w, {})}${planTrendHTML(k, blk, w)}${bevelBox(k, blk, w)}`;
+  $("alSess").innerHTML = alKeys.map(x => `<button type="button" role="tab" data-k="${x}" aria-selected="${x === k}">${LEI ? SESS[x].nome : AL_LAB[x]}</button>`).join("");
+  const usual = LEI ? (k === "CAL" ? `Di solito ${leiDayNames("cal")}` : `Settimana ${w} · a casa, ${leiDayNames("casa")}`) : `Di solito ${u.d}`;
+  $("alCard").innerHTML = `<div class="sv-head"><span class="eyebrow">${esc(usual)} · ${SESS[k].dur}</span><h2 class="sv-title">${esc(u.t)}</h2><p class="sv-purpose">${esc(u.p)}</p></div>${sessionViewHTML(k, blk, w, {})}${LEI ? leiTrendHTML(k, w) : planTrendHTML(k, blk, w)}${bevelBox(k, blk, w)}`;
 }
 $("alProg").addEventListener("click", e => { const b = e.target.closest("[data-w]"); if (!b) return; S.alWeek = +b.dataset.w; renderAllenamento(); });
 $("alWeeks").addEventListener("click", e => { const b = e.target.closest("[data-w]"); if (!b) return; S.alWeek = +b.dataset.w; renderAllenamento(); });
@@ -2327,7 +2786,7 @@ function renderChart(){
   let x0 = START, x1 = end;
   if (S.peso.length){ const f = parse(S.peso[0].data), l = parse(S.peso[S.peso.length-1].data); if (f < x0) x0 = f; if (l > x1) x1 = l; }
   const kgs = S.peso.map(p=>p.kg);
-  const ymin = Math.floor(Math.min(68, ...kgs) - .5), ymax = Math.ceil(Math.max(78, ...kgs) + .5);
+  const ymin = Math.floor(Math.min(OBIETTIVO - 2, ...kgs) - .5), ymax = Math.ceil(Math.max(PESO_START + 1, ...kgs) + .5);
   const X = d => m.l + (dayDiff(d, x0)/Math.max(1,dayDiff(x1,x0)))*(W-m.l-m.r);
   const Y = v => m.t + (ymax - v)/(ymax-ymin)*(H-m.t-m.b);
   let g = "";
@@ -2344,7 +2803,7 @@ function renderChart(){
   g += `<line class="g-goal" x1="${m.l}" x2="${W-m.r}" y1="${Y(OBIETTIVO)}" y2="${Y(OBIETTIVO)}"/><text class="g-goaltxt" x="${W-m.r-4}" y="${Y(OBIETTIVO)-6}" text-anchor="end">obiettivo &lt; ${OBIETTIVO} kg</text>`;
   // proiezione: -0,7 kg/sett, pausa in settimana 8, piano sotto i 70
   const pts = []; let v = PESO_START;
-  for (let w = 0; w <= WEEKS; w++){ const d = new Date(START); d.setDate(d.getDate()+w*7); pts.push([X(d), Y(v)]); if (w+1 !== 8 && v > OBIETTIVO-0.5) v -= 0.7; }
+  for (let w = 0; w <= WEEKS; w++){ const d = new Date(START); d.setDate(d.getDate()+w*7); pts.push([X(d), Y(v)]); if (w+1 !== 8 && v > OBIETTIVO-0.5) v -= CALO_SETT; }
   g += `<polyline class="g-proj" points="${pts.map(p=>p.join(",")).join(" ")}"/>`;
   // punti e media
   if (S.peso.length){
@@ -2357,7 +2816,7 @@ function renderChart(){
     g += `<text class="g-empty" x="${(W)/2}" y="${H/2-30}" text-anchor="middle">Nessuna pesata ancora: aggiungi la prima qui sotto.</text>`;
   }
   $("chart").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Andamento del peso">${g}</svg>`;
-  $("legend").innerHTML = `<span><i style="background:var(--accent)"></i>media 7 giorni</span><span><i style="background:var(--muted)"></i>proiezione −0,7 kg/sett.</span><span><i style="background:var(--good)"></i>obiettivo</span>`;
+  $("legend").innerHTML = `<span><i style="background:var(--accent)"></i>media 7 giorni</span><span><i style="background:var(--muted)"></i>proiezione −${fmt(CALO_SETT,1)} kg/sett.</span><span><i style="background:var(--good)"></i>obiettivo</span>`;
 }
 function weeklyRows(){
   // raggruppa per settimana di piano
@@ -2380,7 +2839,7 @@ function renderDiario(){
   $("weekTable").innerHTML = rows.length ? `<thead><tr><th>Settimana</th><th class="n">Pesate</th><th class="n">Media</th><th class="n">Variazione</th><th class="n">Vita</th><th class="n">Sessioni</th></tr></thead><tbody>${rows.slice().reverse().map(r=>{
       let dc = "", dt = "—";
       if (r.delta!==null){ dt = `${r.delta>0?"+":""}${fmt(r.delta,2)} kg`; dc = r.w===8 ? "" : r.delta<=-0.4 && r.delta>=-1.0 ? "chip-ok" : r.delta<-1.0 ? "chip-warn" : "chip-bad"; }
-      return `<tr><td>${r.w<1?"Prima del piano":`Sett. ${r.w}`}${isDeload(r.w)?' <span class="small muted">scarico</span>':""}</td><td class="n">${r.n}</td><td class="n"><b>${fmt(r.media,1)}</b> kg</td><td class="n ${dc}">${dt}</td><td class="n">${r.vita?fmt(r.vita,1)+" cm":"—"}</td><td class="n">${r.w>=1?`${r.sess}/5`:"—"}</td></tr>`;
+      return `<tr><td>${r.w<1?"Prima del piano":`Sett. ${r.w}`}${isDeload(r.w)?' <span class="small muted">scarico</span>':""}</td><td class="n">${r.n}</td><td class="n"><b>${fmt(r.media,1)}</b> kg</td><td class="n ${dc}">${dt}</td><td class="n">${r.vita?fmt(r.vita,1)+" cm":"—"}</td><td class="n">${r.w>=1?`${r.sess}/${LEI ? leiWeek().filter(x => x.t !== "r").length : 5}`:"—"}</td></tr>`;
     }).join("")}</tbody>` : `<tbody><tr><td class="muted">Il riepilogo settimanale compare dalla prima pesata: media, variazione rispetto alla settimana prima, vita e sessioni completate.</td></tr></tbody>`;
   // consiglio automatico
   const full = rows.filter(r=>r.n>=4 && r.w>=2 && r.w!==8 && r.w!==9);
@@ -2389,7 +2848,7 @@ function renderDiario(){
     const [a,b] = full.slice(-2);
     if (a.delta!==null && b.delta!==null){
       if (a.delta>-0.4 && b.delta>-0.4) adv = "Due settimane di fila sotto gli 0,4 kg di calo: se anche la vita non scende, aggiungi 2.000 passi al giorno (vedi Regole).";
-      else if (b.delta<-1.0) adv = "Stai calando più di 1 kg a settimana: aggiungi 150 kcal di carboidrati nei giorni Hyrox per proteggere muscolo e prestazioni.";
+      else if (b.delta<-1.0) adv = `Stai calando più di 1 kg a settimana: aggiungi 150 kcal di carboidrati nei giorni ${LEI ? "di allenamento" : "Hyrox"} per proteggere muscolo e prestazioni.`;
       else adv = "Il ritmo di calo è nella fascia giusta: non cambiare nulla.";
     }
   }
@@ -2400,7 +2859,8 @@ function renderDiario(){
   $("sessTable").innerHTML = ss.length ? `<thead><tr><th>Data</th><th>Sessione</th><th class="n">Durata</th><th class="n">FC media</th><th class="n">RPE</th><th>Nota</th><th></th></tr></thead><tbody>${ss.map(s=>`<tr><td style="white-space:nowrap">${fmtDate(parse(s.data))}</td><td>${esc((SESS[s.chiave]||{}).nome||s.chiave)} · ${esc((SESS[s.chiave]||{}).sotto||"")}</td><td class="n">${s.durata?s.durata+"'":"—"}</td><td class="n">${s.fc||"—"}</td><td class="n">${s.rpe||"—"}</td><td class="small">${esc(s.nota||"")}</td><td class="n">${delBtn("sessioni",s.id)}</td></tr>`).join("")}</tbody>` : `<tbody><tr><td class="muted">Nessuna sessione registrata. Usa il modulo qui sopra o il pulsante "Segna come fatta" nella pagina Oggi.</td></tr></tbody>`;
   // test
   const ts = S.test.slice().sort((a,b)=>a.prova.localeCompare(b.prova) || a.data.localeCompare(b.data));
-  $("testTable").innerHTML = ts.length ? `<thead><tr><th>Prova</th><th>Data</th><th class="n">Risultato</th><th>Nota</th><th></th></tr></thead><tbody>${ts.map(t=>`<tr><td>${esc(t.prova)}</td><td>${fmtDate(parse(t.data))}</td><td class="n"><b>${esc(t.valore)}</b></td><td class="small">${esc(t.nota||"")}</td><td class="n">${delBtn("test",t.id)}</td></tr>`).join("")}</tbody>` : `<tbody><tr><td class="muted">Nessun test ancora. Il primo giro va fatto nella settimana 1: 1 km a tutta, SkiErg e remo 1000 m, 100 wall balls.</td></tr></tbody>`;
+  $("testTable").innerHTML = ts.length ? `<thead><tr><th>Prova</th><th>Data</th><th class="n">Risultato</th><th>Nota</th><th></th></tr></thead><tbody>${ts.map(t=>`<tr><td>${esc(t.prova)}</td><td>${fmtDate(parse(t.data))}</td><td class="n"><b>${esc(t.valore)}</b></td><td class="small">${esc(t.nota||"")}</td><td class="n">${delBtn("test",t.id)}</td></tr>`).join("")}</tbody>` : `<tbody><tr><td class="muted">${LEI ? "Nessun test ancora. Il primo è nella seduta Test massimale della settimana 1: segni i risultati direttamente lì." : "Nessun test ancora. Il primo giro va fatto nella settimana 1: 1 km a tutta, SkiErg e remo 1000 m, 100 wall balls."}</td></tr></tbody>`;
+  if (LEI){ renderRipLei(); wireDel(); return; }
   // carichi
   const before = tomorrowIso(), tw0 = clampW(weekOf(today())), order = [];
   for (const b of BLOCKS) for (const k of ["A","B"]) for (const l of b.s[k]){ const m = metaOf(l); if (m && m.ex && !m.alt) for (const e of [m.ex, m.sw && m.sw[1]]) if (e && !order.includes(e)) order.push(e); }
@@ -2418,6 +2878,16 @@ function renderDiario(){
   const lp = S.peso.slice().reverse().slice(0,14);
   $("pesoTable").innerHTML = lp.length ? `<thead><tr><th>Data</th><th class="n">Peso</th><th class="n">Vita</th><th>Nota</th><th></th></tr></thead><tbody>${lp.map(p=>`<tr><td style="white-space:nowrap">${fmtDate(parse(p.data))}</td><td class="n">${fmt(p.kg,1)} kg</td><td class="n">${p.vita?fmt(p.vita,1)+" cm":"—"}</td><td class="small">${esc(p.nota||"")}</td><td class="n">${delBtn("peso",p.id)}</td></tr>`).join("")}</tbody>` : `<tbody><tr><td class="muted">Le ultime 14 pesate compaiono qui.</td></tr></tbody>`;
   wireDel();
+}
+function renderRipLei(){
+  const by = new Map();
+  for (const r of S.rip.slice().sort((a,b) => a.data.localeCompare(b.data))) by.set(r.ex, r);
+  const nameOf = id => { const f = id.replace(/\d+$/, ""), i = Number(id.slice(f.length)) || 0; return L_FAM[f] ? L_FAM[f].n[i] || L_FAM[f].n[0] : id; };
+  const rows = [...by.values()].sort((a,b) => b.data.localeCompare(a.data));
+  $("ripTable").innerHTML = rows.length ? `<thead><tr><th>Esercizio</th><th class="n">Ultima volta</th></tr></thead><tbody>${rows.map(r => `<tr><td><b>${esc(nameOf(r.ex))}</b><div class="small muted">${fmtDate(parse(r.data))} · ${ESITO[r.esito] ? ESITO[r.esito].lab.toLowerCase() : ""}</div></td><td class="n"><b>${fmt(r.n)}</b> ${bwUnit(r.u)}</td></tr>`).join("")}</tbody>`
+    : `<tbody><tr><td class="muted">Nessuna serie segnata. Nella pagina Oggi, sotto ogni esercizio, scrivi quante ne hai fatte e tocca Leggero, Giusto o Pesante.</td></tr></tbody>`;
+  const cl = S.rip.slice().sort((a,b) => b.data.localeCompare(a.data) || a.ex.localeCompare(b.ex)).slice(0, 40);
+  $("ripLog").innerHTML = cl.length ? `<thead><tr><th>Data</th><th>Esercizio</th><th class="n">Fatte</th><th>Com'è andata</th><th></th></tr></thead><tbody>${cl.map(r => `<tr><td style="white-space:nowrap">${fmtDate(parse(r.data))}</td><td>${esc(nameOf(r.ex))}</td><td class="n"><b>${fmt(r.n)}</b> ${bwUnit(r.u)}</td><td>${ESITO[r.esito] ? ESITO[r.esito].lab : ""}</td><td class="n">${delBtn("rip", r.id)}</td></tr>`).join("")}</tbody>` : "";
 }
 function delBtn(col,id){ return S.db ? `<button type="button" class="linkbtn danger" data-del="${col}|${esc(id)}">Elimina</button>` : ""; }
 function wireDel(){
@@ -2498,14 +2968,14 @@ function renderAll(){ renderHeader(); renderOggi(); renderAlimentazione(); rende
 /* ---------- avvio ---------- */
 S.oggi = today(); $("oggiDate").value = iso(S.oggi);
 $("sKey").innerHTML = LOGGABLE.map(k=>`<option value="${k}">${SESS[k].nome} · ${SESS[k].sotto}</option>`).join("");
-{ const tp = dayPlan(today()); $("sKey").value = LOGGABLE.includes(tp.key) ? tp.key : "A"; }
+{ const tp = dayPlan(today()); $("sKey").value = LOGGABLE.includes(tp.key) ? tp.key : LOGGABLE[0]; }
 $("tProva").innerHTML = TESTS.map(t=>`<option>${t}</option>`).join("");
 $("sData").value = $("tData").value = $("pData").value = iso(today());
 route(); renderAll(); fillQuick();
 
 /* ---------- sezioni richiudibili ----------
    Ogni contenitore con data-fold ha una freccia nell'intestazione; lo stato resta su questo dispositivo. */
-const FOLD_CLOSED = new Set(["ali-macro","ali-piatti","ali-swap","ali-integ","all-gara","all-settimana","all-prog","all-s-A","all-s-INT","all-s-B","all-s-Z2","all-s-C","dia-storico","dia-sess","dia-test","spesa-info","spesa-prezzi"]);
+const FOLD_CLOSED = new Set(["ali-macro","ali-piatti","ali-swap","ali-integ","all-gara","all-settimana","all-prog","all-s-A","all-s-INT","all-s-B","all-s-Z2","all-s-C","dia-storico","dia-sess","dia-test","spesa-info","spesa-prezzi","all-come","dia-rip","reg-lei"]);
 let FOLD = {};
 try { FOLD = JSON.parse(localStorage.getItem("piano-hyrox-fold") || "{}") || {}; } catch(_){ FOLD = {}; }
 const isFolded = k => (k in FOLD) ? !!FOLD[k] : FOLD_CLOSED.has(k);
@@ -2603,6 +3073,10 @@ function subscribeAll(db){
   db.collection("peso").orderBy("data").onSnapshot(snap=>{ S.peso = snap.docs.map(d=>({id:d.id, ...d.data()})).filter(p=>typeof p.kg==="number"); renderAll(); if (document.activeElement!==$("qPeso")) fillQuick(); }, onErr);
   db.collection("sessioni").onSnapshot(snap=>{ S.sessioni = snap.docs.map(d=>({id:d.id, ...d.data()})); renderOggi(); renderDiario(); }, onErr);
   db.collection("test").onSnapshot(snap=>{ S.test = snap.docs.map(d=>({id:d.id, ...d.data()})); renderDiario(); }, onErr);
+  if (LEI){
+    db.collection("rip").onSnapshot(snap=>{ S.rip = snap.docs.map(d=>({id:d.id, ...d.data()})).filter(r => typeof r.n === "number" && typeof r.data === "string" && typeof r.ex === "string"); renderOggi(); renderDiario(); }, onErr);
+    db.doc("config/settimana").onSnapshot(snap=>{ if (!snap.exists) return; const d = snap.data() || {}; if (Array.isArray(d.week) && d.week.length === 7){ S.leiWeek = d.week; S.leiOffice = d.office || null; try { localStorage.setItem("piano-hyrox-settimana", JSON.stringify({week:d.week, office:d.office || null})); } catch(_){} renderAll(); } }, onErr);
+  }
   db.collection("carichi").onSnapshot(snap=>{ S.carichi = snap.docs.map(d=>({id:d.id, ...d.data()})).filter(l=>EX[l.ex] && typeof l.kg==="number" && typeof l.data==="string"); renderOggi(); renderAllenamento(); renderDiario(); }, onErr);
   db.doc("config/prezzi").onSnapshot(snap=>{ const d = snap.exists ? snap.data() : {}; const clean = {}; for (const [k,v] of Object.entries(d||{})) if (PRICES[k] && typeof v==="number" && v>0) clean[k]=v; S.prezzi = clean; renderSpesa(); }, onErr);
   db.collection("turni").onSnapshot(snap=>{ const o = {}; snap.docs.forEach(x=>{ o[x.id] = x.data(); }); S.turni = o; _assign.clear(); renderOggi(); }, onErr);
@@ -2698,17 +3172,48 @@ function showAuth(text){
   setTimeout(() => { const e = $("aEmail"); if (e && !e.value) e.focus(); }, 50);
 }
 function startApp(user, offline){
+  const md = user.user_metadata || {}, prof = offline ? (user.profilo || "jacopo") : (md.profilo === "lei" ? "lei" : "jacopo"), nome = String((offline ? user.nome : md.nome) || "").trim();
+  let stored = false;
+  try { localStorage.setItem("piano-hyrox-user", JSON.stringify({id:user.id, email:user.email || "", profilo:prof, nome})); stored = JSON.parse(localStorage.getItem("piano-hyrox-user")).profilo === prof; } catch(_){}
+  if (stored && PLAN_L && ((prof === "lei") !== LEI || (LEI && nome !== NOME))){ location.reload(); return; }
   $("auth").hidden = true;
   S.user = null; S.canWrite = null;
-  try { localStorage.setItem("piano-hyrox-user", JSON.stringify({id:user.id, email:user.email || ""})); } catch(_){}
   $("acctTxt").textContent = `Hai fatto l'accesso come ${user.email || "utente"}${offline ? " (senza rete: dati dell'ultima apertura)" : ""}.`;
   S.db = makeDb(S.sb, user.id);
   subscribeAll(S.db);
   renderDiario();
-  if (!offline) syncTurni();
+  if (!offline && !LEI) syncTurni();
+  if (!offline && !LEI) loadInviti();
+}
+/* invito: Jacopo scrive nome ed email della ragazza, lei crea la password dal primo accesso */
+async function loadInviti(){
+  const box = $("invList"); if (!box || !S.sb) return;
+  try {
+    const {data, error} = await S.sb.functions.invoke("invita", {method:"GET"});
+    if (error) throw error;
+    const list = (data && data.inviti) || [];
+    box.innerHTML = list.length ? list.map(x => `<li><span><b>${esc(x.nome)}</b><br><span class="small muted">${esc(x.email)}</span></span><span class="tag ${x.attivo ? "train" : ""}">${x.attivo ? "account creato" : "in attesa del primo accesso"}</span></li>`).join("") : "";
+    box.hidden = !list.length;
+  } catch(_){ box.hidden = true; }
+}
+function wireInvito(){
+  const f = $("fInvita"); if (!f) return;
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    const nome = $("invNome").value.trim(), email = $("invEmail").value.trim().toLowerCase(), msg = $("invMsg");
+    if (!nome || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.className = "msg err"; msg.textContent = "Scrivi il nome e un'email valida."; return; }
+    msg.className = "msg"; msg.textContent = "Salvo l'invito…";
+    try {
+      const {error} = await S.sb.functions.invoke("invita", {body:{nome, email}});
+      if (error){ let tx = "Invito non riuscito, riprova tra poco."; try { const j = await error.context.json(); if (j && j.error) tx = j.error; } catch(_){} throw new Error(tx); }
+      msg.className = "msg ok"; msg.textContent = `Fatto. Ora ${nome} apre piano-hyrox.vercel.app, tocca "Primo accesso", scrive ${email} e sceglie la sua password.`;
+      $("invNome").value = ""; $("invEmail").value = "";
+      loadInviti();
+    } catch(err){ msg.className = "msg err"; msg.textContent = err.message; }
+  });
 }
 async function logout(){
-  try { if (S.db) S.db.clear(); localStorage.removeItem("piano-hyrox-user"); } catch(_){}
+  try { if (S.db) S.db.clear(); ["piano-hyrox-user","piano-hyrox-swaps","piano-hyrox-sp","piano-hyrox-shop","piano-hyrox-settimana"].forEach(k => localStorage.removeItem(k)); } catch(_){}
   try { await S.sb.auth.signOut(); } catch(_){}
   location.hash = "#oggi"; location.reload();
 }
@@ -2750,6 +3255,7 @@ async function pwaInit(){
   root.classList.add("pwa");
   if (navigator.standalone || (window.matchMedia && matchMedia("(display-mode: standalone)").matches)) root.classList.add("standalone");
   wireAuth();
+  wireInvito();
   document.addEventListener("click", e => { if (e.target.closest && e.target.closest("[data-logout]")) logout(); });
   $("appReload").onclick = () => location.reload();
   if (!window.supabase || !window.supabase.createClient){ showAuth("Non riesco a caricare l'app: controlla la connessione e riaprila."); return; }
@@ -2765,7 +3271,7 @@ async function pwaInit(){
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState !== "visible" || !S.db) return;
     S.db.refresh();
-    if (Date.now() - (S.lastSync || 0) > 30 * 60e3) syncTurni();
+    if (!LEI && Date.now() - (S.lastSync || 0) > 30 * 60e3) syncTurni();
   });
 }
 
