@@ -306,6 +306,11 @@ table.sv-t2 td:last-child,table.sv-t2 th:last-child{text-align:right}
 .lw-days{display:flex;flex-direction:column;gap:6px}
 .lw-day{display:grid;grid-template-columns:40px minmax(0,1fr) 112px;gap:8px;align-items:center}
 .lw-at:disabled{visibility:hidden}
+.integ ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.integ .shop-item{background:var(--in);min-height:58px;padding:10px 14px}
+.integ .shop-item .nm{font-size:15px}
+.integ .shop-item[disabled]{cursor:default}
+.integ .shop-item[disabled] .ck{opacity:.45}
 .lw-n{font-weight:600}
 .lw-day select,.lw-day input{min-width:0;width:100%}
 .inv-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
@@ -738,6 +743,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
   </div>
   <div class="tab-panel pasti-panel" id="panel-pasti" role="tabpanel" aria-labelledby="tab-pasti" hidden>
     <div id="oggiNext"></div>
+    <section class="card sec integ only-j" id="oggiInteg" aria-label="Integratori di oggi"></section>
     <section class="card sec rest-card">
       <div class="rest-head"><h2 class="h-card" id="oggiRestTitle">Il resto di oggi</h2><span id="oggiKcal"></span></div>
       <div id="oggiMacros"></div>
@@ -804,9 +810,10 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
     <div class="tw"><table>
       <thead><tr><th>Cosa</th><th>Dose</th><th>Perché</th></tr></thead>
       <tbody>
-        <tr><td>Omega-3 (olio di pesce)</td><td class="mono">1–2 g di EPA+DHA al giorno</td><td>A casa non mangi pesce: copre il fabbisogno. Guarda in etichetta EPA+DHA, non il totale olio.</td></tr>
-        <tr><td>Creatina monoidrato</td><td class="mono">3–5 g al giorno, sempre</td><td>L'integratore più studiato per forza e massa. Orario indifferente. Può dare +1 kg d'acqua sulla bilancia le prime settimane.</td></tr>
-        <tr><td>Proteine in polvere (Myprotein Impact Whey vaniglia)</td><td class="mono">1 misurino da 30 g = 22 g di proteine</td><td>Le hai già: sono nel menù in un porridge, uno shake pre-allenamento e uno spuntino. Valori dell'etichetta del gusto vaniglia.</td></tr>
+        <tr><td>Creatina monoidrato</td><td class="mono">5 g al giorno, con la colazione</td><td>Ce l'hai. Tutti i giorni, anche di riposo: conta la costanza, non l'orario, e non serve la fase di carico. Aiuta forza e sforzi brevi ripetuti (slitta, wall ball, stazioni). Le prime settimane porta circa 1 kg d'acqua sulla bilancia: non è grasso.</td></tr>
+        <tr><td>Omega-3 (olio di pesce)</td><td class="mono">1–2 g di EPA+DHA, con la cena</td><td>Ce l'hai. A casa non mangi pesce: copre il fabbisogno. Con un pasto che ha dei grassi si assorbe meglio. In etichetta guarda EPA+DHA, non il totale olio.</td></tr>
+        <tr><td>Proteine in polvere (Myprotein Impact Whey vaniglia)</td><td class="mono">Solo quelle del menù, circa 40 g a settimana</td><td>Le hai già: sono nel porridge, nello shake pre-allenamento e in uno spuntino. 600 g bastano per circa 15 settimane, quasi tutto il piano.</td></tr>
+        <tr><td>Gel di carboidrati</td><td class="mono">1 ogni 30–40' oltre la prima ora</td><td>Ne hai 10. Le sedute del piano durano al massimo 75' e non servono: tienili per le simulazioni lunghe e per la gara. Se uno sostituisce lo spuntino pre-allenamento saltato, contalo: circa 100 kcal.</td></tr>
         <tr><td>Caffè (facoltativo)</td><td class="mono">1–2 caffè 45' prima</td><td>Utile prima delle sessioni dure. Evitalo dopo le 16 se ti alleni tardi e dormi male.</td></tr>
         <tr><td>Acqua</td><td class="mono">2,5–3 L + 0,5–0,75 L per ora di allenamento</td><td>Nelle sessioni oltre i 60' aggiungi un pizzico di sale o elettroliti.</td></tr>
         <tr><td>Vitamina D</td><td class="mono">Solo dopo esami</td><td>D'inverno è spesso bassa: chiedi al medico un dosaggio prima di integrarla.</td></tr>
@@ -1041,6 +1048,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
         <li>Ogni mattina, dopo il bagno, prima di bere e mangiare.</li>
         <li>Guarda solo la media settimanale: il peso del singolo giorno oscilla di 1 kg per acqua, sale e carboidrati.</li>
         <li>Una volta a settimana misura la vita all'altezza dell'ombelico, rilassato.</li>
+        <li>Le prime 2–3 settimane la creatina aggiunge circa 1 kg d'acqua: se il peso non scende, guarda la vita.</li>
       </ul></div>
       <div class="card"><h3>Quando cambiare le calorie</h3><ul class="plain">
         <li><b>Calo sotto 0,4 kg a settimana per 2 settimane</b>: prima aggiungi 2.000 passi al giorno. Se non basta, togli 100 kcal nei giorni di riposo. Non scendere sotto 1.700.</li>
@@ -1538,7 +1546,7 @@ const S = {
   db:null, user:null, canWrite:null,
   menuDay:0, blockSel:null, oggi:null,
   menuRot:null, spesaRot:null, swaps:{}, prezzi:{},
-  rip:[], leiWeek:null, leiOffice:null,
+  rip:[], leiWeek:null, leiOffice:null, integ:{},
   turni:{}, giornata:{commute:25, pranzoNegozio:true}, mcp:null, syncInfo:"", syncCls:"", turnoOpen:false
 };
 try { S.swaps = JSON.parse(localStorage.getItem("piano-hyrox-swaps") || "{}") || {}; } catch(_) { S.swaps = {}; }
@@ -2376,6 +2384,7 @@ function renderOggi(){
   $("oggiKcal").textContent = `Menù ${rot} · ${fmt(tot.kcal)} / ${fmt(TARGET[tipo].kcal)} kcal`;
   $("oggiMacros").innerHTML = macroStackHTML(tot, TARGET[tipo]);
   $("oggiMeals").innerHTML = mealRowsHTML(others.map(o => o.m), {ctx:dk, swappable:true, done:others.map(o => doneOf(o.i))});
+  renderInteg(dk, plan, T, dd);
   $("panel-pasti").querySelectorAll("select.swap").forEach(sel=>sel.onchange=()=>{
     const key = `${dk}|${sel.dataset.slot}`, def = meals.find(m=>m.slot===sel.dataset.slot).def;
     if (sel.value===def) delete S.swaps[key]; else S.swaps[key] = sel.value;
@@ -2405,6 +2414,37 @@ function renderOggi(){
   $("qPesoInfo").textContent = m7 !== null ? `Media 7 giorni ${fmt(m7,1)} kg · mancano ${fmt(Math.max(0, m7-(OBIETTIVO-0.1)),1)} kg` : "Pesati al mattino, prima di colazione";
   applyTab();
 }
+/* integratori del giorno (solo Jacopo): orari agganciati ai pasti e alla seduta, con spunta salvata nel database */
+const INTEG = [
+  {k:"creatina", n:"Creatina", dose:"5 g", when:"con la colazione", slot:"colazione", note:"Tutti i giorni, anche di riposo"},
+  {k:"omega", n:"Omega-3", dose:"1–2 g di EPA+DHA", when:"con la cena", slot:"cena", note:"Con i grassi del pasto si assorbe meglio"},
+  {k:"caffe", n:"Caffè", dose:"1–2 espressi", when:"45' prima della seduta", hard:true}
+];
+function integList(plan, T){
+  const out = [];
+  for (const x of INTEG){
+    if (x.hard){
+      if (!plan.slot || !HARD[plan.key]) continue;
+      const t = plan.slot.start - 45;
+      out.push({...x, t, note: t >= 16*60 ? "Facoltativo: dopo le 16 solo se poi dormi bene" : "Per le sedute dure, facoltativo"});
+    } else out.push({...x, t: T[x.slot]});
+  }
+  return out.sort((a,b) => (a.t ?? 0) - (b.t ?? 0));
+}
+function renderInteg(dk, plan, T, dd){
+  const box = $("oggiInteg"); if (!box) return;
+  if (LEI){ box.innerHTML = ""; return; }
+  const list = integList(plan, T), got = S.integ[dk] || {}, done = list.filter(x => got[x.k]).length, fut = dd > 0;
+  box.innerHTML = `<div class="rest-head"><h2 class="h-card">Integratori</h2><span class="small muted">${fut ? "da prendere" : `${done} di ${list.length}`}</span></div>
+    <ul>${list.map(x => `<li><button type="button" class="shop-item ${got[x.k] ? "done" : ""}" data-integ="${x.k}" data-dk="${dk}" aria-pressed="${!!got[x.k]}" ${fut ? "disabled" : ""}><span class="ck" aria-hidden="true"></span><span class="tx"><span class="nm">${esc(x.n)} · ${esc(x.dose)}</span><span class="small muted">${x.t != null ? hm(x.t) + " " : ""}${esc(x.when)} · ${esc(x.note)}</span></span></button></li>`).join("")}</ul>`;
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-integ]"); if (!b || b.disabled) return;
+  const dk = b.dataset.dk, k = b.dataset.integ, cur = {...(S.integ[dk] || {})};
+  if (cur[k]) delete cur[k]; else cur[k] = 1;
+  S.integ[dk] = cur; renderOggi();
+  if (S.db && S.canWrite !== false){ try { await S.db.collection("integ").doc(dk).set(cur); } catch(_){} }
+});
 /* schede della pagina Oggi */
 let OGGI_TAB = "allen";
 try { const v = localStorage.getItem("piano-hyrox-tab"); if (["allen","pasti","giornata"].includes(v)) OGGI_TAB = v; } catch(_){}
@@ -2490,7 +2530,9 @@ function renderGiornata(d, plan, meals){
   const ev = [];
   b.forEach(([x,y],i)=>ev.push({t:x, end:y, kind:"work", lab: b.length===2 ? (i===0 ? "Turno, prima parte" : "Turno, seconda parte") : "Turno in negozio"}));
   if (plan.slot) ev.push({t:plan.slot.start, end:plan.slot.end, kind:"train", lab:`${SESS[plan.key].nome} · ${SESS[plan.key].sotto}`, where: plan.slot.when});
-  meals.forEach(m=>{ if (m.time != null) ev.push({t:m.time, kind:"meal", lab:`${m.label || SLOT_LAB[m.slot]}: ${m.d.name}`, where: whereAt(b, m.time)}); });
+  const plus = {}; for (const x of INTEG) if (x.slot) (plus[x.slot] = plus[x.slot] || []).push(x.n.toLowerCase());
+  meals.forEach(m=>{ if (m.time != null) ev.push({t:m.time, kind:"meal", lab:`${m.label || SLOT_LAB[m.slot]}: ${m.d.name}${plus[m.slot] ? " + " + plus[m.slot].join(" e ") : ""}`, where: whereAt(b, m.time)}); });
+  if (plan.slot && HARD[plan.key]) ev.push({t:plan.slot.start - 45, kind:"meal", lab:"Caffè, se ti va", where:""});
   ev.sort((a,c)=>a.t - c.t || (a.kind==="work" ? -1 : 1));
   const src = !t ? "Turno non noto" : t.fonte === "manuale" ? "Inserito a mano" : "Dal bot degli orari";
   const warn = plan.tipo==="train" && !plan.slot ? `<p class="note">Con questo turno non c'è una finestra comoda per allenarti: sposta la seduta in un giorno più libero o falla corta (30–40 minuti di Z2).</p>` : "";
@@ -3079,6 +3121,7 @@ function subscribeAll(db){
     db.collection("rip").onSnapshot(snap=>{ S.rip = snap.docs.map(d=>({id:d.id, ...d.data()})).filter(r => typeof r.n === "number" && typeof r.data === "string" && typeof r.ex === "string"); renderOggi(); renderDiario(); }, onErr);
     db.doc("config/settimana").onSnapshot(snap=>{ if (!snap.exists) return; const d = snap.data() || {}; if (Array.isArray(d.week) && d.week.length === 7){ S.leiWeek = d.week; S.leiOffice = d.office || null; try { localStorage.setItem("piano-hyrox-settimana", JSON.stringify({week:d.week, office:d.office || null})); } catch(_){} renderAll(); } }, onErr);
   }
+  if (!LEI) db.collection("integ").onSnapshot(snap=>{ const o = {}; snap.docs.forEach(x => { o[x.id] = x.data() || {}; }); S.integ = o; renderOggi(); }, onErr);
   db.collection("carichi").onSnapshot(snap=>{ S.carichi = snap.docs.map(d=>({id:d.id, ...d.data()})).filter(l=>EX[l.ex] && typeof l.kg==="number" && typeof l.data==="string"); renderOggi(); renderAllenamento(); renderDiario(); }, onErr);
   db.doc("config/prezzi").onSnapshot(snap=>{ const d = snap.exists ? snap.data() : {}; const clean = {}; for (const [k,v] of Object.entries(d||{})) if (PRICES[k] && typeof v==="number" && v>0) clean[k]=v; S.prezzi = clean; renderSpesa(); }, onErr);
   db.collection("turni").onSnapshot(snap=>{ const o = {}; snap.docs.forEach(x=>{ o[x.id] = x.data(); }); S.turni = o; _assign.clear(); renderOggi(); }, onErr);
