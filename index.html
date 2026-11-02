@@ -135,53 +135,90 @@ h3{font:600 17px/1.3 var(--f-t);letter-spacing:-.015em}
 @keyframes view-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){html.pwa section.view:not([hidden]){animation:none}}
 .dish-list{display:flex;flex-direction:column;gap:16px}
-/* ---------- modalità allenamento ---------- */
+/* ---------- modalità allenamento (stile A: una cosa alla volta) ---------- */
 .wk{position:fixed;inset:0;z-index:40;background:var(--bg)}
-.wk-in{height:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;padding:max(10px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.wk-in{height:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;padding:max(10px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(14px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 .wk-top{display:grid;grid-template-columns:44px minmax(0,1fr) 64px;align-items:center;gap:8px;min-height:48px}
 .wk-x{width:40px;height:40px;border:0;border-radius:20px;background:var(--blk);color:var(--text);display:grid;place-items:center;cursor:pointer}
 .wk-tt{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}
-.wk-tt b{font:600 16px/1.2 var(--f-t)}
+.wk-tt b{font:600 16px/1.2 var(--f-t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .wk-tt span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .wk-clock{justify-self:end;font:600 17px var(--f-d);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.wk-prog{height:4px;border-radius:2px;background:var(--blk-2);margin-top:8px;overflow:hidden}
+.wk-prog{height:4px;border-radius:2px;background:var(--blk-2);margin-top:10px;overflow:hidden}
 .wk-prog i{display:block;height:100%;background:var(--me);transition:width .3s}
 .wk-step-n{font-size:13px;color:var(--muted);margin-top:6px}
-.wk-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:14px;padding:14px 0}
+.wk-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:14px;padding:16px 0 10px}
+.wk-body.wk-center{justify-content:center}
 .wk-card{background:var(--blk);border-radius:var(--r-card);padding:18px;display:flex;flex-direction:column;gap:10px}
 .wk-h{font:600 25px/1.15 var(--f-d);letter-spacing:-.04em;padding:0}
-.wk-target{display:flex;align-items:baseline;gap:8px 12px;flex-wrap:wrap}
-.wk-target span{color:var(--muted);font-weight:600}
-.wk-target b{font:600 28px/1.1 var(--f-d);letter-spacing:-.03em}
-.wk-kg{background:var(--ink);color:var(--ink-text);padding:5px 12px;border-radius:15px;font-weight:600;font-size:16px}
-.wk-sub{margin:-4px 0 0}
-.wk-dots{display:flex;gap:8px}
-.wk-dots i{width:14px;height:14px;border-radius:7px;background:var(--blk-2)}
-.wk-dots i.on{background:var(--ok)}
-.wk-dots i.cur{background:var(--me)}
-.wk-ring{--p:0;width:min(64vw,250px);aspect-ratio:1;margin:2px auto;border-radius:50%;background:conic-gradient(var(--me) calc(var(--p) * 360deg),var(--blk-2) 0);display:grid;place-items:center}
-.wk-iv.work .wk-ring{background:conic-gradient(var(--ok) calc(var(--p) * 360deg),var(--blk-2) 0)}
-.wk-ring-in{width:86%;aspect-ratio:1;border-radius:50%;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
-.wk-ring-l{font:600 13px var(--f-t);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.wk-time{font:600 58px/1 var(--f-d);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
-.wk-ring-s{font-size:13px;color:var(--muted);text-align:center;padding:0 14px}
-.wk-foot{display:flex;flex-direction:column;gap:8px;padding-top:6px}
-.wk-nav{display:flex;justify-content:space-between;align-items:center;min-height:28px}
-.wk-btns{display:flex;gap:10px}
-.wk .btn.wk-main{flex:1 1 0;height:56px;border-radius:28px;font-size:17px;justify-content:center}
-.wk .btn.wk-big{height:76px;border-radius:38px;font-size:20px}
+.wk-ex{display:flex;flex-direction:column;gap:6px;padding:4px 2px 0}
+.wk-ex-l{font:600 13px var(--f-t);letter-spacing:.08em;text-transform:uppercase;color:var(--me)}
+.wk-ex-l.ok{color:var(--ok)}
+.wk-ex-h{font:600 34px/38px var(--f-d);letter-spacing:-.05em;margin:0}
+.wk-segs{display:flex;gap:6px;margin-top:6px}
+.wk-segs i{flex:1 1 0;max-width:56px;height:8px;border-radius:4px;background:var(--blk-2)}
+.wk-segs i.on{background:var(--ok)}
+.wk-segs i.cur{background:var(--me)}
+.wk-stps{display:grid;gap:10px;flex:1 1 auto;max-height:340px;min-height:200px}
+.wk-stps.n2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.wk-stp{background:var(--blk);border-radius:24px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.wk-stp label{font:600 13px var(--f-t);color:var(--text-2)}
+.wk .wk-stp input{width:100%;height:64px;border:0;background:transparent;text-align:center;font:600 56px/1 var(--f-d);letter-spacing:-.05em;color:var(--text);padding:0}
+.wk-stp-u{font-size:13px;color:var(--muted);min-height:16px;margin-top:-6px}
+.wk-stp-b{display:flex;gap:10px}
+.wk-stp-b button{width:56px;height:56px;border:0;border-radius:28px;background:var(--in);color:var(--text);font:600 26px/1 var(--f-t);cursor:pointer}
+.wk-hint{margin:0;padding:0 4px;font-size:14px;line-height:1.45;color:var(--muted)}
+.wk-how{padding:0 4px}
+.wk-how summary{font:600 14px var(--f-t);color:var(--me);cursor:pointer;list-style:none}
+.wk-how summary::-webkit-details-marker{display:none}
+.wk-how p{margin:6px 0 0;font-size:14px;line-height:1.45;color:var(--text-2)}
+.wk-target1{align-items:center;text-align:center;padding:28px 18px}
+.wk-target1 b{font:600 44px/1 var(--f-d);letter-spacing:-.05em}
+.wk-target1 span{color:var(--muted);font-weight:600}
+.wk-big{display:flex;flex-direction:column;align-items:center;gap:12px;padding:10px 0}
+.wk-big-l{font:600 14px var(--f-t);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.wk-big.work .wk-big-l{color:var(--ok)}
+.wk-time{font:600 112px/1 var(--f-d);letter-spacing:-.06em;font-variant-numeric:tabular-nums}
+.wk-bar{width:min(70vw,280px);height:10px;border-radius:5px;background:var(--blk-2);overflow:hidden}
+.wk-bar i{display:block;height:100%;width:0;background:var(--me);transition:width .25s linear}
+.wk-big.work .wk-bar i{background:var(--ok)}
+.wk-big-s{font-size:15px;color:var(--text-2);text-align:center;padding:0 12px}
+.wk-next{background:var(--blk);border-radius:24px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.wk-next>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.wk-next b{font:600 17px/1.25 var(--f-t)}
+.wk-next-v{font:600 17px var(--f-d);letter-spacing:-.03em;white-space:nowrap;text-align:right}
+.wk-rate{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.wk-rate .eyebrow{padding:0 4px}
+.wk-rate-b{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;min-height:64px;padding:12px 18px;border:0;border-radius:20px;background:var(--blk);color:var(--text);text-align:left;cursor:pointer}
+.wk-rate-b b{font:600 18px var(--f-t)}
+.wk-rate-b span{font-size:14px;color:var(--muted)}
+.wk-rate-b:active{background:var(--ink);color:var(--ink-text)}
+.wk-times li b{font-family:var(--f-d)}
+.wk-body.wk-fill{gap:12px}
+.wk-circ-top{display:flex;justify-content:space-between;align-items:flex-end;padding:0 2px}
 .wk-round{display:flex;align-items:baseline;gap:8px}
 .wk-round span{color:var(--muted);font-weight:600}
-.wk-round b{font:600 52px/1 var(--f-d);letter-spacing:-.04em}
-.wk-stations{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.wk-stations li{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--in);font-size:16px;line-height:1.3}
-.wk-stations li .ck{flex:none;width:24px;height:24px;border-radius:12px;box-shadow:inset 0 0 0 2px var(--faint)}
-.wk-stations li.cur{box-shadow:inset 0 0 0 2px var(--me);font-weight:600;font-size:18px}
-.wk-stations li.ok{color:var(--muted);text-decoration:line-through}
-.wk-stations li.ok .ck{background:var(--ok);box-shadow:none}
-.wk-roundclock{display:flex;justify-content:space-between;align-items:baseline;padding:0 6px}
-.wk-roundclock b{font:600 30px var(--f-d);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.wk-zone{align-self:flex-start;background:var(--ink);color:var(--ink-text);border-radius:15px;padding:6px 12px;font-weight:600}
+.wk-round b{font:600 64px/1 var(--f-d);letter-spacing:-.05em}
+.wk-rt{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.wk-rt span{font-size:13px;color:var(--muted)}
+.wk-rt b{font:600 28px var(--f-d);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.wk-fill .wk-segs i{max-width:none}
+.wk-now{flex:1 1 auto;min-height:190px;background:var(--ink);color:var(--ink-text);border-radius:28px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;gap:16px}
+.wk-now-l{font:600 12px var(--f-t);letter-spacing:.1em;text-transform:uppercase;opacity:.65}
+.wk-now>div{display:flex;flex-direction:column;gap:8px}
+.wk-now b{font:600 44px/1.05 var(--f-d);letter-spacing:-.05em;overflow-wrap:anywhere}
+.wk-now>div span{font:600 21px/1.3 var(--f-t)}
+.wk-done-l{display:flex;flex-wrap:wrap;gap:4px 14px;padding:0 6px;font-size:14px;color:var(--muted)}
+.wk-done-l:empty{display:none}
+.wk-foot{display:flex;flex-direction:column;gap:8px;padding-top:4px}
+.wk-nav{display:flex;justify-content:space-between;align-items:center;min-height:28px;padding:0 6px}
+.wk-btns{display:flex;gap:10px}
+.wk .btn.wk-main{flex:1 1 0;height:60px;border-radius:30px;font-size:18px;justify-content:center}
+.wk .btn.wk-f1{flex:1 1 0}
+.wk .btn.wk-f2{flex:2 1 0}
+.wk .btn.wk-tall{height:68px;border-radius:34px;font-size:20px}
+.wk .btn.wk-go{height:84px;border-radius:42px;font-size:22px;background:var(--me);border-color:var(--me);color:#FFFFFF}
+.wk-zone{align-self:center;background:var(--ink);color:var(--ink-text);border-radius:16px;padding:7px 14px;font-weight:600}
 .wk-dose{font:600 20px/1.3 var(--f-t)}
 .wk-list{margin:0;padding:0 6px 0 28px;color:var(--text-2);display:flex;flex-direction:column;gap:6px}
 .wk-tips li+li{margin-top:8px}
@@ -189,8 +226,7 @@ h3{font:600 17px/1.3 var(--f-t);letter-spacing:-.015em}
 .wk-form input{width:100%}
 .wk .kgin.wk-kgin{align-self:flex-start;height:58px;background:var(--in);border-radius:18px;padding:0 16px 0 4px;font-size:15px}
 .wk .kgin.wk-kgin input[type=number]{width:110px;height:58px;font-size:28px;font-family:var(--f-d)}
-.wk .wk-card .seg.seg-full{background:var(--in);padding:5px;border-radius:26px;gap:4px}
-.wk .wk-card .seg.seg-full button{height:48px;border-radius:22px;font-size:16px;background:var(--blk)}
+@media (max-height:700px){.wk-time{font-size:84px}.wk-ex-h{font-size:28px;line-height:32px}.wk .wk-stp input{font-size:44px;height:52px}.wk-now b{font-size:34px}}
 .wk-cta{margin-bottom:4px}
 .dish-g .mrows{background:var(--blk);border-radius:var(--r-card);padding:2px 16px}
 .pdf-btns .btn{flex:1 1 0;white-space:nowrap;padding:0 10px}
@@ -2995,7 +3031,10 @@ function wkLoad(){
     x.steps = wkSteps(x.dk, x.key); return x.steps.length ? x : null;
   } catch(_){ return null; }
 }
-function wkNew(dk, key){ return {dk, key, startedAt:0, i:-1, set:0, round:0, station:0, timer:null, roundStart:0, roundTimes:[], fb:false, phase:0, k:0, steps:wkSteps(dk, key)}; }
+function wkNew(dk, key){ return {dk, key, startedAt:0, i:-1, set:0, round:0, station:0, timer:null, roundStart:0, roundTimes:[], fb:false, phase:0, k:0, cur:null, log:{}, steps:wkSteps(dk, key)}; }
+const wkRepsOf = st => st.bwN && !st.timed ? st.bwN : ((String(st.target || "").match(/^(\d+)\s*ripetizioni/) || [])[1] * 1 || null);
+function wkCurInit(st){ WK.cur = st && st.t === "sets" ? {r:st.timed ? null : wkRepsOf(st), kg:st.kg ? st.kg.kg : null, s:st.timed ? st.secs : null} : null; }
+function wkReadCur(){ if (!WK || !WK.cur) return; for (const f of ["r","kg","s"]){ const el = $("wk_" + f); if (el){ const v = Number(String(el.value).replace(",", ".")); if (v > 0) WK.cur[f] = v; } } }
 const wkStep = () => WK && WK.i >= 0 ? WK.steps[WK.i] : null;
 function wkBeep(n){
   try {
@@ -3021,7 +3060,7 @@ function wkTickFn(){
   if (T.end){
     const left = wkLeft();
     if (tv) tv.textContent = clk(Math.ceil(left));
-    const ring = $("wkRing"); if (ring) ring.style.setProperty("--p", Math.max(0, Math.min(1, 1 - left/T.total)));
+    const bar = $("wkBar"); if (bar) bar.style.width = (Math.max(0, Math.min(1, 1 - left/T.total)) * 100) + "%";
     const sec = Math.ceil(left);
     if (sec >= 1 && sec <= 3 && T.beeped !== sec && T.total > 5){ T.beeped = sec; wkBeep(1); }
     if (left <= 0){ WK.timer = null; wkBeep(2); wkTimerEnd(T.mode); }
@@ -3040,12 +3079,15 @@ function wkTimerEnd(mode){
 /* ---------- azioni ---------- */
 function wkGo(i){
   WK.i = Math.max(0, Math.min(WK.steps.length, i)); WK.set = 0; WK.round = 0; WK.station = 0; WK.timer = null; WK.fb = false; WK.phase = 0; WK.k = 0; WK.done = false; WK.roundStart = 0;
-  const st = wkStep();
+  WK.log = WK.log || {}; WK.log[WK.i] = [];
+  const st = wkStep(); wkCurInit(st);
   if (st && st.t === "circ") WK.roundStart = Date.now();
   wkSave(); wkRender(); const b = $("wkBody"); if (b) b.scrollTop = 0;
 }
 function wkSetDone(){
-  const st = wkStep(); WK.set++;
+  const st = wkStep(); wkReadCur();
+  if (WK.cur){ WK.log = WK.log || {}; (WK.log[WK.i] = WK.log[WK.i] || []).push({...WK.cur}); }
+  WK.set++;
   if (WK.set >= st.sets){ WK.fb = true; WK.timer = null; }
   else wkTimer("rest-set", st.rest);
   wkBeep(1); wkSave(); wkRender();
@@ -3069,28 +3111,66 @@ function wkStationDone(){
   }
   wkSave(); wkRender();
 }
-/* ---------- disegno ---------- */
-function wkRingHTML(lab, sub){
-  return `<div class="wk-ring" id="wkRing" style="--p:0"><div class="wk-ring-in"><span class="wk-ring-l">${esc(lab)}</span><span class="wk-time" id="wkTime">0:00</span>${sub ? `<span class="wk-ring-s">${esc(sub)}</span>` : ""}</div></div>`;
+/* ---------- disegno (stile A: una cosa alla volta) ---------- */
+function wkBigTimer(lab, sub, opts){
+  opts = opts || {};
+  const T = WK.timer, tot = T && T.total ? clk(T.total) : "";
+  return `<div class="wk-big ${opts.cls || ""}"><span class="wk-big-l">${esc(lab)}</span><span class="wk-time" id="wkTime">0:00</span>${T && T.end ? `<div class="wk-bar"><i id="wkBar"></i></div><span class="wk-big-s">${esc(sub || (tot ? "di " + tot : ""))}</span>` : sub ? `<span class="wk-big-s">${esc(sub)}</span>` : ""}</div>`;
 }
+function wkNextCard(lab, title, val){
+  return `<div class="wk-next"><div><span class="eyebrow">${esc(lab)}</span><b>${esc(title)}</b></div>${val ? `<span class="wk-next-v">${esc(val)}</span>` : ""}</div>`;
+}
+const wkSetTxt = (st, c) => !c ? "" : c.s ? `${c.s}"` : c.kg ? `${fmt(c.r || 0)} × ${kgNum(c.kg)}${st.kg && st.kg.t === "db2" ? "×2" : ""}` : c.r ? `${c.r}` : "";
 function wkNextName(){ const n = WK.steps[WK.i + 1]; return n ? n.name : "Fine"; }
-function wkHeader(st){
+function wkExN(){ const ex = WK.steps.map((x, j) => x.t === "info" ? -1 : j).filter(j => j >= 0); return {k:ex.indexOf(WK.i) + 1, n:ex.length}; }
+function wkHeader(st, sub){
   const s = SESS[WK.key] || {nome:"Allenamento", sotto:""}, n = WK.steps.length;
-  return `<div class="wk-top"><button type="button" class="wk-x" id="wkClose" aria-label="Chiudi">${CHEV}</button><div class="wk-tt"><b>${esc(s.nome)}</b><span>${esc(s.sotto || "")}</span></div><span class="wk-clock" id="wkClock">${WK.startedAt ? clk((Date.now() - WK.startedAt)/1000) : "0:00"}</span></div>
-    ${WK.i >= 0 && WK.i < n ? `<div class="wk-prog"><i style="width:${(WK.i)/n*100}%"></i></div><div class="wk-step-n">Passo ${WK.i + 1} di ${n}${st && st.group ? ` · ${esc(st.group.replace(/\s*·.*$/, ""))}` : ""}</div>` : ""}`;
+  const title = st && st.t === "circ" ? st.name : s.nome, subt = sub || (st && st.t === "circ" ? (st.zone || s.sotto) : s.sotto);
+  let prog = "";
+  if (WK.i >= 0 && WK.i < n){
+    const e = wkExN(), g = st && st.group ? st.group.replace(/\s*·.*$/, "") : "";
+    prog = `<div class="wk-prog"><i style="width:${WK.i/n*100}%"></i></div><div class="wk-step-n">${st.t === "info" ? esc(st.name) : `Esercizio ${e.k} di ${e.n}${g ? " · " + esc(g) : ""}`}</div>`;
+  }
+  return `<div class="wk-top"><button type="button" class="wk-x" id="wkClose" aria-label="Riduci">${CHEV}</button><div class="wk-tt"><b>${esc(title)}</b><span>${esc(subt || "")}</span></div><span class="wk-clock" id="wkClock">${WK.startedAt ? clk((Date.now() - WK.startedAt)/1000) : "0:00"}</span></div>${prog}`;
 }
 function wkDevice(){
   return LEI
     ? `<li><b>Apple Watch:</b> apri Allenamento e avvia "Allenamento funzionale" (per il circuito anche "HIIT"). Durante la seduta ti mostra battito e calorie; alla fine copi FC media e calorie qui.</li>`
     : `<li><b>Fitbit Air:</b> non ha schermo, quindi avvia l'allenamento dall'app Google Health sul telefono (pesi per Hyrox A e B, HIIT per Hyrox C, corsa per le corse). Alla fine trovi lì FC media, FC massima e calorie da copiare qui.</li>`;
 }
+/* una stazione del circuito: titolo grande e dettaglio ("15 wall balls (6 kg)" → "Wall balls" · "15 ripetizioni · 6 kg") */
+function wkStation(s, st){
+  s = String(s || "").trim();
+  let t, d;
+  if (s.includes(" · ")){ const [a, ...b] = s.split(" · "); t = a; d = b.join(" · "); }
+  else {
+    let par = ""; s = s.replace(/\s*\(([^)]*)\)\s*/g, (_, x) => { par = x; return " "; }).trim();
+    let m = s.match(/^(\d+(?:[.,]\d+)?\s*(?:m|km|"|'|kg)?)\s+(?:di\s+)?(.+)$/i);
+    if (m){ d = m[1].trim(); t = m[2]; }
+    else if ((m = s.match(/^(.+?)\s+(\d+(?:[.,]\d+)?\s*(?:m|km|"|'))$/i))){ t = m[1]; d = m[2].trim(); }
+    else { t = s; d = ""; }
+    if (/^\d+$/.test(d)) d += " ripetizioni";
+    if (par) d = d ? `${d} · ${par}` : par;
+  }
+  if (st && st.sled && /sled|slitta/i.test(t)) d = [d, st.sled.replace(/^Slitta:\s*/, "") + " in tutto"].filter(Boolean).join(" · ");
+  return {t:t.charAt(0).toUpperCase() + t.slice(1), d};
+}
+function wkStepper(f, lab, val, unit){
+  return `<div class="wk-stp"><label for="wk_${f}">${esc(lab)}</label><input id="wk_${f}" type="number" inputmode="decimal" value="${val ?? ""}" data-f="${f}"><span class="wk-stp-u">${esc(unit || "")}</span><div class="wk-stp-b"><button type="button" data-wk="inc" data-f="${f}" data-d="-1" aria-label="${esc(lab)}: meno">−</button><button type="button" data-wk="inc" data-f="${f}" data-d="1" aria-label="${esc(lab)}: più">+</button></div></div>`;
+}
+function wkLastTxt(st){
+  if (st.kg){ const l = lastLog([st.kg.ex], WK.dk); return l ? `Ultima volta, ${fmtDate(parse(l.data))}: ${kgTxt(st.kg.t, l.kg)}${ESITO[l.esito] ? ", " + ESITO[l.esito].lab.toLowerCase() : ""}.` : ""; }
+  if (st.m && st.m.bw){ const b = bwSug(st.m, WK.dk); return b.last ? `Ultima volta, ${fmtDate(parse(b.last.data))}: ${b.last.n} ${bwUnit(b.last.u)}${ESITO[b.last.esito] ? ", " + ESITO[b.last.esito].lab.toLowerCase() : ""}.` : ""; }
+  return "";
+}
 function wkRender(){
   const box = $("wkIn"); if (!box || !WK) return;
-  const st = wkStep(), n = WK.steps.length;
-  let body = "", foot = "";
+  const st = wkStep(), n = WK.steps.length, T = WK.timer, mode = T && T.mode;
+  let body = "", foot = "", bodyCls = "";
+  const restBtns = `<button class="btn ghost wk-main wk-f1" type="button" data-wk="plus">+15"</button><button class="btn wk-main wk-f2" type="button" data-wk="skip-rest">Riparti ora</button>`;
   if (WK.i < 0){
     const s = SESS[WK.key] || {nome:""}, u = SESS_UI[WK.key];
-    body = `<div class="wk-card"><span class="eyebrow">Prima di iniziare</span><h2 class="wk-h">${esc(u ? u.t : s.nome)}</h2><p class="muted">${esc(s.dur || "")} · ${n} passi</p>
+    body = `<div class="wk-card"><span class="eyebrow">Prima di iniziare</span><h2 class="wk-h">${esc(u ? u.t : s.nome)}</h2><p class="muted">${esc(s.dur || "")} · ${wkExN().n || n} esercizi</p>
       <ul class="plain wk-tips">${wkDevice()}<li>Tieni il telefono vicino: i recuperi sono a tempo e a fine recupero suona un bip. Lo schermo resta acceso.</li></ul></div>
       <ol class="wk-list">${WK.steps.map(x => `<li>${esc(x.name)}${x.t === "sets" ? ` <span class="muted">· ${x.sets} serie</span>` : x.t === "circ" ? ` <span class="muted">· ${x.rounds} giri</span>` : ""}</li>`).join("")}</ol>`;
     foot = `<button class="btn wk-main" type="button" data-wk="start">Inizia</button>`;
@@ -3106,58 +3186,92 @@ function wkRender(){
       </div><p class="msg" id="wkMsg" aria-live="polite"></p></div>`;
     foot = `<button class="btn wk-main" type="button" data-wk="finish">Salva l'allenamento</button>`;
   } else if (st.t === "info"){
-    const tm = WK.timer && WK.timer.mode === "info";
-    body = `<div class="wk-card"><h2 class="wk-h">${esc(st.name)}</h2>${st.list ? `<ul class="mi">${st.list.map(([a,b]) => `<li><span>${esc(a)}</span><b>${esc(b)}</b></li>`).join("")}</ul>` : st.text ? `<p class="wk-dose">${esc(stripZ(st.text))}</p>` : ""}${st.nota ? `<p class="muted">${esc(stripZ(st.nota))}</p>` : ""}${st.sled ? `<span class="sv-chip">${esc(st.sled)}</span>` : ""}</div>
-      ${tm ? wkRingHTML("Tempo", "") : ""}`;
-    foot = st.mins && !tm ? `<button class="btn ghost wk-main" type="button" data-wk="info-timer">Avvia ${st.mins}'</button><button class="btn wk-main" type="button" data-wk="next">Fatto</button>` : `<button class="btn wk-main" type="button" data-wk="next">Fatto</button>`;
-  } else if (st.t === "sets"){
-    const dots = [...Array(st.sets)].map((_, j) => `<i class="${j < WK.set ? "on" : j === WK.set && !WK.fb ? "cur" : ""}"></i>`).join("");
-    const kg = st.kg ? `<span class="wk-kg">${kgTxt(st.kg.t, st.kg.kg)}</span>` : "";
-    const resting = WK.timer && WK.timer.mode === "rest-set", timing = WK.timer && WK.timer.mode === "set-timed";
-    body = `<div class="wk-card"><h2 class="wk-h">${esc(st.kg ? st.kg.n : st.name)}</h2>
-      <div class="wk-target"><span>${WK.fb ? `${st.sets} ${st.sets === 1 ? "serie fatta" : "serie fatte"}` : `Serie ${Math.min(WK.set + 1, st.sets)} di ${st.sets}`}</span>${st.target ? `<b>${esc(st.target)}</b>` : ""}${kg}</div>
-      ${st.sub ? `<p class="small muted wk-sub">${esc(stripZ(st.sub))}</p>` : ""}<div class="wk-dots">${dots}</div>${st.sled ? `<span class="sv-chip">${esc(st.sled)}</span>` : ""}
-      ${st.nota && !resting ? `<p class="small muted">${esc(stripZ(st.nota))}</p>` : ""}</div>`;
-    if (resting){ body += wkRingHTML("Recupero", `Poi: serie ${WK.set + 1} di ${st.sets}`); foot = `<button class="btn ghost wk-main" type="button" data-wk="plus">+15"</button><button class="btn wk-main" type="button" data-wk="skip-rest">Riparti ora</button>`; }
-    else if (timing){ body += wkRingHTML("Tieni", ""); foot = `<button class="btn ghost wk-main" type="button" data-wk="set-done">Fine prima</button>`; }
-    else if (WK.fb){
-      if (st.kg || (st.m && st.m.bw)){
-        const v = st.kg ? st.kg.kg : st.bwN, unit = st.kg ? (st.kg.t === "db2" ? "kg ×2" : "kg") : bwUnit(st.m.u);
-        body += `<div class="wk-card"><span class="eyebrow">Com'è andata?</span><label class="kgin wk-kgin"><input type="number" id="wkVal" step="${st.kg ? "0.5" : "1"}" inputmode="decimal" value="${v}" aria-label="${st.kg ? "Peso usato" : "Ripetizioni fatte"}"><span>${unit}</span></label>
-          <span class="seg seg-full" role="group">${Object.entries(ESITO).map(([k, x]) => `<button type="button" data-wkesito="${k}">${x.lab}</button>`).join("")}</span><p class="msg" id="wkMsg" aria-live="polite"></p><p class="small muted">Se hai usato un altro ${st.kg ? "peso" : "numero"}, correggilo prima di toccare.</p></div>`;
-        foot = `<button class="btn ghost wk-main" type="button" data-wk="next">Salta</button>`;
-      } else foot = `<button class="btn wk-main" type="button" data-wk="next">Avanti: ${esc(wkNextName())}</button>`;
+    if (mode === "info"){ bodyCls = "wk-center"; body = wkBigTimer(st.name, "") + wkNextCard("Poi", wkNextName(), ""); foot = `<button class="btn wk-main" type="button" data-wk="next">Fatto</button>`; }
+    else {
+      body = `<div class="wk-card"><h2 class="wk-h">${esc(st.name)}</h2>${st.list ? `<ul class="mi">${st.list.map(([a,b]) => `<li><span>${esc(a)}</span><b>${esc(b)}</b></li>`).join("")}</ul>` : st.text ? `<p class="wk-dose">${esc(stripZ(st.text))}</p>` : ""}${st.nota ? `<p class="muted">${esc(stripZ(st.nota))}</p>` : ""}${st.sled ? `<span class="sv-chip">${esc(st.sled)}</span>` : ""}</div>`;
+      foot = st.mins ? `<button class="btn ghost wk-main" type="button" data-wk="info-timer">Avvia ${st.mins}'</button><button class="btn wk-main" type="button" data-wk="next">Fatto</button>` : `<button class="btn wk-main" type="button" data-wk="next">Fatto</button>`;
     }
-    else foot = st.timed ? `<button class="btn wk-main" type="button" data-wk="set-timed">Avvia ${st.secs}"</button>` : `<button class="btn wk-main" type="button" data-wk="set-done">Serie fatta</button>`;
+  } else if (st.t === "sets"){
+    const name = st.kg ? st.kg.n : st.name, done = (WK.log[WK.i] || []), c = WK.cur || {};
+    if (mode === "rest-set"){
+      bodyCls = "wk-center";
+      body = wkBigTimer("Recupero") + wkNextCard("Poi", `Serie ${WK.set + 1} di ${st.sets} · ${name.toLowerCase()}`, wkSetTxt(st, c));
+      foot = restBtns;
+    } else if (mode === "set-timed"){
+      bodyCls = "wk-center";
+      body = wkBigTimer("Tieni", `${name} · serie ${WK.set + 1} di ${st.sets}`, {cls:"work"});
+      foot = `<button class="btn ghost wk-main" type="button" data-wk="set-done">Fine prima</button>`;
+    } else if (WK.fb){
+      const canRate = st.kg || (st.m && st.m.bw);
+      bodyCls = "wk-center";
+      body = `<div class="wk-ex"><span class="wk-ex-l ok">${st.sets} ${st.sets === 1 ? "serie fatta" : "serie fatte"}</span><h1 class="wk-ex-h">${esc(name)}</h1>
+        <div class="wk-segs">${[...Array(st.sets)].map(() => `<i class="on"></i>`).join("")}</div>
+        <p class="wk-hint">${done.map((x, j) => `Serie ${j+1}: ${wkSetTxt(st, x)}`).join(" · ")}</p></div>
+        ${canRate ? `<div class="wk-rate"><span class="eyebrow">Com'è andata?</span>${Object.entries(ESITO).map(([k, x]) => `<button type="button" class="wk-rate-b" data-wkesito="${k}"><b>${x.lab}</b><span>${k === "leggero" ? "Ne avevo ancora 4 o più" : k === "giusto" ? "2 o 3 in canna" : "Le ultime non venivano pulite"}</span></button>`).join("")}<p class="msg" id="wkMsg" aria-live="polite"></p></div>` : ""}`;
+      foot = canRate ? "" : `<button class="btn wk-main" type="button" data-wk="next">Avanti: ${esc(wkNextName())}</button>`;
+    } else {
+      const segs = [...Array(st.sets)].map((_, j) => `<i class="${j < WK.set ? "on" : j === WK.set ? "cur" : ""}"></i>`).join("");
+      const steppers = [];
+      if (st.timed) steppers.push(wkStepper("s", "Secondi", c.s, ""));
+      else if (c.r != null) steppers.push(wkStepper("r", "Ripetizioni", c.r, /per (gamba|lato|braccio)/.test(st.dose) ? st.dose.match(/per (gamba|lato|braccio)/)[0] : ""));
+      if (st.kg) steppers.push(wkStepper("kg", st.kg.t === "db2" ? "Kg per mano" : "Peso, kg", c.kg, ""));
+      const prev = done.length ? done.map((x, j) => `Serie ${j+1}: ${wkSetTxt(st, x)}`).join(" · ") + ". " : "";
+      body = `<div class="wk-ex"><span class="wk-ex-l">Serie ${WK.set + 1} di ${st.sets}</span><h1 class="wk-ex-h">${esc(name)}</h1><div class="wk-segs">${segs}</div></div>
+        ${steppers.length ? `<div class="wk-stps n${steppers.length}">${steppers.join("")}</div>` : `<div class="wk-card wk-target1"><b>${esc(st.target || st.dose.split(" · ")[0])}</b></div>`}
+        ${st.sled ? `<span class="sv-chip">${esc(st.sled)}</span>` : ""}
+        <p class="wk-hint">${esc(prev + wkLastTxt(st))}${st.sub ? ` <span class="muted">${esc(stripZ(st.sub))}</span>` : ""}</p>
+        ${st.nota ? `<details class="wk-how"><summary>Come si fa</summary><p>${esc(stripZ(st.nota))}</p></details>` : ""}`;
+      foot = st.timed ? `<button class="btn wk-main wk-tall" type="button" data-wk="set-timed">Avvia ${c.s || st.secs}"</button>` : `<button class="btn wk-main wk-tall" type="button" data-wk="set-done">Serie fatta</button>`;
+    }
   } else if (st.t === "test"){
     body = `<div class="wk-card"><span class="eyebrow">Test</span><h2 class="wk-h">${esc(st.name)}</h2>${st.nota ? `<p class="muted">${esc(st.nota)}</p>` : ""}
       <label class="kgin wk-kgin"><input type="number" id="wkVal" inputmode="numeric" aria-label="Risultato"><span>${bwUnit(st.m.u)}</span></label><p class="msg" id="wkMsg" aria-live="polite"></p></div>`;
     foot = `<button class="btn ghost wk-main" type="button" data-wk="next">Salta</button><button class="btn wk-main" type="button" data-wk="test-save">Salva</button>`;
   } else if (st.t === "circ"){
-    const list = st.perRound ? st.perRound[Math.min(WK.round, st.rounds - 1)] : st.stations, resting = WK.timer && WK.timer.mode === "rest-round";
-    const times = (WK.roundTimes[WK.i] || []);
-    body = `<div class="wk-card wk-circ"><div class="wk-round"><span>Giro</span><b>${Math.min(WK.round + (WK.done ? 0 : 1), st.rounds)}</b><span>di ${st.rounds}</span></div>
-      ${st.sled ? `<span class="sv-chip">${esc(st.sled)}</span>` : ""}
-      ${WK.done ? `<p class="muted">Circuito finito.</p>` : resting ? "" : `<ol class="wk-stations">${list.map((x, j) => `<li class="${j < WK.station ? "ok" : j === WK.station ? "cur" : ""}"><span class="ck" aria-hidden="true"></span><span>${esc(x)}</span></li>`).join("")}</ol>`}
-      ${times.length ? `<p class="small muted">Tempi: ${times.map((t, j) => `giro ${j+1} ${clk(t)}`).join(" · ")}</p>` : ""}</div>`;
-    if (resting){ body += wkRingHTML("Recupero", `Poi: giro ${WK.round + 1} di ${st.rounds}`); foot = `<button class="btn ghost wk-main" type="button" data-wk="plus">+15"</button><button class="btn wk-main" type="button" data-wk="skip-rest">Riparti ora</button>`; }
-    else if (WK.done) foot = `<button class="btn wk-main" type="button" data-wk="next">Avanti: ${esc(wkNextName())}</button>`;
-    else { body += `<div class="wk-roundclock"><span class="small muted">Questo giro</span><b id="wkRoundT">0:00</b></div>`; foot = `<button class="btn wk-main wk-big" type="button" data-wk="station">${WK.station + 1 < list.length ? "Fatto, avanti" : "Giro finito"}</button>`; }
+    const r = Math.min(WK.round, st.rounds - 1), list = st.perRound ? st.perRound[r] : st.stations, times = WK.roundTimes[WK.i] || [];
+    if (mode === "rest-round"){
+      bodyCls = "wk-center";
+      const nl = st.perRound ? st.perRound[Math.min(WK.round, st.rounds - 1)] : st.stations, f = wkStation(nl[0], st);
+      body = wkBigTimer("Recupero", times.length ? `giro ${times.length} in ${clk(times[times.length-1])}` : "") + wkNextCard(`Poi · giro ${WK.round + 1} di ${st.rounds}`, f.t, f.d);
+      foot = restBtns;
+    } else if (WK.done){
+      bodyCls = "wk-center";
+      body = `<div class="wk-ex"><span class="wk-ex-l ok">Circuito finito</span><h1 class="wk-ex-h">${esc(st.name)}</h1><div class="wk-segs">${[...Array(st.rounds)].map(() => `<i class="on"></i>`).join("")}</div></div>
+        <ul class="mi wk-times">${times.map((t, j) => `<li><span>Giro ${j+1}</span><b>${clk(t)}</b></li>`).join("")}</ul>`;
+      foot = `<button class="btn wk-main" type="button" data-wk="next">Avanti: ${esc(wkNextName())}</button>`;
+    } else {
+      bodyCls = "wk-fill";
+      const cur = wkStation(list[WK.station], st), nx = list[WK.station + 1] ? wkStation(list[WK.station + 1], st) : null;
+      const segs = [...Array(st.rounds)].map((_, j) => `<i class="${j < WK.round ? "on" : j === WK.round ? "cur" : ""}"></i>`).join("");
+      body = `<div class="wk-circ-top"><div class="wk-round"><span>Giro</span><b>${WK.round + 1}</b><span>di ${st.rounds}</span></div><div class="wk-rt"><span>Questo giro</span><b id="wkRoundT">0:00</b></div></div>
+        <div class="wk-segs">${segs}</div>
+        <div class="wk-now"><span class="wk-now-l">Adesso · stazione ${WK.station + 1} di ${list.length}</span><div><b>${esc(cur.t)}</b>${cur.d ? `<span>${esc(cur.d)}</span>` : ""}</div></div>
+        ${nx ? wkNextCard("Poi", nx.t, nx.d) : wkNextCard("Poi", WK.round + 1 < st.rounds ? `Recupero ${clk(st.rest)}` : "Fine del circuito", WK.round + 1 < st.rounds ? `poi giro ${WK.round + 2}` : "")}
+        <div class="wk-done-l">${list.slice(0, WK.station).map(x => `<s>${esc(wkStation(x, st).t)}</s>`).join("")}${times.map((t, j) => `<span>Giro ${j+1}: ${clk(t)}</span>`).join("")}</div>`;
+      foot = `<button class="btn wk-main wk-go" type="button" data-wk="station">${nx ? "Fatto" : WK.round + 1 < st.rounds ? "Giro finito" : "Ultimo giro finito"}</button>`;
+    }
   } else if (st.t === "int"){
-    const T = WK.timer, mode = T && T.mode;
-    body = `<div class="wk-card"><h2 class="wk-h">${esc(st.name)}</h2><p class="wk-dose">${st.n} × ${st.work}" · pausa ${st.rest}"</p>${st.nota ? `<p class="small muted">${esc(st.nota)}</p>` : ""}</div>`;
-    if (mode === "iv-work" || mode === "iv-rest") body += `<div class="wk-iv ${mode === "iv-work" ? "work" : ""}">${wkRingHTML(mode === "iv-work" ? "Vai" : "Pausa", `${Math.min(WK.k + 1, st.n)} di ${st.n}`)}</div>`;
-    foot = WK.done ? `<button class="btn wk-main" type="button" data-wk="next">Avanti: ${esc(wkNextName())}</button>` : mode ? `<button class="btn ghost wk-main" type="button" data-wk="next">Interrompi</button>` : `<button class="btn wk-main" type="button" data-wk="iv-start">Avvia</button>`;
+    if (mode === "iv-work" || mode === "iv-rest"){
+      bodyCls = "wk-center";
+      body = wkBigTimer(mode === "iv-work" ? "Vai" : "Pausa", `${st.name} · ${Math.min(WK.k + 1, st.n)} di ${st.n}`, {cls:mode === "iv-work" ? "work" : ""});
+      foot = `<button class="btn ghost wk-main" type="button" data-wk="next">Interrompi</button>`;
+    } else {
+      body = `<div class="wk-ex"><span class="wk-ex-l">${WK.done ? "Fatto" : "Intervalli"}</span><h1 class="wk-ex-h">${esc(st.name)}</h1></div><div class="wk-card wk-target1"><b>${st.n} × ${st.work}"</b><span>pausa ${st.rest}"</span></div>${st.nota ? `<p class="wk-hint">${esc(st.nota)}</p>` : ""}`;
+      foot = WK.done ? `<button class="btn wk-main" type="button" data-wk="next">Avanti: ${esc(wkNextName())}</button>` : `<button class="btn wk-main wk-tall" type="button" data-wk="iv-start">Avvia</button>`;
+    }
   } else if (st.t === "run"){
-    const p = st.phases[Math.min(WK.phase, st.phases.length - 1)], nx = st.phases[WK.phase + 1], T = WK.timer;
-    body = `<div class="wk-card"><span class="eyebrow">Fase ${Math.min(WK.phase + 1, st.phases.length)} di ${st.phases.length}</span><h2 class="wk-h">${esc(WK.done ? "Corsa finita" : p.lab)}</h2>${WK.done ? "" : `<span class="wk-zone">${esc(p.z)}</span>`}${st.note ? `<p class="small muted">${esc(st.note)}</p>` : ""}</div>`;
-    if (!WK.done && T) body += wkRingHTML(p.dist ? "Tempo" : "Mancano", nx ? `Poi: ${nx.lab}` : "");
-    foot = WK.done ? `<button class="btn wk-main" type="button" data-wk="next">Avanti</button>`
-      : !T ? `<button class="btn wk-main" type="button" data-wk="run-start">Avvia</button>`
-      : p.dist ? `<button class="btn wk-main" type="button" data-wk="run-next">Fatto, ${nx ? "avanti" : "fine"}</button>` : `<button class="btn ghost wk-main" type="button" data-wk="run-next">Salta questa fase</button>`;
+    const p = st.phases[Math.min(WK.phase, st.phases.length - 1)], nx = st.phases[WK.phase + 1];
+    if (!WK.done && T){
+      bodyCls = "wk-center";
+      body = wkBigTimer(p.dist ? "Tempo" : "Mancano", p.lab, {cls:"run"}) + `<span class="wk-zone">${esc(p.z)}</span>` + (nx ? wkNextCard("Poi", nx.lab, `${nx.dist ? "" : Math.round(nx.m) + "'"}`) : "");
+      foot = p.dist ? `<button class="btn wk-main wk-tall" type="button" data-wk="run-next">Fatto, ${nx ? "avanti" : "fine"}</button>` : `<button class="btn ghost wk-main" type="button" data-wk="run-next">Salta questa fase</button>`;
+    } else {
+      body = `<div class="wk-ex"><span class="wk-ex-l">${WK.done ? "Corsa finita" : `Fase ${WK.phase + 1} di ${st.phases.length}`}</span><h1 class="wk-ex-h">${esc(WK.done ? st.name : p.lab)}</h1></div>${WK.done ? "" : `<span class="wk-zone">${esc(p.z)}</span>`}${st.note ? `<p class="wk-hint">${esc(st.note)}</p>` : ""}`;
+      foot = WK.done ? `<button class="btn wk-main" type="button" data-wk="next">Avanti</button>` : `<button class="btn wk-main wk-tall" type="button" data-wk="run-start">Avvia</button>`;
+    }
   }
-  const navs = WK.i >= 0 && WK.i < n ? `<div class="wk-nav"><button type="button" class="linkbtn" data-wk="prev" ${WK.i === 0 ? "disabled" : ""}>‹ Indietro</button><button type="button" class="linkbtn" data-wk="next">Salta ›</button></div>` : WK.i < 0 ? `<div class="wk-nav"><button type="button" class="linkbtn" data-wk="cancel">Non oggi</button><span></span></div>` : "";
-  box.innerHTML = `${wkHeader(st)}<div class="wk-body" id="wkBody">${body}</div><div class="wk-foot">${navs}<div class="wk-btns">${foot}</div></div>`;
+  const navs = WK.i >= 0 && WK.i < n ? `<div class="wk-nav"><button type="button" class="linkbtn" data-wk="prev" ${WK.i === 0 ? "disabled" : ""}>‹ Indietro</button><button type="button" class="linkbtn" data-wk="next">${st && st.t === "info" ? "Salta" : "Salta esercizio"} ›</button></div>` : WK.i < 0 ? `<div class="wk-nav"><button type="button" class="linkbtn" data-wk="cancel">Non oggi</button><span></span></div>` : "";
+  box.innerHTML = `${wkHeader(st)}<div class="wk-body ${bodyCls}" id="wkBody">${body}</div><div class="wk-foot">${navs}${foot ? `<div class="wk-btns">${foot}</div>` : ""}</div>`;
   wkTickFn(); wkRoundTick();
 }
 function wkRoundTick(){ const e = $("wkRoundT"); if (e && WK && WK.roundStart) e.textContent = clk((Date.now() - WK.roundStart)/1000); }
@@ -3192,8 +3306,9 @@ document.addEventListener("click", e => {
   if (open){ const [dk, key] = open.dataset.wkopen.split("|"); wkOpen(dk, key); return; }
   const es = t.closest("[data-wkesito]");
   if (es && WK){
-    const st = wkStep(), v = Number(String(($("wkVal") || {}).value || "").replace(",", "."));
-    if (!(v > 0)){ const m = $("wkMsg"); m.className = "msg err"; m.textContent = "Scrivi il valore."; return; }
+    const st = wkStep(), lg = (WK.log[WK.i] || []), last = lg[lg.length - 1] || WK.cur || {};
+    const v = st.kg ? (last.kg || st.kg.kg) : (st.m && st.m.u === "s" ? (last.s || st.bwN) : (last.r || st.bwN));
+    if (!(v > 0)){ wkGo(WK.i + 1); return; }
     if (st.kg) save("carichi", `${WK.dk}_${st.kg.ex}`, {data:WK.dk, ex:st.kg.ex, kg:v, esito:es.dataset.wkesito, r:st.m.r, rpe:st.m.rpe, w:clampW(weekOf(parse(WK.dk)))}, "wkMsg", "Salvato");
     else save("rip", `${WK.dk}_${st.m.bw}`, {data:WK.dk, ex:st.m.bw, n:v, u:st.m.u, esito:es.dataset.wkesito, w:clampW(weekOf(parse(WK.dk))), key:WK.key}, "wkMsg", "Salvato");
     wkGo(WK.i + 1); return;
@@ -3208,7 +3323,7 @@ document.addEventListener("click", e => {
     case "prev": wkGo(WK.i - 1); break;
     case "info-timer": wkTimer("info", st.mins*60); wkRender(); break;
     case "set-done": wkSetDone(); break;
-    case "set-timed": wkTimer("set-timed", st.secs); wkRender(); break;
+    case "set-timed": wkReadCur(); wkTimer("set-timed", (WK.cur && WK.cur.s) || st.secs); wkRender(); break;
     case "skip-rest": { const m = WK.timer && WK.timer.mode; WK.timer = null; wkTimerEnd(m); break; }
     case "plus": if (WK.timer && WK.timer.end){ WK.timer.end += 15000; WK.timer.total += 15; wkSave(); wkTickFn(); } break;
     case "station": wkStationDone(); break;
@@ -3223,8 +3338,17 @@ document.addEventListener("click", e => {
       wkGo(WK.i + 1); break;
     }
     case "finish": wkFinish(); break;
+    case "inc": {
+      wkReadCur(); const f = b.dataset.f, d = +b.dataset.d, c = WK.cur; if (!c) break;
+      const step = f === "kg" ? (ROUND[st.kg.t] || {s:2}).s : f === "s" ? 5 : 1, min = f === "kg" ? (ROUND[st.kg.t] || {min:1}).min : 1;
+      c[f] = Math.max(min, Math.round(((c[f] || 0) + d*step) * 10) / 10);
+      const el = $("wk_" + f); if (el) el.value = c[f];
+      const sb = document.querySelector('#wkIn [data-wk="set-timed"]'); if (sb && f === "s") sb.textContent = `Avvia ${c.s}"`;
+      wkSave(); break;
+    }
   }
 });
+document.addEventListener("change", e => { if (e.target && e.target.matches && e.target.matches("#wkIn input[data-f]")){ wkReadCur(); wkSave(); } });
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && WK && !$("wk").hidden){ wkAwake(); wkTickFn(); } });
 /* nella pagina Oggi: il tasto per partire (o riprendere) */
 function wkStartHTML(dk, key, dd){
