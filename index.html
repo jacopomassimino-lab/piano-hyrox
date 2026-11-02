@@ -104,6 +104,49 @@ h3{font:600 17px/1.3 var(--f-t);letter-spacing:-.015em}
 }
 
 /* ---------- app sul telefono ---------- */
+.navbar{display:none}
+@media (max-width:900px){
+  input,select,textarea{font-size:16px}
+  html.pwa{-webkit-tap-highlight-color:transparent;overscroll-behavior-x:none}
+  html.pwa body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+  html.pwa input,html.pwa textarea,html.pwa select{-webkit-user-select:text;user-select:text}
+  html.pwa .navbar{display:flex;position:fixed;top:0;left:0;right:0;z-index:15;height:calc(44px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 92px 0;align-items:center;justify-content:center;background:var(--bg);transition:background-color .2s,box-shadow .2s}
+  html.pwa .navbar #navTitle{font:600 17px/1 var(--f-t);letter-spacing:-.01em;opacity:0;transform:translateY(5px);transition:opacity .18s,transform .18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  html.pwa .navbar.on{background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(1.8);backdrop-filter:blur(22px) saturate(1.8);box-shadow:0 .5px 0 var(--glass-line)}
+  html.pwa .navbar.on #navTitle{opacity:1;transform:none}
+  html.pwa .nav-back{position:absolute;left:max(6px,env(safe-area-inset-left,0px));bottom:0;height:44px;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border:0;background:transparent;color:var(--me);font:500 17px var(--f-t)}
+  html.pwa .nav-back[hidden]{display:none}
+  html.pwa .side{position:static;height:0;padding:0;border:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+  html.pwa .side-in{padding:0}
+  html.pwa .brand{display:none}
+  html.pwa body::before{display:none}
+  html.pwa .main{padding-top:calc(44px + env(safe-area-inset-top,0px))}
+  html.pwa .seg-tabs{top:calc(44px + env(safe-area-inset-top,0px))}
+  html.pwa .ph{padding-top:0}
+  html.pwa .ph h1{font-size:34px;line-height:40px}
+  html.pwa button,html.pwa .more-item,html.pwa .shop-cta,html.pwa summary,html.pwa nav.tabs a svg{transition:transform .12s ease-out}
+  html.pwa button:active,html.pwa .more-item:active,html.pwa .shop-cta:active{transform:scale(.97)}
+  html.pwa summary:active{transform:scale(.99)}
+  html.pwa nav.tabs a:active svg{transform:scale(.88)}
+  html.pwa a.more-item{position:relative;padding-right:44px}
+  html.pwa a.more-item::after{content:"";position:absolute;right:20px;top:50%;width:9px;height:9px;border-top:2.2px solid var(--faint);border-right:2.2px solid var(--faint);transform:translateY(-50%) rotate(45deg)}
+  html.pwa section.view:not([hidden]){animation:view-in .22s ease-out}
+}
+@keyframes view-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){html.pwa section.view:not([hidden]){animation:none}}
+.dish-list{display:flex;flex-direction:column;gap:16px}
+.dish-g .mrows{background:var(--blk);border-radius:var(--r-card);padding:2px 16px}
+.pdf-btns .btn{flex:1 1 0;white-space:nowrap;padding:0 10px}
+.dc-ic{display:none}
+@media (max-width:900px){
+  html.pwa .ph-oggi{flex-wrap:nowrap;align-items:flex-end}
+  html.pwa .dc-oggi{position:relative;flex:none;width:44px;height:44px;padding:0;border-radius:22px;display:grid;place-items:center;background:var(--blk);margin-bottom:2px}
+  html.pwa .dc-oggi .dc-ic{display:block;color:var(--me)}
+  html.pwa .dc-oggi input{position:absolute;inset:0;width:100%;height:100%;opacity:0;padding:0}
+}
+.dish-g{display:flex;flex-direction:column;gap:8px}
+.dish-g>.eyebrow{padding:0 6px}
+.pdf-btns .btn{flex:1 1 0}
 .pwa-only{display:none!important}
 html.pwa .pwa-only{display:inline-flex!important}
 nav.tabs a.more-link{display:none}
@@ -691,6 +734,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 </head>
 <body>
 <div class="app">
+<header class="navbar" id="navbar"><button type="button" class="nav-back" id="navBack" hidden><svg width="13" height="21" viewBox="0 0 13 21" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2L2.5 10.5 11 19"></path></svg>Altro</button><span id="navTitle" aria-hidden="true"></span></header>
 <aside class="side">
   <div class="side-in">
     <div class="brand">
@@ -716,7 +760,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 <section class="view" id="v-oggi">
   <header class="ph ph-oggi">
     <div><span class="lbl" id="oggiLabel"></span><h1 id="oggiTitle">Oggi</h1></div>
-    <label class="datechip"><span class="vh">Scegli il giorno</span><input type="date" id="oggiDate"></label>
+    <label class="datechip dc-oggi"><span class="vh">Scegli il giorno</span><svg class="dc-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg><input type="date" id="oggiDate"></label>
   </header>
   <p class="note" id="oggiNote" hidden></p>
   <section class="card today" aria-label="Allenamento, settimana e peso">
@@ -756,6 +800,12 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 <!-- ALIMENTAZIONE -->
 <section class="view" id="v-alimentazione" hidden>
   <header class="ph"><div><span class="lbl">Menù a rotazione su due settimane</span><h1>Alimentazione</h1></div></header>
+  <section class="card sec pdf-card" aria-label="Menù da stampare">
+    <div class="rest-head"><h2 class="h-card">Da attaccare al frigo</h2><span class="small muted">PDF A4</span></div>
+    <p class="small muted">I pasti della settimana con le grammature, compresi i piatti che hai cambiato. Si apre il menu di condivisione: scegli Stampa o Salva su File.</p>
+    <div class="row pdf-btns"><button class="btn" type="button" data-pdf="this">Questa settimana</button><button class="btn ghost" type="button" data-pdf="next">Prossima settimana</button></div>
+    <p class="msg" id="pdfMsg" aria-live="polite"></p>
+  </section>
   <div class="sec" data-fold="ali-macro">
     <h2>Calorie e macro</h2>
     <p class="lead only-j">Deficit deciso, circa 800 kcal al giorno, con proteine alte per proteggere il muscolo. Il riso resta fisso a 70 g sia a pranzo sia a cena: a cambiare tra allenamento e riposo sono colazione e spuntini.</p>
@@ -782,8 +832,9 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 
   <div class="sec" data-fold="ali-piatti">
     <h2>Tutti i piatti</h2>
-    <p class="lead">Ogni piatto ha due dosi: una per i giorni di allenamento e una per quelli di riposo.</p>
-    <div class="tw"><table id="dishTable"></table></div>
+    <p class="lead">Ogni piatto ha due dosi: scegli se vedere quelle dei giorni di allenamento o di riposo, poi tocca un piatto per aprirlo.</p>
+    <div class="days-tabs" id="dishTipo" role="group" aria-label="Dosi"></div>
+    <div id="dishList" class="dish-list"></div>
   </div>
 
   <div class="sec" data-fold="ali-swap">
@@ -1135,7 +1186,7 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
 const PWA = !!(window.HYROX_PWA && window.HYROX_PWA.url);
 /* profilo: Jacopo (turni, Hyrox) oppure la sua ragazza (ufficio, corpo libero). Arriva dall'account e resta sul telefono. */
 const SAVED_USER = (() => { try { return JSON.parse(localStorage.getItem("piano-hyrox-user") || "null"); } catch(_){ return null; } })();
-const PLAN_L = {"foods":{"avena":["Fiocchi d'avena",13.0,60.0,7.0,10.0],"uovo":["Uova intere",12.5,0.7,9.5,0],"albume":["Albume (in brick)",11.0,0.7,0.2,0],"pane_int":["Pane integrale",9.0,41.0,3.0,7.0],"pane":["Pane comune / bianco",8.5,60.0,1.0,3.0],"mela":["Mela",0.3,11.5,0.2,2.4],"banana":["Banana",1.1,20.0,0.3,2.6],"riso":["Riso basmati (crudo)",7.5,78.0,0.6,1.0],"pasta":["Pasta di semola (cruda)",13.0,71.0,1.5,3.0],"pasta_int":["Pasta integrale (cruda)",13.5,64.0,2.5,8.0],"couscous":["Cous cous (crudo)",12.0,72.0,1.0,5.0],"patate":["Patate (crude)",2.0,17.0,0.1,2.0],"pollo":["Petto di pollo (crudo)",23.0,0.0,1.5,0],"manzo":["Manzo magro / macinato 5%",21.0,0.0,5.0,0],"bresaola":["Bresaola",32.0,0.5,2.6,0],"cotto":["Prosciutto cotto magro",20.0,0.0,2.2,0],"tonno":["Tonno al naturale (sgocciolato)",25.0,0.0,1.0,0],"salmone":["Salmone (crudo)",20.0,0.0,12.0,0],"verdure":["Verdure miste",1.5,3.5,0.3,2.5],"pomodorini":["Pomodorini",1.0,3.0,0.2,1.5],"passata":["Passata di pomodoro",1.3,4.5,0.2,1.0],"olio":["Olio extravergine",0.0,0.0,100.0,0],"gallette":["Gallette di riso",8.0,80.0,3.0,3.0],"miele":["Miele",0.3,80.0,0.0,0],"mandorle":["Mandorle",21.0,5.0,52.0,12.0],"noci":["Noci",15.0,4.0,65.0,6.5],"parmigiano":["Parmigiano Reggiano (senza lattosio di natura)",33.0,0.0,28.0,0],"fagiolini":["Fagiolini",2.0,3.5,0.1,3.0],"latte_sl":["Latte parz. scremato senza lattosio",3.3,4.9,1.6,0],"yogurt_sl":["Yogurt greco senza lattosio 0%",9.5,4.0,0.4,0],"ceci":["Ceci lessati (in scatola, scolati)",7.0,15.5,2.4,6.5],"lenticchie":["Lenticchie lessate (in scatola, scolate)",7.5,13.5,0.5,5.0],"merluzzo":["Merluzzo o platessa (anche surgelati)",17.5,0.0,0.7,0],"fondente":["Cioccolato fondente 70%",8.0,34.0,41.0,11.0],"clementine":["Clementine",0.8,9.0,0.1,1.8],"kiwi":["Kiwi",1.1,9.0,0.5,3.0],"marmellata":["Marmellata o composta di frutta",0.4,50.0,0.1,1.0]},"dishes":{"C1":{"slot":"colazione","name":"Pane integrale, uova e kiwi","prep":"2 uova strapazzate o in camicia, più qualche cucchiaio di albume per arrivare alle proteine. Pane integrale tostato, kiwi a parte.","train":[["uovo",110],["pane_int",70],["kiwi",150],["albume",30]],"rest":[["uovo",110],["pane_int",50],["kiwi",80],["albume",40]]},"C2":{"slot":"colazione","name":"Porridge di avena con latte senza lattosio","prep":"Avena cotta 3-4 minuti nel latte senza lattosio; a fuoco basso aggiungi l'albume e mescola finché diventa cremoso. Banana a fette e mandorle tritate sopra.","train":[["latte_sl",200],["avena",50],["albume",80],["banana",60],["mandorle",10]],"rest":[["latte_sl",150],["avena",40],["albume",100],["banana",30],["mandorle",10]]},"C3":{"slot":"colazione","name":"Toast integrale con prosciutto cotto e clementine","prep":"Due toast di pane integrale con prosciutto cotto. Clementine e qualche noce a parte.","train":[["pane_int",80],["cotto",60],["clementine",150],["noci",10]],"rest":[["pane_int",60],["cotto",70],["clementine",100],["noci",10]]},"C4":{"slot":"colazione","name":"Yogurt senza lattosio, avena, mela e noci","prep":"L'unico latticino della giornata: yogurt greco senza lattosio con fiocchi d'avena, mela a cubetti e noci. Si prepara anche la sera prima.","train":[["noci",10],["yogurt_sl",160],["avena",35],["mela",190]],"rest":[["noci",10],["yogurt_sl",160],["avena",40],["mela",70]]},"C5":{"slot":"colazione","name":"Pancake di avena e uova con marmellata","prep":"Frulla avena, uovo, albume e mezza banana; cuoci in padella antiaderente 2 minuti per lato. Sopra marmellata e il resto della banana.","train":[["uovo",55],["marmellata",15],["avena",65],["albume",60],["banana",10]],"rest":[["uovo",55],["marmellata",15],["avena",50],["albume",80]]},"S1":{"slot":"spuntino","name":"Mela e mandorle","prep":"In borsa senza problemi: una mela e una manciata di mandorle.","train":[["mela",150],["mandorle",15]],"rest":[["mela",110],["mandorle",15]]},"S2":{"slot":"spuntino","name":"Gallette e Parmigiano","prep":"Il Parmigiano stagionato non ha lattosio: due gallette e qualche scaglia, in un contenitore piccolo.","train":[["gallette",24],["parmigiano",15]],"rest":[["gallette",16],["parmigiano",20]]},"S3":{"slot":"spuntino","name":"Clementine e noci","prep":"Clementine e qualche noce già sgusciata.","train":[["clementine",200],["noci",15]],"rest":[["clementine",160],["noci",15]]},"S4":{"slot":"spuntino","name":"Uovo sodo e kiwi","prep":"Rassoda le uova la sera prima: in frigo durano 5 giorni. Kiwi da mangiare con il cucchiaino.","train":[["uovo",55],["kiwi",190]],"rest":[["uovo",55],["kiwi",150]]},"S5":{"slot":"spuntino","name":"Banana e cioccolato fondente","prep":"Banana e due quadretti di fondente al 70%.","train":[["banana",60],["fondente",20]],"rest":[["banana",40],["fondente",20]]},"M1":{"slot":"pranzo","name":"Mensa: secondo, verdure e pane","prep":"Il pranzo più semplice da comporre: proteine, tante verdure e poco pane. Evita fritti, formaggi come secondo e salse.","train":[["pollo",140],["verdure",200],["pane",60],["olio",10],["mela",120]],"rest":[["pollo",150],["verdure",250],["pane",30],["olio",10],["mela",130]],"mensa":true,"guide":{"train":[["Secondo di carne bianca, pesce, uova o legumi","1 porzione piena"],["Verdure cotte o crude, non fritte","1 piatto abbondante"],["Pane","1 panino piccolo o 2 fette"],["Olio","1 cucchiaio: se puoi mettilo tu"],["Frutta","1 frutto"]],"rest":[["Secondo di carne bianca, pesce, uova o legumi","1 porzione piena"],["Verdure cotte o crude, non fritte","1 piatto abbondante"],["Pane","1 fetta"],["Olio","1 cucchiaio"],["Frutta","1 frutto"]]}},"M2":{"slot":"pranzo","name":"Mensa: primo piccolo e secondo","prep":"Se il primo è al ragù, alla panna o al formaggio, prendi M1 al suo posto.","train":[["pasta",55],["passata",60],["pollo",110],["verdure",150],["olio",10]],"rest":[["pasta",35],["passata",60],["pollo",120],["verdure",200],["olio",10]],"mensa":true,"guide":{"train":[["Primo al pomodoro o alle verdure","mezza porzione"],["Secondo magro","1 porzione"],["Verdure","1 piatto"],["Pane","niente: c'è già il primo"]],"rest":[["Primo al pomodoro o alle verdure","un terzo di porzione"],["Secondo magro","1 porzione"],["Verdure","1 piatto abbondante"],["Pane","niente"]]}},"M3":{"slot":"pranzo","name":"Mensa: insalatona con proteine","prep":"Mozzarella e formaggi freschi hanno lattosio: meglio tonno, uova, pollo o legumi.","train":[["verdure",250],["tonno",80],["uovo",55],["pane",60],["olio",10],["mela",120]],"rest":[["verdure",300],["tonno",90],["uovo",55],["pane",35],["olio",10],["mela",120]],"mensa":true,"guide":{"train":[["Insalata con tonno, uova o pollo","1 piatto grande"],["Pane","1 panino piccolo"],["Olio","1 cucchiaio"],["Frutta","1 frutto"]],"rest":[["Insalata con tonno, uova o pollo","1 piatto grande"],["Pane","1 fetta"],["Olio","1 cucchiaio"],["Frutta","1 frutto"]]}},"M4":{"slot":"pranzo","name":"Mensa: legumi e secondo piccolo","prep":"I legumi da soli hanno poche proteine: aggiungi sempre mezza porzione di secondo.","train":[["lenticchie",150],["pasta",40],["pollo",70],["verdure",150],["olio",10]],"rest":[["lenticchie",150],["pasta",20],["pollo",80],["verdure",200],["olio",10]],"mensa":true,"guide":{"train":[["Pasta e fagioli, zuppa o piatto di legumi","1 porzione"],["Secondo magro","mezza porzione"],["Verdure","1 piatto"],["Pane","niente"]],"rest":[["Zuppa o piatto di legumi, poca pasta","1 porzione"],["Secondo magro","mezza porzione"],["Verdure","1 piatto"],["Pane","niente"]]}},"P1":{"slot":"pranzo","name":"Pasta integrale al ragù magro","prep":"Ragù veloce: macinato magro rosolato con l'olio, passata ed erbe, 15-20 minuti. Si conserva 3 giorni in frigo.","train":[["passata",120],["parmigiano",10],["pasta_int",80],["manzo",110],["olio",5]],"rest":[["passata",120],["parmigiano",10],["pasta_int",55],["manzo",120],["olio",5]]},"P2":{"slot":"pranzo","name":"Riso, pollo e verdure","prep":"Pollo alla piastra o al forno con spezie, riso basmati, verdure grigliate. Olio a crudo. Si porta anche in ufficio.","train":[["verdure",200],["riso",60],["pollo",130],["olio",15]],"rest":[["verdure",200],["riso",45],["pollo",140],["olio",15]]},"P3":{"slot":"pranzo","name":"Cous cous con tonno, ceci e pomodorini","prep":"Cous cous con acqua bollente e un pizzico di sale, 5 minuti coperto. Poi tonno, ceci sciacquati, pomodorini, olio e basilico. Si mangia anche freddo.","train":[["pomodorini",150],["couscous",65],["tonno",110],["ceci",35],["olio",15]],"rest":[["pomodorini",150],["couscous",45],["tonno",120],["ceci",30],["olio",15]]},"P4":{"slot":"pranzo","name":"Panino integrale con bresaola, rucola e Parmigiano","prep":"Il pranzo da portare: bresaola, rucola, scaglie di Parmigiano e un filo di limone. Mela a parte.","train":[["verdure",50],["parmigiano",15],["pane_int",130],["bresaola",70]],"rest":[["verdure",50],["parmigiano",15],["pane_int",100],["bresaola",70]]},"P5":{"slot":"pranzo","name":"Insalata tiepida di lenticchie, uova e verdure","prep":"Lenticchie sciacquate e scaldate in padella con carote e sedano a cubetti, 2 uova sode, olio e pane integrale.","train":[["verdure",150],["uovo",110],["lenticchie",250],["pane_int",40],["olio",5]],"rest":[["verdure",150],["uovo",110],["lenticchie",280],["olio",5]]},"E1":{"slot":"merenda","name":"Panino integrale con prosciutto cotto","prep":"Il panino della mattina regge fino al pomeriggio. Nei giorni di allenamento mangialo almeno 90 minuti prima.","train":[["pane_int",80],["cotto",40]],"rest":[["pane_int",40],["cotto",50]]},"E2":{"slot":"merenda","name":"Gallette, bresaola e mela","prep":"Bresaola in vaschetta, gallette e una mela: tutto secco, niente frigo.","train":[["gallette",24],["bresaola",40],["mela",150]],"rest":[["gallette",16],["bresaola",40],["mela",80]]},"E3":{"slot":"merenda","name":"Tonno al naturale, gallette e clementine","prep":"Una scatoletta di tonno al naturale con l'apertura facile, gallette e clementine.","train":[["tonno",50],["gallette",24],["clementine",150]],"rest":[["tonno",50],["gallette",16],["clementine",80]]},"E4":{"slot":"merenda","name":"Panino integrale con frittata","prep":"Frittatina di uovo e albume fatta la sera prima, dentro il pane integrale. Si porta bene.","train":[["uovo",55],["pane_int",80]],"rest":[["uovo",55],["pane_int",40],["albume",30]]},"D1":{"slot":"cena","name":"Pollo al forno, patate e verdure","prep":"Pollo e patate a spicchi nella stessa teglia, 35' a 200°C con rosmarino. Verdure a volontà.","train":[["verdure",250],["pollo",170],["patate",150],["olio",15]],"rest":[["verdure",250],["pollo",170],["patate",110],["olio",15]]},"D2":{"slot":"cena","name":"Frittata di verdure e pane integrale","prep":"Frittata alta di 2 uova e albume con zucchine, spinaci o cipolla, in padella o al forno. Pane integrale a parte.","train":[["uovo",110],["verdure",250],["albume",200],["pane_int",60],["olio",10]],"rest":[["uovo",110],["verdure",250],["albume",200],["pane_int",40],["olio",10]]},"D3":{"slot":"cena","name":"Merluzzo al forno, patate e fagiolini","prep":"Filetti di merluzzo o platessa (vanno bene surgelati) al forno con limone e pangrattato leggero, patate e fagiolini lessi.","train":[["fagiolini",200],["merluzzo",220],["patate",160],["olio",15]],"rest":[["fagiolini",200],["merluzzo",220],["patate",120],["olio",15]]},"D4":{"slot":"cena","name":"Hamburger di manzo, verdure grigliate e pane","prep":"Hamburger di macinato magro alla piastra, verdure grigliate, pane integrale. Senza formaggio fuso.","train":[["verdure",250],["manzo",170],["pane_int",60],["olio",10]],"rest":[["verdure",250],["manzo",180],["pane_int",50],["olio",10]]},"D5":{"slot":"cena","name":"Salmone, riso e zucchine","prep":"Salmone al forno o in padella, riso basmati e zucchine saltate. Il salmone ha già i suoi grassi: poco olio.","train":[["verdure",200],["salmone",190],["riso",35]],"rest":[["verdure",200],["salmone",190],["riso",25]]},"D6":{"slot":"cena","name":"Polpette di pollo al sugo con pane","prep":"Polpette di macinato di pollo con prezzemolo e un albume, cotte nel sugo 20'. Pane integrale per la scarpetta.","train":[["passata",150],["verdure",150],["pollo",160],["pane_int",60],["olio",15]],"rest":[["passata",150],["verdure",150],["pollo",160],["pane_int",40],["olio",15]]},"SG":{"slot":"cena","name":"Sgarro · pasto libero","prep":"Pizza, sushi, quello che ti va: un pasto, non una giornata. Il giorno dopo riprendi il menù normale, senza compensare.","train":[],"rest":[]}},"weeks":{"A":[["Lun","rest","Riposo · camminata",["C1","S1","M1","E1","D1"]],["Mar","train","Calisthenics",["C2","S2","M2","E2","D2"]],["Mer","train","Corpo libero a casa",["C3","S5","M3","E4","D3"]],["Gio","train","Calisthenics",["C4","S2","M4","E3","D4"]],["Ven","rest","Riposo · camminata",["C1","S3","M1","E2","D5"]],["Sab","train","Corpo libero a casa",["C5","S4","P1","E1","SG"]],["Dom","rest","Riposo · camminata",["C2","S1","P2","E3","D6"]]],"B":[["Lun","rest","Riposo · camminata",["C3","S2","M2","E4","D3"]],["Mar","train","Calisthenics",["C5","S1","M3","E1","D6"]],["Mer","train","Corpo libero a casa",["C1","S5","M4","E2","D4"]],["Gio","train","Calisthenics",["C2","S4","M1","E3","D1"]],["Ven","rest","Riposo · camminata",["C4","S3","M2","E4","D2"]],["Sab","train","Corpo libero a casa",["C3","S2","P3","E1","SG"]],["Dom","rest","Riposo · camminata",["C1","S5","P5","E2","D5"]]]}};
+const PLAN_L = {"foods":{"avena":["Fiocchi d'avena",13.0,60.0,7.0,10.0],"uovo":["Uova intere",12.5,0.7,9.5,0],"albume":["Albume (in brick)",11.0,0.7,0.2,0],"pane_int":["Pane integrale",9.0,41.0,3.0,7.0],"pane":["Pane comune / bianco",8.5,60.0,1.0,3.0],"mela":["Mela",0.3,11.5,0.2,2.4],"banana":["Banana",1.1,20.0,0.3,2.6],"riso":["Riso basmati (crudo)",7.5,78.0,0.6,1.0],"pasta":["Pasta di semola (cruda)",13.0,71.0,1.5,3.0],"pasta_int":["Pasta integrale (cruda)",13.5,64.0,2.5,8.0],"couscous":["Cous cous (crudo)",12.0,72.0,1.0,5.0],"patate":["Patate (crude)",2.0,17.0,0.1,2.0],"pollo":["Petto di pollo (crudo)",23.0,0.0,1.5,0],"manzo":["Manzo magro / macinato 5%",21.0,0.0,5.0,0],"bresaola":["Bresaola",32.0,0.5,2.6,0],"cotto":["Prosciutto cotto magro",20.0,0.0,2.2,0],"tonno":["Tonno al naturale (sgocciolato)",25.0,0.0,1.0,0],"salmone":["Salmone (crudo)",20.0,0.0,12.0,0],"verdure":["Verdure miste",1.5,3.5,0.3,2.5],"pomodorini":["Pomodorini",1.0,3.0,0.2,1.5],"passata":["Passata di pomodoro",1.3,4.5,0.2,1.0],"olio":["Olio extravergine",0.0,0.0,100.0,0],"gallette":["Gallette di riso",8.0,80.0,3.0,3.0],"miele":["Miele",0.3,80.0,0.0,0],"mandorle":["Mandorle",21.0,5.0,52.0,12.0],"noci":["Noci",15.0,4.0,65.0,6.5],"parmigiano":["Parmigiano Reggiano (senza lattosio di natura)",33.0,0.0,28.0,0],"fagiolini":["Fagiolini",2.0,3.5,0.1,3.0],"latte_sl":["Latte parz. scremato senza lattosio",3.3,4.9,1.6,0],"yogurt_sl":["Yogurt greco senza lattosio 0%",9.5,4.0,0.4,0],"ceci":["Ceci lessati (in scatola, scolati)",7.0,15.5,2.4,6.5],"lenticchie":["Lenticchie lessate (in scatola, scolate)",7.5,13.5,0.5,5.0],"merluzzo":["Merluzzo o platessa (anche surgelati)",17.5,0.0,0.7,0],"fondente":["Cioccolato fondente 70%",8.0,34.0,41.0,11.0],"clementine":["Clementine",0.8,9.0,0.1,1.8],"kiwi":["Kiwi",1.1,9.0,0.5,3.0],"marmellata":["Marmellata o composta di frutta",0.4,50.0,0.1,1.0]},"dishes":{"C1":{"slot":"colazione","name":"Pane integrale, uova e kiwi","prep":"2 uova strapazzate o in camicia, più qualche cucchiaio di albume per arrivare alle proteine. Pane integrale tostato, kiwi a parte.","train":[["uovo",110],["pane_int",70],["kiwi",150],["albume",30]],"rest":[["uovo",110],["pane_int",50],["kiwi",80],["albume",40]]},"C2":{"slot":"colazione","name":"Porridge di avena con latte senza lattosio","prep":"Avena cotta 3-4 minuti nel latte senza lattosio; a fuoco basso aggiungi l'albume e mescola finché diventa cremoso. Banana a fette e mandorle tritate sopra.","train":[["latte_sl",200],["avena",50],["albume",80],["banana",60],["mandorle",10]],"rest":[["latte_sl",150],["avena",40],["albume",100],["banana",30],["mandorle",10]]},"C3":{"slot":"colazione","name":"Toast integrale con prosciutto cotto e clementine","prep":"Due toast di pane integrale con prosciutto cotto. Clementine e qualche noce a parte.","train":[["pane_int",80],["cotto",60],["clementine",150],["noci",10]],"rest":[["pane_int",60],["cotto",70],["clementine",100],["noci",10]]},"C4":{"slot":"colazione","name":"Yogurt senza lattosio, avena, mela e noci","prep":"L'unico latticino della giornata: yogurt greco senza lattosio con fiocchi d'avena, mela a cubetti e noci. Si prepara anche la sera prima.","train":[["noci",10],["yogurt_sl",160],["avena",35],["mela",190]],"rest":[["noci",10],["yogurt_sl",160],["avena",40],["mela",70]]},"C6":{"slot":"colazione","name":"Porridge alla mela e cannella","prep":"Avena cotta nel latte senza lattosio con la mela a cubetti e tanta cannella; a fuoco basso aggiungi l'albume e mescola finché diventa cremoso. Noci tritate sopra. Si fa anche la sera prima e si scalda al mattino.","train":[["latte_sl",200],["avena",40],["albume",90],["mela",120],["noci",10]],"rest":[["latte_sl",150],["avena",30],["albume",110],["mela",80],["noci",10]]},"C5":{"slot":"colazione","name":"Pancake di avena e uova con marmellata","prep":"Frulla avena, uovo, albume e mezza banana; cuoci in padella antiaderente 2 minuti per lato. Sopra marmellata e il resto della banana.","train":[["uovo",55],["marmellata",15],["avena",65],["albume",60],["banana",10]],"rest":[["uovo",55],["marmellata",15],["avena",50],["albume",80]]},"S1":{"slot":"spuntino","name":"Mela e mandorle","prep":"In borsa senza problemi: una mela e una manciata di mandorle.","train":[["mela",150],["mandorle",15]],"rest":[["mela",110],["mandorle",15]]},"S2":{"slot":"spuntino","name":"Gallette e Parmigiano","prep":"Il Parmigiano stagionato non ha lattosio: due gallette e qualche scaglia, in un contenitore piccolo.","train":[["gallette",24],["parmigiano",15]],"rest":[["gallette",16],["parmigiano",20]]},"S3":{"slot":"spuntino","name":"Clementine e noci","prep":"Clementine e qualche noce già sgusciata.","train":[["clementine",200],["noci",15]],"rest":[["clementine",160],["noci",15]]},"S4":{"slot":"spuntino","name":"Uovo sodo e kiwi","prep":"Rassoda le uova la sera prima: in frigo durano 5 giorni. Kiwi da mangiare con il cucchiaino.","train":[["uovo",55],["kiwi",190]],"rest":[["uovo",55],["kiwi",150]]},"S5":{"slot":"spuntino","name":"Banana e cioccolato fondente","prep":"Banana e due quadretti di fondente al 70%.","train":[["banana",60],["fondente",20]],"rest":[["banana",40],["fondente",20]]},"M1":{"slot":"pranzo","name":"Mensa: secondo, verdure e pane","prep":"Il pranzo più semplice da comporre: proteine, tante verdure e poco pane. Evita fritti, formaggi come secondo e salse.","train":[["pollo",140],["verdure",200],["pane",80],["olio",10]],"rest":[["pollo",150],["verdure",250],["pane",50],["olio",10]],"mensa":true,"guide":{"train":[["Secondo di carne bianca, pesce, uova o legumi","1 porzione piena"],["Verdure cotte o crude, non fritte","1 piatto abbondante"],["Pane","1 panino o 3 fette"],["Olio","1 cucchiaio: se puoi mettilo tu"]],"rest":[["Secondo di carne bianca, pesce, uova o legumi","1 porzione piena"],["Verdure cotte o crude, non fritte","1 piatto abbondante"],["Pane","1 fetta e mezza"],["Olio","1 cucchiaio"]]}},"M2":{"slot":"pranzo","name":"Mensa: primo piccolo e secondo","prep":"Se il primo è al ragù, alla panna o al formaggio, prendi M1 al suo posto.","train":[["pasta",55],["passata",60],["pollo",110],["verdure",150],["olio",10]],"rest":[["pasta",35],["passata",60],["pollo",120],["verdure",200],["olio",10]],"mensa":true,"guide":{"train":[["Primo al pomodoro o alle verdure","mezza porzione"],["Secondo magro","1 porzione"],["Verdure","1 piatto"],["Pane","niente: c'è già il primo"]],"rest":[["Primo al pomodoro o alle verdure","un terzo di porzione"],["Secondo magro","1 porzione"],["Verdure","1 piatto abbondante"],["Pane","niente"]]}},"M3":{"slot":"pranzo","name":"Mensa: insalatona con proteine","prep":"Mozzarella e formaggi freschi hanno lattosio: meglio tonno, uova, pollo o legumi.","train":[["verdure",250],["tonno",80],["uovo",55],["pane",80],["olio",10]],"rest":[["verdure",300],["tonno",90],["uovo",55],["pane",50],["olio",10]],"mensa":true,"guide":{"train":[["Insalata con tonno, uova o pollo","1 piatto grande"],["Pane","1 panino o 3 fette"],["Olio","1 cucchiaio"]],"rest":[["Insalata con tonno, uova o pollo","1 piatto grande"],["Pane","1 fetta e mezza"],["Olio","1 cucchiaio"]]}},"M4":{"slot":"pranzo","name":"Mensa: legumi e secondo piccolo","prep":"I legumi da soli hanno poche proteine: aggiungi sempre mezza porzione di secondo.","train":[["lenticchie",150],["pasta",40],["pollo",70],["verdure",150],["olio",10]],"rest":[["lenticchie",150],["pasta",20],["pollo",80],["verdure",200],["olio",10]],"mensa":true,"guide":{"train":[["Pasta e fagioli, zuppa o piatto di legumi","1 porzione"],["Secondo magro","mezza porzione"],["Verdure","1 piatto"],["Pane","niente"]],"rest":[["Zuppa o piatto di legumi, poca pasta","1 porzione"],["Secondo magro","mezza porzione"],["Verdure","1 piatto"],["Pane","niente"]]}},"P1":{"slot":"pranzo","name":"Pasta integrale al ragù magro","prep":"Ragù veloce: macinato magro rosolato con l'olio, passata ed erbe, 15-20 minuti. Si conserva 3 giorni in frigo.","train":[["passata",120],["parmigiano",10],["pasta_int",80],["manzo",110],["olio",5]],"rest":[["passata",120],["parmigiano",10],["pasta_int",55],["manzo",120],["olio",5]]},"P2":{"slot":"pranzo","name":"Riso, pollo e verdure","prep":"Pollo alla piastra o al forno con spezie, riso basmati, verdure grigliate. Olio a crudo. Si porta anche in ufficio.","train":[["verdure",200],["riso",60],["pollo",130],["olio",15]],"rest":[["verdure",200],["riso",45],["pollo",140],["olio",15]]},"P3":{"slot":"pranzo","name":"Cous cous con tonno, ceci e pomodorini","prep":"Cous cous con acqua bollente e un pizzico di sale, 5 minuti coperto. Poi tonno, ceci sciacquati, pomodorini, olio e basilico. Si mangia anche freddo.","train":[["pomodorini",150],["couscous",65],["tonno",110],["ceci",35],["olio",15]],"rest":[["pomodorini",150],["couscous",45],["tonno",120],["ceci",30],["olio",15]]},"P4":{"slot":"pranzo","name":"Panino integrale con bresaola, rucola e Parmigiano","prep":"Il pranzo da portare: bresaola, rucola, scaglie di Parmigiano, un filo d'olio e limone.","train":[["verdure",50],["parmigiano",15],["pane_int",130],["bresaola",60],["olio",5]],"rest":[["verdure",50],["parmigiano",15],["pane_int",100],["bresaola",70],["olio",5]]},"P5":{"slot":"pranzo","name":"Insalata tiepida di lenticchie, uova e verdure","prep":"Lenticchie sciacquate e scaldate in padella con carote e sedano a cubetti, 2 uova sode, olio e pane integrale.","train":[["verdure",150],["uovo",110],["lenticchie",250],["pane_int",40],["olio",5]],"rest":[["verdure",150],["uovo",110],["lenticchie",280],["olio",5]]},"E1":{"slot":"merenda","name":"Panino integrale con prosciutto cotto","prep":"Il panino della mattina regge fino al pomeriggio. Nei giorni di allenamento mangialo almeno 90 minuti prima.","train":[["pane_int",80],["cotto",40]],"rest":[["pane_int",40],["cotto",50]]},"E2":{"slot":"merenda","name":"Gallette, bresaola e mela","prep":"Bresaola in vaschetta, gallette e una mela: tutto secco, niente frigo.","train":[["gallette",24],["bresaola",40],["mela",150]],"rest":[["gallette",16],["bresaola",40],["mela",80]]},"E3":{"slot":"merenda","name":"Tonno al naturale, gallette e clementine","prep":"Una scatoletta di tonno al naturale con l'apertura facile, gallette e clementine.","train":[["tonno",50],["gallette",24],["clementine",150]],"rest":[["tonno",50],["gallette",16],["clementine",80]]},"E4":{"slot":"merenda","name":"Panino integrale con frittata","prep":"Frittatina di uovo e albume fatta la sera prima, dentro il pane integrale. Si porta bene.","train":[["uovo",55],["pane_int",80]],"rest":[["uovo",55],["pane_int",40],["albume",30]]},"D1":{"slot":"cena","name":"Pollo al forno, patate e verdure","prep":"Pollo e patate a spicchi nella stessa teglia, 35' a 200°C con rosmarino. Verdure a volontà.","train":[["verdure",250],["pollo",170],["patate",150],["olio",15]],"rest":[["verdure",250],["pollo",170],["patate",110],["olio",15]]},"D2":{"slot":"cena","name":"Frittata di verdure e pane integrale","prep":"Frittata alta di 2 uova e albume con zucchine, spinaci o cipolla, in padella o al forno. Pane integrale a parte.","train":[["uovo",110],["verdure",250],["albume",200],["pane_int",60],["olio",10]],"rest":[["uovo",110],["verdure",250],["albume",200],["pane_int",40],["olio",10]]},"D3":{"slot":"cena","name":"Merluzzo al forno, patate e fagiolini","prep":"Filetti di merluzzo o platessa (vanno bene surgelati) al forno con limone e pangrattato leggero, patate e fagiolini lessi.","train":[["fagiolini",200],["merluzzo",220],["patate",160],["olio",15]],"rest":[["fagiolini",200],["merluzzo",220],["patate",120],["olio",15]]},"D4":{"slot":"cena","name":"Hamburger di manzo, verdure grigliate e pane","prep":"Hamburger di macinato magro alla piastra, verdure grigliate, pane integrale. Senza formaggio fuso.","train":[["verdure",250],["manzo",170],["pane_int",60],["olio",10]],"rest":[["verdure",250],["manzo",180],["pane_int",50],["olio",10]]},"D5":{"slot":"cena","name":"Salmone, riso e zucchine","prep":"Salmone al forno o in padella, riso basmati e zucchine saltate. Il salmone ha già i suoi grassi: poco olio.","train":[["verdure",200],["salmone",190],["riso",35]],"rest":[["verdure",200],["salmone",190],["riso",25]]},"D6":{"slot":"cena","name":"Polpette di pollo al sugo con pane","prep":"Polpette di macinato di pollo con prezzemolo e un albume, cotte nel sugo 20'. Pane integrale per la scarpetta.","train":[["passata",150],["verdure",150],["pollo",160],["pane_int",60],["olio",15]],"rest":[["passata",150],["verdure",150],["pollo",160],["pane_int",40],["olio",15]]},"SG":{"slot":"cena","name":"Sgarro · pasto libero","prep":"Pizza, sushi, quello che ti va: un pasto, non una giornata. Il giorno dopo riprendi il menù normale, senza compensare.","train":[],"rest":[]}},"weeks":{"A":[["Lun","rest","Riposo · camminata",["C1","S1","M1","E1","D1"]],["Mar","train","Calisthenics",["C2","S2","M2","E2","D2"]],["Mer","train","Corpo libero a casa",["C3","S5","M3","E4","D3"]],["Gio","train","Calisthenics",["C6","S2","M4","E3","D4"]],["Ven","rest","Riposo · camminata",["C1","S3","M1","E2","D5"]],["Sab","train","Corpo libero a casa",["C5","S4","P1","E1","SG"]],["Dom","rest","Riposo · camminata",["C2","S1","P2","E3","D6"]]],"B":[["Lun","rest","Riposo · camminata",["C6","S2","M2","E4","D3"]],["Mar","train","Calisthenics",["C5","S1","M3","E1","D6"]],["Mer","train","Corpo libero a casa",["C1","S5","M4","E2","D4"]],["Gio","train","Calisthenics",["C2","S4","M1","E3","D1"]],["Ven","rest","Riposo · camminata",["C4","S3","M2","E4","D2"]],["Sab","train","Corpo libero a casa",["C3","S2","P3","E1","SG"]],["Dom","rest","Riposo · camminata",["C6","S5","P5","E3","D5"]]]}};
 const LEI = PWA && !!PLAN_L && !!SAVED_USER && SAVED_USER.profilo === "lei";
 const NOME = LEI ? String(SAVED_USER.nome || "").trim() : "Jacopo";
 document.documentElement.dataset.prof = LEI ? "lei" : "jacopo";
@@ -2335,6 +2386,8 @@ function renderOggi(){
   const dd = dayDiff(d, today());
   $("oggiLabel").textContent = fmtDateLong(d);
   $("oggiTitle").textContent = dd === 0 ? "Oggi" : dd === 1 ? "Domani" : dd === -1 ? "Ieri" : GIORNI[di];
+  if (w >= 1 && w <= WEEKS) $("oggiLabel").textContent = `${fmtDateLong(d)} · sett. ${w} di ${WEEKS}`;
+  if (typeof navTitle === "function" && CUR_VIEW === "oggi") navTitle();
   const tShift = plan.turno ? turnoLabel(plan.turno).toLowerCase() : "turno non noto";
   if (tipo === "train"){
     $("heroLbl").textContent = dd === 0 ? "Allenamento di oggi" : "Allenamento del giorno";
@@ -2627,11 +2680,16 @@ function renderAlimentazione(){
   const tipo = tipoOf(S.menuDay), meals = dayMeals(S.menuDay, R, null, tipo), tot = sumMac(meals.map(x=>x.m));
   $("menuDay").innerHTML = `<div class="sec-head"><h3>${GIORNI[S.menuDay]} · ${tipo==="train"?"allenamento":"riposo"}</h3><span class="tag">${esc(tagOf(S.menuDay))}</span></div>${mealRowsHTML(meals, {ctx:"menu" + R + S.menuDay, swappable:false})}`;
   $("menuMacros").innerHTML = `<div class="rest-head"><span class="small muted">Totale</span><b>${fmt(tot.kcal)} / ${fmt(TARGET[tipo].kcal)} kcal</b></div>${macroStackHTML(tot, TARGET[tipo])}`;
-  // piatti
-  const slots = LEI ? ["colazione","spuntino","pranzo","merenda","cena"] : ["colazione","pranzo","pre","cena","spuntino"];
-  const ids = Object.keys(PLAN.dishes).filter(id=>id!=="SG").sort((a,b)=>slots.indexOf(PLAN.dishes[a].slot)-slots.indexOf(PLAN.dishes[b].slot));
-  const cell = items => items ? `<div class="items">${items.map(([k,g])=>{const [n,q]=itemLabel(k,g);return `<span class="item">${esc(n)} <b>${q}</b></span>`;}).join("")}</div><div style="margin-top:4px">${macLine(mac(items))}</div>` : `<span class="muted small">solo giorni di allenamento</span>`;
-  $("dishTable").innerHTML = `<thead><tr><th>Pasto</th><th>Piatto</th><th>Dose allenamento</th><th>Dose riposo</th></tr></thead><tbody>${ids.map(id=>{const d=PLAN.dishes[id];return `<tr><td class="small muted" style="white-space:nowrap">${SLOT_LAB[d.slot]}</td><td style="min-width:160px"><b>${esc(d.name)}</b><div class="small muted">${esc(d.prep)}</div></td><td style="min-width:240px">${d.guide ? mealBodyUL({d, tipo:"train"}) : cell(d.train)}</td><td style="min-width:240px">${d.guide ? mealBodyUL({d, tipo:"rest"}) : cell(d.rest)}</td></tr>`;}).join("")}</tbody>`;
+  // piatti: niente tabella larga, una scelta allenamento/riposo e righe che si aprono
+  const DT = S.dishTipo || "train";
+  $("dishTipo").innerHTML = [["train","Allenamento"],["rest","Riposo"]].map(([k,l]) => `<button type="button" data-t="${k}" aria-pressed="${k === DT}">${l}</button>`).join("");
+  const dslots = LEI ? ["colazione","spuntino","pranzo","merenda","cena"] : ["colazione","pranzo","pre","spuntino","cena"];
+  $("dishList").innerHTML = dslots.map(slot => {
+    const ids = Object.keys(PLAN.dishes).filter(id => id !== "SG" && PLAN.dishes[id].slot === slot && PLAN.dishes[id][DT]);
+    if (!ids.length) return slot === "pre" ? `<div class="dish-g"><span class="eyebrow">${SLOT_LAB[slot]}</span><p class="small muted">Solo nei giorni di allenamento.</p></div>` : "";
+    const ms = ids.map(id => { const d = PLAN.dishes[id], items = d[DT], m = mac(items); return {slot, id, d, items, tipo:DT, m, label:`${d.mensa ? "Mensa · " : ""}P ${fmt(m.P)} · C ${fmt(m.C)} · G ${fmt(m.F)}`}; });
+    return `<div class="dish-g"><span class="eyebrow">${SLOT_LAB[slot]} · ${ids.length} ${ids.length === 1 ? "piatto" : "piatti"}</span>${mealRowsHTML(ms, {ctx:"piatti" + DT, swappable:false})}</div>`;
+  }).join("");
   // sostituzioni
   const sw = (title, keys, idx, amt, unit) => `<div class="card sec"><h3>${title}</h3><table><tbody>${keys.map(k=>{const v=PLAN.foods[k][idx]; let g=Math.round(amt/v*100/5)*5; let lab=`${g} g`; if(k==="uovo"){const n=Math.round(g/55); lab=`${n} uova`;} return `<tr><td>${esc(PLAN.foods[k][0])}</td><td class="n">${lab}</td></tr>`;}).join("")}</tbody></table><p class="small muted">${unit}</p></div>`;
   $("swaps").innerHTML = LEI ?
@@ -2642,6 +2700,143 @@ function renderAlimentazione(){
   + sw("Proteine", ["pollo","manzo","tonno","albume","yogurt","whey","uovo"], 1, 30, "Quantità con circa 30 g di proteine. Le uova intere portano anche 20 g di grassi.")
   + sw("Grassi", ["olio","avocado","mandorle","noci","arachidi"], 3, 10, "Quantità con circa 10 g di grassi.");
 }
+
+$("dishTipo").addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (!b) return; S.dishTipo = b.dataset.t; renderAlimentazione(); });
+
+/* ---------- PDF della settimana da attaccare al frigo ----------
+   jsPDF si carica solo quando serve; il PDF si crea sul telefono e si condivide (Stampa, Salva su File, AirDrop). */
+let _jspdf = null;
+function loadJsPDF(){
+  if (window.jspdf) return Promise.resolve();
+  return _jspdf || (_jspdf = new Promise((res, rej) => {
+    const sc = document.createElement("script");
+    sc.src = PWA ? "jspdf.umd.min.js" : "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+    sc.onload = () => res(); sc.onerror = () => { _jspdf = null; rej(new Error("jspdf")); };
+    document.head.appendChild(sc);
+  }));
+}
+const PDF_SHORT = {whey:"Proteine in polvere", cracker:"Cracker d'avena", bosco:"Frutti di bosco", albume:"Albume", latte_sl:"Latte senza lattosio", yogurt_sl:"Yogurt senza lattosio", yogurt:"Yogurt greco", arachidi:"Burro d'arachidi", manzo:"Manzo magro", verdure:"Verdure", pollo:"Petto di pollo", riso:"Riso", pasta_int:"Pasta integrale", pasta:"Pasta", couscous:"Cous cous", patate:"Patate", olio:"Olio", tonno:"Tonno", cotto:"Prosciutto cotto", merluzzo:"Merluzzo", ceci:"Ceci", lenticchie:"Lenticchie", parmigiano:"Parmigiano", fondente:"Fondente 70%", marmellata:"Marmellata", passata:"Passata", gallette:"Gallette", salmone:"Salmone", fagiolini:"Fagiolini", pomodorini:"Pomodorini", avena:"Fiocchi d'avena"};
+const pdfTxt = t => String(t).replace(/[≈→←]/g, "").replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
+function pdfItem(k, g){
+  if (k === "uovo"){ const n = Math.round(g/55); return `${n} ${n === 1 ? "uovo" : "uova"}`; }
+  if (k === "gallette"){ const n = Math.round(g/8); return `Gallette ${n} pz`; }
+  if (k === "olio"){ const t = g===5?"1 cucchiaino":g===10?"1 cucchiaio":g===15?"1 cucchiaio e mezzo":`${g/10} cucchiai`; return `Olio ${t}`; }
+  const nm = PDF_SHORT[k] || String(PLAN.foods[k][0]).replace(/\s*\(.*?\)/g, "");
+  return `${nm} ${g}${k === "latte_sl" ? " ml" : " g"}`;
+}
+function fridgeWeek(mon){
+  return [...Array(7)].map((_, i) => {
+    const d = new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + i), p = dayPlan(d), dk = iso(d);
+    const meals = dayMeals(dow(d), rotOf(d), dk, p.tipo), T = mealTimes(p, meals);
+    meals.forEach(m => { m.time = T[m.slot] ?? null; if (m.slot === "pre") m.label = T.preLab; });
+    return {d, p, dk, meals, tot:sumMac(meals.map(x => x.m))};
+  });
+}
+function buildFridgePdf(mon){
+  const {jsPDF} = window.jspdf, doc = new jsPDF({orientation:"landscape", unit:"mm", format:"a4"});
+  const W = 297, H = 210, M = 9, LW = 17, days = fridgeWeek(mon), CW = (W - 2*M - LW) / 7;
+  const slots = LEI ? ["colazione","spuntino","pranzo","merenda","cena"] : ["colazione","pranzo","pre","spuntino","cena"];
+  const last = days[6].d, who = LEI ? (NOME || "") : "Jacopo";
+  const ink = [10,10,11], mute = [110,110,115], line = [220,220,226], blue = [37,99,235];
+  // contenuto delle celle
+  const cellOf = (day, slot) => {
+    const m = day.meals.find(x => x.slot === slot);
+    if (!m) return null;
+    const head = `${m.time != null ? hm(m.time) : ""}${m.label && m.label !== SLOT_LAB[slot] ? " · " + m.label : ""}`;
+    if (m.id === "SG") return {head, name:"Pasto libero", items:["non contato"]};
+    if (m.d.mensa) return {head, name:m.d.name.replace(/^Mensa: /, "Mensa: "), items:["segui la guida nell'app"]};
+    return {head, name:m.d.name, items:m.items.map(([k,g]) => pdfItem(k, g))};
+  };
+  let fs = 8.8, layout = null;
+  for (; fs >= 5.2; fs -= 0.3){
+    const lh = fs * 0.42, rows = [];
+    doc.setFontSize(fs);
+    for (const slot of slots){
+      let hMax = 0; const cells = days.map(day => {
+        const c = cellOf(day, slot); if (!c) return null;
+        doc.setFont("helvetica", "bold"); const nl = doc.splitTextToSize(pdfTxt(c.name), CW - 3);
+        doc.setFont("helvetica", "normal"); const il = c.items.flatMap(t => doc.splitTextToSize(pdfTxt(t), CW - 3));
+        const h = 1.6 + lh * (1 + nl.length + il.length) + 1.2; hMax = Math.max(hMax, h);
+        return {...c, nl, il};
+      });
+      rows.push({slot, cells, h:hMax});
+    }
+    const total = rows.reduce((a, r) => a + r.h, 0);
+    if (total <= H - 2*M - 30){ layout = {rows, lh}; break; }
+  }
+  if (!layout) throw new Error("troppo lungo");
+  // intestazione
+  doc.setTextColor(...ink); doc.setFont("helvetica", "bold"); doc.setFontSize(15);
+  doc.text(pdfTxt(`Menù della settimana${who ? " · " + who : ""}`), M, M + 5);
+  doc.setFont("helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(...mute);
+  doc.text(pdfTxt(`${fmtDateLong(mon)} – ${fmtDateLong(last).toLowerCase()} · grammature a crudo · allenamento ${fmt(TARGET.train.kcal)} kcal, riposo ${fmt(TARGET.rest.kcal)} kcal`), M, M + 10);
+  // giorni
+  let y = M + 14;
+  const hh = 9.5;
+  days.forEach((day, i) => {
+    const x = M + LW + i*CW, tr = day.p.tipo === "train";
+    doc.setFillColor(...(tr ? [230,237,253] : [243,243,245])); doc.roundedRect(x + 0.6, y, CW - 1.2, hh, 1.6, 1.6, "F");
+    doc.setFont("helvetica", "bold"); doc.setFontSize(7.6); doc.setTextColor(...(tr ? blue : ink));
+    doc.text(pdfTxt(`${GIORNI[dow(day.d)].slice(0,3).toUpperCase()} ${day.d.getDate()}`), x + 2.2, y + 3.8);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(6.2); doc.setTextColor(...mute);
+    const s = SESS[day.p.key] || {nome:""}, lab = tr ? (LEI ? s.nome : (WK_FULL[day.p.key] || s.nome)) : "Riposo";
+    doc.text(doc.splitTextToSize(pdfTxt(`${lab} · ${fmt(TARGET[day.p.tipo].kcal)} kcal`), CW - 4)[0], x + 2.2, y + 7.4);
+  });
+  y += hh + 1.5;
+  // righe dei pasti
+  const {rows, lh} = layout;
+  rows.forEach(r => {
+    doc.setDrawColor(...line); doc.setLineWidth(0.2); doc.line(M, y, W - M, y);
+    doc.setFont("helvetica", "bold"); doc.setFontSize(6.6); doc.setTextColor(...mute);
+    doc.text(pdfTxt(({pre:"PRE/POST"})[r.slot] || SLOT_LAB[r.slot].toUpperCase()), M, y + 3.4);
+    r.cells.forEach((c, i) => {
+      if (!c) return;
+      const x = M + LW + i*CW + 1.5; let yy = y + 1.6 + lh*0.8;
+      doc.setFontSize(fs - 0.8); doc.setFont("helvetica", "normal"); doc.setTextColor(...mute); doc.text(pdfTxt(c.head || ""), x, yy); yy += lh;
+      doc.setFontSize(fs); doc.setFont("helvetica", "bold"); doc.setTextColor(...ink); c.nl.forEach(t => { doc.text(t, x, yy); yy += lh; });
+      doc.setFont("helvetica", "normal"); doc.setTextColor(60,60,64); c.il.forEach(t => { doc.text(t, x, yy); yy += lh; });
+    });
+    y += r.h;
+  });
+  doc.line(M, y, W - M, y);
+  // piede
+  doc.setFontSize(7.5); doc.setTextColor(...mute); doc.setFont("helvetica", "normal");
+  const foot = LEI
+    ? "Mensa dal lunedì al venerdì: prima le verdure, poi il secondo, poi il pane. Pasto libero: un pasto, non una giornata."
+    : "Ogni giorno: creatina 5 g a colazione, omega-3 a cena. Pasto libero: un pasto, non una giornata. Acqua 2,5–3 L.";
+  doc.text(pdfTxt(foot), M, Math.min(H - M, y + 6));
+  doc.text(pdfTxt(`Creato dall'app il ${fmtDate(new Date())}: comprende i cambi piatto fatti fin qui.`), W - M, Math.min(H - M, y + 6), {align:"right"});
+  return doc.output("blob");
+}
+async function deliverPdf(blob, name){
+  const file = typeof File === "function" ? new File([blob], name, {type:"application/pdf"}) : null;
+  if (file && navigator.canShare && navigator.canShare({files:[file]})){
+    try { await navigator.share({files:[file], title:name}); return "ok"; }
+    catch(e){ if (e && e.name === "AbortError") return "ok"; }
+  }
+  const url = URL.createObjectURL(blob), a = document.createElement("a");
+  a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+  return "download";
+}
+S.pdf = null;
+async function fridgePdf(which){
+  const msg = $("pdfMsg"), mon = weekDays(today())[0];
+  if (which === "next") mon.setDate(mon.getDate() + 7);
+  const name = `menu-${iso(mon)}.pdf`;
+  try {
+    if (!window.jspdf){ msg.className = "msg"; msg.textContent = "Preparo il PDF…"; await loadJsPDF(); }
+    const blob = buildFridgePdf(mon);
+    S.pdf = {blob, name};
+    const r = await deliverPdf(blob, name).catch(() => "later");
+    msg.className = "msg ok";
+    msg.innerHTML = r === "later" ? `PDF pronto. <button type="button" class="linkbtn" id="pdfAgain">Apri il PDF</button>` : `PDF pronto: dalla finestra che si apre scegli Stampa o Salva su File. <button type="button" class="linkbtn" id="pdfAgain">Riaprilo</button>`;
+  } catch(e){ msg.className = "msg err"; msg.textContent = "Non sono riuscito a creare il PDF: controlla la connessione e riprova."; }
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-pdf]"); if (b){ fridgePdf(b.dataset.pdf); return; }
+  if (e.target.closest && e.target.closest("#pdfAgain") && S.pdf) deliverPdf(S.pdf.blob, S.pdf.name);
+});
 
 /* ---------- SPESA ---------- */
 function priceOf(k){ const v = S.prezzi[k]; return (typeof v === "number" && v > 0) ? v : PRICES[k].p; }
@@ -2996,16 +3191,45 @@ $("oggiDate").addEventListener("change", ()=>{ if ($("oggiDate").value){ S.oggi 
 /* ---------- routing ---------- */
 const VIEWS = ["oggi","alimentazione","spesa","allenamento","zone","diario","regole","altro"];
 const IN_MORE = ["diario","zone","regole","altro"];
+var CUR_VIEW = "oggi";
+const SCROLL_AT = {};
 function route(){
   let v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "oggi";
   if (v === "altro" && !PWA) v = "oggi";
+  CUR_VIEW = v;
   VIEWS.forEach(x=>{ $("v-"+x).hidden = x!==v; });
   document.querySelectorAll("nav.tabs a").forEach(a=>{
     const on = a.dataset.v === v || (a.dataset.v === "altro" && IN_MORE.includes(v));
     a.setAttribute("aria-current", on ? "page" : "false");
   });
+  $("navBack").hidden = !(PWA && IN_MORE.includes(v) && v !== "altro");
+  if (v === "alimentazione") loadJsPDF().catch(() => {});
+  navTitle();
 }
-window.addEventListener("hashchange", ()=>{ route(); window.scrollTo(0,0); });
+/* barra in alto come su iPhone: il titolo compare quando quello grande scorre sotto */
+function navTitle(){
+  const h = document.querySelector(`#v-${CUR_VIEW} .ph h1`), nb = $("navbar");
+  if (!nb) return;
+  $("navTitle").textContent = h ? h.textContent : "";
+  const lim = nb.getBoundingClientRect().height || 44;
+  nb.classList.toggle("on", !!h && h.getBoundingClientRect().bottom < lim + 2);
+}
+{ let q = false; window.addEventListener("scroll", () => { if (q) return; q = true; requestAnimationFrame(() => { q = false; navTitle(); }); }, {passive:true}); }
+window.addEventListener("hashchange", ()=>{ SCROLL_AT[CUR_VIEW] = window.scrollY; route(); window.scrollTo(0,0); navTitle(); });
+/* nell'app le schede in basso non riempiono la cronologia, ricordano il punto in cui eri e, se tocchi quella aperta, tornano su */
+document.addEventListener("click", e => {
+  if (!PWA) return;
+  const a = e.target.closest && e.target.closest("nav.tabs a[data-v]"); if (!a) return;
+  e.preventDefault();
+  const v = a.dataset.v, active = v === CUR_VIEW || (v === "altro" && IN_MORE.includes(CUR_VIEW) && CUR_VIEW === "altro");
+  if (active){ window.scrollTo({top:0, behavior:"smooth"}); return; }
+  SCROLL_AT[CUR_VIEW] = window.scrollY;
+  history.replaceState(null, "", "#" + v);
+  route();
+  window.scrollTo(0, SCROLL_AT[v] || 0);
+  navTitle();
+});
+$("navBack").addEventListener("click", () => { history.replaceState(null, "", "#altro"); route(); window.scrollTo(0, SCROLL_AT.altro || 0); navTitle(); });
 
 function renderAll(){ renderHeader(); renderOggi(); renderAlimentazione(); renderSpesa(); renderAllenamento(); renderZone(); renderDiario(); }
 
