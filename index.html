@@ -1008,7 +1008,8 @@ ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
         <tr><td>Gel di carboidrati</td><td class="mono">1 ogni 30–40' oltre la prima ora</td><td>Ne hai 10. Le sedute del piano durano al massimo 75' e non servono: tienili per le simulazioni lunghe e per la gara. Se uno sostituisce lo spuntino pre-allenamento saltato, contalo: circa 100 kcal.</td></tr>
         <tr><td>Caffè (facoltativo)</td><td class="mono">1–2 caffè 45' prima</td><td>Utile prima delle sessioni dure. Evitalo dopo le 16 se ti alleni tardi e dormi male.</td></tr>
         <tr><td>Acqua</td><td class="mono">2,5–3 L + 0,5–0,75 L per ora di allenamento</td><td>Nelle sessioni oltre i 60' aggiungi un pizzico di sale o elettroliti.</td></tr>
-        <tr><td>Vitamina D</td><td class="mono">Solo dopo esami</td><td>D'inverno è spesso bassa: chiedi al medico un dosaggio prima di integrarla.</td></tr>
+        <tr><td>Vitamina D3</td><td class="mono">1 compressa da 2000 UI al giorno, con la colazione</td><td>Ce l'hai. D'inverno sei spesso basso: 2000 UI al giorno è una dose di mantenimento sicura (il limite per un adulto è 4000). Prendila tutti i giorni da ottobre ad aprile, con un pasto che ha dei grassi. Se il medico ti ha indicato un'altra dose, vale la sua; a fine inverno rifai gli esami per vedere se basta.</td></tr>
+        <tr><td>Spirulina</td><td class="mono">4 compresse da 500 mg (2 g), con il pranzo</td><td>Ce l'hai. Porta un po' di ferro, vitamine e antiossidanti; per le proteine conta poco (2 g ne danno poco più di 1 g). Se le tue compresse sono da 1 g, ne bastano 2. Se ti gonfia, i primi giorni prendine la metà. Scegli marche che dichiarano i controlli su metalli pesanti.</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -2616,6 +2617,8 @@ function renderOggi(){
 /* integratori del giorno (solo Jacopo): orari agganciati ai pasti e alla seduta, con spunta salvata nel database */
 const INTEG = [
   {k:"creatina", n:"Creatina", dose:"5 g", when:"con la colazione", slot:"colazione", note:"Tutti i giorni, anche di riposo"},
+  {k:"vitd", n:"Vitamina D3", tl:"vitamina D3", dose:"1 compressa da 2000 UI", when:"con la colazione", slot:"colazione", note:"Con un pasto che ha dei grassi si assorbe meglio"},
+  {k:"spirulina", n:"Spirulina", tl:"spirulina", dose:"4 compresse da 500 mg", when:"con il pranzo", slot:"pranzo", note:"Se sono da 1 g ne bastano 2"},
   {k:"omega", n:"Omega-3", dose:"1–2 g di EPA+DHA", when:"con la cena", slot:"cena", note:"Con i grassi del pasto si assorbe meglio"},
   {k:"caffe", n:"Caffè", dose:"1–2 espressi", when:"45' prima della seduta", hard:true}
 ];
@@ -2729,7 +2732,7 @@ function renderGiornata(d, plan, meals){
   const ev = [];
   b.forEach(([x,y],i)=>ev.push({t:x, end:y, kind:"work", lab: b.length===2 ? (i===0 ? "Turno, prima parte" : "Turno, seconda parte") : "Turno in negozio"}));
   if (plan.slot) ev.push({t:plan.slot.start, end:plan.slot.end, kind:"train", lab:`${SESS[plan.key].nome} · ${SESS[plan.key].sotto}`, where: plan.slot.when});
-  const plus = {}; for (const x of INTEG) if (x.slot) (plus[x.slot] = plus[x.slot] || []).push(x.n.toLowerCase());
+  const plus = {}; for (const x of INTEG) if (x.slot) (plus[x.slot] = plus[x.slot] || []).push(x.tl || x.n.toLowerCase());
   meals.forEach(m=>{ if (m.time != null) ev.push({t:m.time, kind:"meal", lab:`${m.label || SLOT_LAB[m.slot]}: ${m.d.name}${plus[m.slot] ? " + " + plus[m.slot].join(" e ") : ""}`, where: whereAt(b, m.time)}); });
   if (plan.slot && HARD[plan.key]) ev.push({t:plan.slot.start - 45, kind:"meal", lab:"Caffè, se ti va", where:""});
   ev.sort((a,c)=>a.t - c.t || (a.kind==="work" ? -1 : 1));
