@@ -2383,11 +2383,17 @@ function weekAssign(d, withPrev = true){
   const m0 = weekDays(d)[0], prevSun = new Date(m0.getFullYear(), m0.getMonth(), m0.getDate()-1);
   const pa = withPrev ? weekAssign(prevSun, false) : null;
   const prevLast = pa ? pa.keys[6] : WEEKPLAN[6].key;
-  const sig = dks[0] + JSON.stringify(tt) + S.giornata.commute + S.giornata.pranzoNegozio + prevLast + withPrev;
+  /* giorni di allenamento di fila con cui finisce la settimana prima (per non farne 4 di fila a cavallo) */
+  let run0 = 0; if (pa) for (let i=6; i>=0 && !/^R/.test(pa.keys[i]); i--) run0++;
+  const sig = dks[0] + JSON.stringify(tt) + S.giornata.commute + S.giornata.pranzoNegozio + prevLast + run0 + withPrev;
   if (_assign.has(sig)) return _assign.get(sig);
   const W = {C:2, INT:2, A:1.5, B:1.5, Z2:1}, defKey = WEEKPLAN.map(x=>x.key);
   const fit = tt.map(t=>{ const o = {}; for (const k of ["A","INT","B","Z2","C"]){ const s = slotFor(t,k); o[k] = s ? s.q : 0; } return o; });
   const restScore = tt.map(t=>workMin(t)/180);
+  /* regole di Jacopo: il lunedì è sempre libero dal lavoro ed è sempre palestra;
+     la domenica, quando non lavora, ci si allena (meglio una corsa: lunedì c'è palestra) */
+  const GYM = {A:1, B:1, C:1}, monGym = ["A","B","C"].some(k=>fit[0][k] > 0);
+  const sunFree = !!tt[6] && !blocksOf(tt[6]).length;
   let best = null, bestS = -1e9;
   for (let r1=0; r1<7; r1++) for (let r2=r1+1; r2<7; r2++){
     const td = [0,1,2,3,4,5,6].filter(i=>i!==r1 && i!==r2);
@@ -2396,7 +2402,9 @@ function weekAssign(d, withPrev = true){
       let sc = restScore[r1] + restScore[r2] - (r2 - r1 === 1 ? 1 : 0);
       td.forEach((di,j)=>{ const k = p[j]; arr[di] = k; const q = fit[di][k]; sc += q ? W[k]*q : -20; if (defKey[di] === k) sc += 0.3; });
       for (let i=-1; i<6; i++){ const a = i < 0 ? (prevLast === "R1" || prevLast === "R2" ? "R" : prevLast) : arr[i]; const pair = [a, arr[i+1]].sort().join(); if (pair === "C,INT" || pair === "C,C" || pair === "INT,INT") sc -= 3; if (pair === "A,C" || pair === "A,A" || pair === "B,B") sc -= 1.5; }
-      let run = 0; for (let i=0; i<7; i++){ run = arr[i] === "R" ? 0 : run + 1; if (run >= 4) sc -= 2; }
+      if (monGym && !GYM[arr[0]]) sc -= 40;
+      if (sunFree){ if (arr[6] === "R") sc -= 40; else if (arr[6] === "Z2") sc += 1.5; else if (arr[6] === "INT") sc += 0.5; }
+      let run = run0; for (let i=0; i<7; i++){ run = arr[i] === "R" ? 0 : run + 1; if (run >= 4) sc -= 2; }
       if (sc > bestS){ bestS = sc; best = arr.slice(); }
     }
   }
@@ -2554,7 +2562,8 @@ function renderOggi(){
   if (w > WEEKS) notes.push("Le 16 settimane sono finite: è il momento di rivedere obiettivi e calorie insieme.");
   if (w === 8) notes.push(LEI ? "Settimana 8: scarico, test e calorie di mantenimento (circa 2.400 kcal): è Natale. Aggiungi circa 600 kcal al giorno, per esempio un panino in più a merenda e un cucchiaio d'olio in più a pranzo e a cena." : "Settimana 8: scarico in palestra e calorie di mantenimento (circa 2.750 kcal). Aggiungi al menù del giorno circa 700 kcal nei giorni di allenamento e 900 in quelli di riposo: più riso, olio e frutta secca.");
   else if (isDeload(w)) notes.push(`Settimana ${w} di scarico: circa il 40% di serie in meno, niente simulazioni. Il menù resta uguale.`);
-  if (plan.moved) notes.push("Questa settimana sedute e riposi sono spostati in base ai tuoi turni.");
+  if (!LEI && plan.di === 6 && tipo === "train" && plan.turno && !blocksOf(plan.turno).length) notes.push("Oggi non lavori: ti alleni anche di domenica, e domani lunedì c'è palestra.");
+  else if (plan.moved) notes.push("Questa settimana sedute e riposi sono spostati in base ai tuoi turni.");
   $("oggiNote").hidden = !notes.length; $("oggiNote").textContent = notes.join(" ");
 
   renderWeekStrip(d);
