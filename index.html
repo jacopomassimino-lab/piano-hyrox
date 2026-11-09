@@ -1746,7 +1746,7 @@ const S = {
   menuDay:0, blockSel:null, oggi:null,
   menuRot:null, spesaRot:null, swaps:{}, prezzi:{},
   rip:[], leiWeek:null, leiOffice:null, integ:{},
-  turni:{}, giornata:{commute:25, pranzoNegozio:true}, mcp:null, syncInfo:"", syncCls:"", turnoOpen:false
+  turni:{}, giornata:{commute:25, pranzoNegozio:true, dopoCena:true}, salti:{}, mcp:null, syncInfo:"", syncCls:"", turnoOpen:false
 };
 try { S.swaps = JSON.parse(localStorage.getItem("piano-hyrox-swaps") || "{}") || {}; } catch(_) { S.swaps = {}; }
 if (LEI){ try { const x = JSON.parse(localStorage.getItem("piano-hyrox-settimana") || "null"); if (x && Array.isArray(x.week) && x.week.length === 7){ S.leiWeek = x.week; S.leiOffice = x.office || null; } } catch(_){} }
@@ -2349,6 +2349,12 @@ function slotFor(t, key){
   const dur = SESS_DUR[key] || 60, C = S.giornata.commute;
   const b = blocksOf(t);
   if (!b.length) return {start:10*60, end:10*60+dur, q:3, when:"giornata libera"};
+  /* nei giorni di lavoro Jacopo va in palestra dopo cena: cena appena rientra (non prima delle 19), palestra un'ora e mezza dopo */
+  if (S.giornata.dopoCena !== false && (key === "A" || key === "B" || key === "C")){
+    const cena = Math.ceil(Math.max(b[b.length-1][1] + C + 15, 19*60)/15)*15, st = cena + 90, en = st + dur;
+    const q = en <= 22*60+30 ? 3 : en <= 23*60+15 ? 2 : 0;
+    if (q) return {start:st, end:en, q, when:"dopo cena", cena};
+  }
   const endQ = te => HARD[key] ? (te <= 20*60+30 ? 3 : te <= 21*60 ? 2 : te <= 21*60+45 ? 1 : 0)
     : key === "Z2" ? (te <= 21*60+30 ? 3 : te <= 22*60+15 ? 2 : 0)
     : (te <= 20*60+30 ? 3 : te <= 21*60+30 ? 2 : te <= 22*60 ? 1 : 0);
@@ -2379,27 +2385,35 @@ const _assign = new Map();
 /* distribuisce le 5 sedute e i 2 riposi nella settimana in base ai turni */
 function weekAssign(d, withPrev = true){
   const dks = weekDays(d).map(iso), tt = dks.map(k=>S.turni[k] || null);
-  if (tt.filter(Boolean).length < 5) return null;
+  if (tt.filter(Boolean).length < 5 && !dks.some(k => S.salti && S.salti[k])) return null;
   const m0 = weekDays(d)[0], prevSun = new Date(m0.getFullYear(), m0.getMonth(), m0.getDate()-1);
   const pa = withPrev ? weekAssign(prevSun, false) : null;
   const prevLast = pa ? pa.keys[6] : WEEKPLAN[6].key;
   /* giorni di allenamento di fila con cui finisce la settimana prima (per non farne 4 di fila a cavallo) */
   let run0 = 0; if (pa) for (let i=6; i>=0 && !/^R/.test(pa.keys[i]); i--) run0++;
-  const sig = dks[0] + JSON.stringify(tt) + S.giornata.commute + S.giornata.pranzoNegozio + prevLast + run0 + withPrev;
+  /* giorni saltati (malato, imprevisti): diventano riposo e la settimana perde prima gli intervalli, poi la Zona 2.
+     Senza turni noti i giorni contano come liberi e resta il più possibile la settimana tipo */
+  const skip = dks.map(k => !!(S.salti && S.salti[k])), nSkip = skip.filter(Boolean).length;
+  const KEYS = ["A","C","B","Z2","INT"].slice(0, Math.max(1, Math.min(5, 5 - nSkip, 7 - nSkip)));
+  const sig = dks[0] + JSON.stringify(tt) + JSON.stringify(dks.map(k=>S.swaps && S.swaps[`${k}|cena`] || "")) + S.giornata.commute + S.giornata.pranzoNegozio + S.giornata.dopoCena + skip.join() + prevLast + run0 + withPrev;
   if (_assign.has(sig)) return _assign.get(sig);
   const W = {C:2, INT:2, A:1.5, B:1.5, Z2:1}, defKey = WEEKPLAN.map(x=>x.key);
-  const fit = tt.map(t=>{ const o = {}; for (const k of ["A","INT","B","Z2","C"]){ const s = slotFor(t,k); o[k] = s ? s.q : 0; } return o; });
+  /* la sera dello sgarro niente palestra dopo cena: pizza e Hyrox a stomaco pieno non vanno d'accordo */
+  const wd = weekDays(d), sgarro = wd.map((x,i)=>{ const k = dks[i], sw = S.swaps && S.swaps[`${k}|cena`], def = (PLAN.weeks[rotOf(x)][i][3] || []).find(id=>PLAN.dishes[id] && PLAN.dishes[id].slot === "cena"); return (sw && PLAN.dishes[sw] ? sw : def) === "SG"; });
+  const fit = tt.map((t,i)=>{ const o = {}; for (const k of ["A","INT","B","Z2","C"]){ const s = slotFor(t,k); o[k] = s ? (sgarro[i] && s.when === "dopo cena" ? Math.min(s.q, 1) : s.q) : 0; } return o; });
   const restScore = tt.map(t=>workMin(t)/180);
   /* regole di Jacopo: il lunedì è sempre libero dal lavoro ed è sempre palestra;
      la domenica, quando non lavora, ci si allena (meglio una corsa: lunedì c'è palestra) */
-  const GYM = {A:1, B:1, C:1}, monGym = ["A","B","C"].some(k=>fit[0][k] > 0);
-  const sunFree = !!tt[6] && !blocksOf(tt[6]).length;
+  const GYM = {A:1, B:1, C:1}, monGym = !skip[0] && ["A","B","C"].some(k=>fit[0][k] > 0);
+  const sunFree = !skip[6] && !!tt[6] && !blocksOf(tt[6]).length;
+  const nR = 7 - KEYS.length, perms = KEYS.length === 5 ? PERMS : permute(KEYS), combos = [];
+  (function pick(from, acc){ if (acc.length === nR){ if (skip.every((x,i)=>!x || acc.includes(i))) combos.push(acc); return; } for (let i=from; i<7; i++) pick(i+1, [...acc, i]); })(0, []);
   let best = null, bestS = -1e9;
-  for (let r1=0; r1<7; r1++) for (let r2=r1+1; r2<7; r2++){
-    const td = [0,1,2,3,4,5,6].filter(i=>i!==r1 && i!==r2);
-    for (const p of PERMS){
-      const arr = Array(7); arr[r1] = "R"; arr[r2] = "R";
-      let sc = restScore[r1] + restScore[r2] - (r2 - r1 === 1 ? 1 : 0);
+  for (const rs of combos){
+    const td = [0,1,2,3,4,5,6].filter(i=>!rs.includes(i));
+    for (const p of perms){
+      const arr = Array(7); rs.forEach(i=>{ arr[i] = "R"; });
+      let sc = rs.reduce((a,i)=>a + (skip[i] ? 0 : restScore[i]), 0) - rs.filter((i,j)=>j && i - rs[j-1] === 1).length;
       td.forEach((di,j)=>{ const k = p[j]; arr[di] = k; const q = fit[di][k]; sc += q ? W[k]*q : -20; if (defKey[di] === k) sc += 0.3; });
       for (let i=-1; i<6; i++){ const a = i < 0 ? (prevLast === "R1" || prevLast === "R2" ? "R" : prevLast) : arr[i]; const pair = [a, arr[i+1]].sort().join(); if (pair === "C,INT" || pair === "C,C" || pair === "INT,INT") sc -= 3; if (pair === "A,C" || pair === "A,A" || pair === "B,B") sc -= 1.5; }
       if (monGym && !GYM[arr[0]]) sc -= 40;
@@ -2428,7 +2442,7 @@ function mealTimes(plan, meals){
   const C = S.giornata.commute, b = blocksOf(plan.turno), sl = plan.slot;
   const first = b.length ? b[0][0] : null, last = b.length ? b[b.length-1][1] : null;
   const T = {}; let preLab = "Pre-allenamento";
-  const morning = !!sl && (b.length ? sl.end <= first : sl.start < 12*60);
+  const morning = !!sl && (b.length ? sl.end <= first : sl.start < 12*60), after = !!sl && sl.when === "dopo cena";
   T.colazione = morning ? sl.start - 90 : (b.length ? Math.min(first - C - 30, 8*60+30) : 8*60+30);
   if (b.length === 2 && b[1][0] - b[0][1] >= 45) T.pranzo = b[0][1] + 5;
   else if (S.giornata.pranzoNegozio && b.length === 1 && first <= 10*60 && last <= 16*60+30) T.pranzo = Math.max(12*60, first + 210);
@@ -2437,12 +2451,15 @@ function mealTimes(plan, meals){
   else if (b.length) T.pranzo = Math.max(12*60+30, first + 4*60);
   else T.pranzo = morning ? Math.max(13*60, sl.end + 90) : 13*60;
   if (has.pre && sl){
-    if (morning){ T.pre = sl.end + 15; preLab = "Post-allenamento"; }
+    if (morning || after){ T.pre = sl.end + 15; preLab = "Post-allenamento"; }
     else { const p = sl.start - 75; if (p - T.pranzo >= 90) T.pre = p; else { T.pre = sl.end + 15; preLab = "Post-allenamento"; } }
   }
   let cena = b.length ? Math.max(last + C + 20, 19*60+30) : 20*60;
-  if (sl && !morning) cena = Math.max(cena, sl.end + 30);
-  if (T.pre != null && preLab === "Post-allenamento" && !morning && cena - T.pre < 105) cena = T.pre + 120;
+  if (after) cena = sl.cena;
+  else {
+    if (sl && !morning) cena = Math.max(cena, sl.end + 30);
+    if (T.pre != null && preLab === "Post-allenamento" && !morning && cena - T.pre < 105) cena = T.pre + 120;
+  }
   T.cena = cena;
   if (has.spuntino){
     const pts = Object.values(T).sort((a,c)=>a-c);
@@ -2562,8 +2579,9 @@ function renderOggi(){
   if (w > WEEKS) notes.push("Le 16 settimane sono finite: è il momento di rivedere obiettivi e calorie insieme.");
   if (w === 8) notes.push(LEI ? "Settimana 8: scarico, test e calorie di mantenimento (circa 2.400 kcal): è Natale. Aggiungi circa 600 kcal al giorno, per esempio un panino in più a merenda e un cucchiaio d'olio in più a pranzo e a cena." : "Settimana 8: scarico in palestra e calorie di mantenimento (circa 2.750 kcal). Aggiungi al menù del giorno circa 700 kcal nei giorni di allenamento e 900 in quelli di riposo: più riso, olio e frutta secca.");
   else if (isDeload(w)) notes.push(`Settimana ${w} di scarico: circa il 40% di serie in meno, niente simulazioni. Il menù resta uguale.`);
+  if (!LEI && weekDays(d).some(x => S.salti[iso(x)])) notes.push("Questa settimana hai saltato un allenamento: ho tolto prima gli intervalli e risistemato le altre sedute, con almeno un giorno di riposo in mezzo.");
   if (!LEI && plan.di === 6 && tipo === "train" && plan.turno && !blocksOf(plan.turno).length) notes.push("Oggi non lavori: ti alleni anche di domenica, e domani lunedì c'è palestra.");
-  else if (plan.moved) notes.push("Questa settimana sedute e riposi sono spostati in base ai tuoi turni.");
+  else if (plan.moved && !(!LEI && weekDays(d).some(x => S.salti[iso(x)]))) notes.push("Questa settimana sedute e riposi sono spostati in base ai tuoi turni.");
   $("oggiNote").hidden = !notes.length; $("oggiNote").textContent = notes.join(" ");
 
   renderWeekStrip(d);
@@ -2612,13 +2630,22 @@ function renderOggi(){
     box.innerHTML = `<div class="qs"><span class="lbl">Seduta del giorno</span>
       ${done ? `<span class="chip-ok">✓ ${esc(sess.nome)} · ${esc(sess.sotto)} registrata${done.durata?` · ${done.durata}'`:""}${done.fc?` · ${done.fc} bpm`:""}${done.kcal?` · ${done.kcal} kcal`:""}${done.rpe?` · RPE ${done.rpe}`:""}</span>` :
       `<div class="row"><label class="f">Fatica (RPE 1–10)<input type="number" id="qRpe" min="1" max="10" class="w-s"></label><button class="btn ghost" id="qDone" type="button">Segna come fatta</button></div>`}
+      ${!LEI && !done && dd >= 0 ? `<button class="linkbtn" type="button" id="qSkip">${dd === 0 ? "Oggi" : "Quel giorno"} non mi alleno</button>` : ""}
       <span class="msg" id="qSessMsg"></span></div>`;
     const b = $("qDone");
     if (b) b.onclick = async () => {
       const rpe = Number($("qRpe").value) || null;
       await save("sessioni", id, {data:dk, chiave:plan.key, rpe, durata:null, fc:null, nota:""}, "qSessMsg", "Sessione registrata");
     };
-  } else box.innerHTML = `<div class="qs"><span class="lbl">Seduta del giorno</span><p class="small muted">Giorno di riposo: niente da registrare oltre al peso.</p></div>`;
+  } else if (!LEI && S.salti[dk]) box.innerHTML = `<div class="qs"><span class="lbl">Seduta del giorno</span><p class="small muted">Allenamento saltato: il resto della settimana è stato risistemato, con una seduta in meno e i giorni di riposo spostati. Il menù è quello del riposo.</p>${dd >= 0 ? `<button class="btn ghost" type="button" id="qUnskip">Annulla, mi alleno</button>` : ""}<span class="msg" id="qSessMsg"></span></div>`;
+  else box.innerHTML = `<div class="qs"><span class="lbl">Seduta del giorno</span><p class="small muted">Giorno di riposo: niente da registrare oltre al peso.</p></div>`;
+  const setSkip = async on => {
+    const days = {...S.salti}; if (on) days[dk] = true; else delete days[dk];
+    S.salti = days; _assign.clear(); renderOggi(); if (typeof renderAllenamento === "function") renderAllenamento();
+    if (S.db && S.canWrite !== false){ try { await S.db.doc("config/salti").set({days}); } catch(_){ const m = $("qSessMsg"); if (m){ m.className = "msg err"; m.textContent = "Applicato, ma non salvato: riprova."; } } }
+  };
+  if ($("qSkip")) $("qSkip").onclick = () => setSkip(true);
+  if ($("qUnskip")) $("qUnskip").onclick = () => setSkip(false);
   renderStrip();
   const lastP = S.peso.length ? S.peso[S.peso.length-1] : null, m7 = lastP ? avg7(lastP.data) : null;
   $("qPesoInfo").textContent = m7 !== null ? `Media 7 giorni ${fmt(m7,1)} kg · mancano ${fmt(Math.max(0, m7-(OBIETTIVO-0.1)),1)} kg` : "Pesati al mattino, prima di colazione";
@@ -2766,6 +2793,7 @@ function renderGiornata(d, plan, meals){
           <label class="f">Fine<input type="time" id="tuE2" value="${t ? (has2 ? t.e2 : (t.e1||"")) : ""}"></label>
           <label class="f">Casa–negozio (min)<input type="number" id="tuComm" min="0" max="120" class="w-s" value="${S.giornata.commute}"></label>
           <label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-bottom:8px"><input type="checkbox" id="tuPN" ${S.giornata.pranzoNegozio?"checked":""}> Nei turni del mattino (8–14, 9–15) pranzo in negozio</label>
+          <label class="f" style="flex-direction:row;align-items:center;gap:8px;padding-bottom:8px"><input type="checkbox" id="tuDC" ${S.giornata.dopoCena!==false?"checked":""}> Nei giorni di lavoro palestra dopo cena</label>
           <button class="btn ghost" type="submit">Salva</button>
           <span class="msg" id="tuMsg"></span>
         </form>
@@ -2778,7 +2806,7 @@ function renderGiornata(d, plan, meals){
   $("fTurno").onsubmit = async e => {
     e.preventDefault();
     const kind = $("tuKind").value, s1 = $("tuS1").value || null, e1 = $("tuE1").value || null, s2 = $("tuS2").value || null, e2 = $("tuE2").value || null;
-    const comm = Math.max(0, Math.min(120, Number($("tuComm").value) || 0)), pn = $("tuPN").checked;
+    const comm = Math.max(0, Math.min(120, Number($("tuComm").value) || 0)), pn = $("tuPN").checked, dc = $("tuDC").checked;
     const msg = $("tuMsg");
     let doc;
     if (kind !== "lavoro") doc = {kind, s1:null, e1:null, s2:null, e2:null, fonte:"manuale"};
@@ -2787,9 +2815,9 @@ function renderGiornata(d, plan, meals){
       doc = (e1 && s2) ? {kind, s1, e1, s2, e2, fonte:"manuale"} : {kind, s1, e1:e2, s2:null, e2:null, fonte:"manuale"};
       if (toMin(doc.s1) >= toMin(doc.e1) || (doc.s2 && toMin(doc.s2) >= toMin(doc.e2))){ msg.className = "msg err"; msg.textContent = "Controlla gli orari: ogni parte deve finire dopo l'inizio."; return; }
     }
-    S.turni[dk] = doc; S.giornata.commute = comm; S.giornata.pranzoNegozio = pn; _assign.clear();
+    S.turni[dk] = doc; S.giornata.commute = comm; S.giornata.pranzoNegozio = pn; S.giornata.dopoCena = dc; _assign.clear();
     if (S.db && S.canWrite !== false){
-      try { await S.db.collection("turni").doc(dk).set(doc); await S.db.doc("config/giornata").set({commute:comm, pranzoNegozio:pn}); msg.className = "msg ok"; msg.textContent = "Turno salvato"; }
+      try { await S.db.collection("turni").doc(dk).set(doc); await S.db.doc("config/giornata").set({commute:comm, pranzoNegozio:pn, dopoCena:dc}); msg.className = "msg ok"; msg.textContent = "Turno salvato"; }
       catch(_){ msg.className = "msg err"; msg.textContent = "Turno applicato, ma non salvato."; }
     } else { msg.className = "msg"; msg.textContent = "Turno applicato in questa vista."; }
     S.oggi = d; renderOggi();
@@ -4003,7 +4031,8 @@ function subscribeAll(db){
   db.collection("carichi").onSnapshot(snap=>{ S.carichi = snap.docs.map(d=>({id:d.id, ...d.data()})).filter(l=>EX[l.ex] && typeof l.kg==="number" && typeof l.data==="string"); renderOggi(); renderAllenamento(); renderDiario(); }, onErr);
   db.doc("config/prezzi").onSnapshot(snap=>{ const d = snap.exists ? snap.data() : {}; const clean = {}; for (const [k,v] of Object.entries(d||{})) if (PRICES[k] && typeof v==="number" && v>0) clean[k]=v; S.prezzi = clean; renderSpesa(); }, onErr);
   db.collection("turni").onSnapshot(snap=>{ const o = {}; snap.docs.forEach(x=>{ o[x.id] = x.data(); }); S.turni = o; _assign.clear(); renderOggi(); }, onErr);
-  db.doc("config/giornata").onSnapshot(snap=>{ if (snap.exists){ const g = snap.data(), c = Number(g.commute); if (c >= 0 && c <= 120) S.giornata.commute = c; if (typeof g.pranzoNegozio === "boolean") S.giornata.pranzoNegozio = g.pranzoNegozio; _assign.clear(); renderOggi(); } }, onErr);
+  db.doc("config/giornata").onSnapshot(snap=>{ if (snap.exists){ const g = snap.data(), c = Number(g.commute); if (c >= 0 && c <= 120) S.giornata.commute = c; if (typeof g.pranzoNegozio === "boolean") S.giornata.pranzoNegozio = g.pranzoNegozio; if (typeof g.dopoCena === "boolean") S.giornata.dopoCena = g.dopoCena; _assign.clear(); renderOggi(); } }, onErr);
+  if (!LEI) db.doc("config/salti").onSnapshot(snap=>{ const d = snap.exists ? (snap.data() || {}) : {}; const o = {}; for (const [k,v] of Object.entries(d.days || {})) if (v === true && /^\d{4}-\d{2}-\d{2}$/.test(k)) o[k] = true; S.salti = o; _assign.clear(); renderOggi(); if (typeof renderAllenamento === "function") renderAllenamento(); }, onErr);
   db.doc("config/profilo").onSnapshot(snap=>{ if (snap.exists){ const d = snap.data(); if (d.fcmax && d.fcrest){ S.zone = {max:d.fcmax, rest:d.fcrest}; renderAll(); } } }, onErr);
   db.doc("config/piatti").onSnapshot(snap=>{
     if (!snap.exists) return; const d = snap.data() || {};
