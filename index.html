@@ -1561,7 +1561,7 @@ const REST_LINES = {
   R1:[["Camminata a passo svelto","30–45' in Z1"],["Mobilità: anche, caviglie, colonna toracica","15'"],["Nessun lavoro intenso","", "Il recupero fa parte del piano: è oggi che il corpo si adatta alle sedute di lunedì e martedì."]],
   R2:[["Camminata","8.000–10.000 passi"],["Prepara i pasti della settimana","", "Pollo, riso e ragù in batch la domenica ti salvano nei giorni di turno lungo."]]
 };
-const WARM = [["Remo o SkiErg","5' Z1–Z2"],["Mobilità anche/spalle + 2 × 10 glute bridge","5'"]];
+const WARM = [["StairMaster facile (o remo)","5' Z1–Z2","Livello basso, passo regolare, mani appoggiate solo per l'equilibrio."],["Mobilità anche/spalle + 2 × 10 glute bridge","5'"]];
 const BLOCKS = LEI ? BLOCKS_L : [
  {n:1, nome:"Base", w:[1,4], date:"2 – 29 nov",
   focus:"Riprendere il gesto e preparare tendini e articolazioni dopo un anno di stop. Carichi al 70%: chiudi ogni serie con 3 ripetizioni ancora in canna (RPE 7). La settimana 4 è di scarico.",
@@ -1572,7 +1572,7 @@ const BLOCKS = LEI ? BLOCKS_L : [
       ["Affondi indietro con manubri","3 × 10 per gamba",null,{ex:"affondi",r:10,rpe:7}],
       ["Plank frontale","3 × 40\""],
       "#Finisher Hyrox · {Z3}",
-      ["4 giri: 15 m sled push + 15 wall balls (6 kg) + 250 m SkiErg","rec 90\"","Spinta continua, braccia distese, passi corti.",{sled:["push"]}]],
+      ["4 giri: 15 m sled push + 15 wall balls (6 kg) + 2' StairMaster livello 8","rec 90\"","Slitta: spinta continua, braccia distese, passi corti. Scalini: busto dritto, spingi con tutto il piede e non appoggiarti al corrimano.",{sled:["push"]}]],
    INT:["#Riscaldamento",["Corsa facile","10' {Z2}"],"#Lavoro",
       ["Ripetute: 3' in {Z3} + 2' in {Z1}","Sett. 1–2: 6 · Sett. 3: 7 · Scarico: 4"],
       "#Defaticamento",["Corsa lenta o camminata","5–10' {Z1}"]],
@@ -1584,7 +1584,7 @@ const BLOCKS = LEI ? BLOCKS_L : [
       ["Farmer carry","4 × 40 m · 2 × 20 kg"],
       "#Ergometri · {Z3}",
       ["500 m remo + 500 m SkiErg","3 giri · rec 2'","Annota il passo /500 m: è il tuo riferimento per i blocchi successivi."]],
-   Z2:[["Corsa continua in {Z2}","Sett. 1: 40' · 2: 45' · 3: 50' · Scarico: 35'","Se la FC supera il limite alto, rallenta o cammina 1 minuto. Devi riuscire a parlare a frasi intere."]],
+   Z2:[["Corsa continua in {Z2}","Sett. 1: 40' · 2: 45' · 3: 50' · Scarico: 35'","Se la FC supera il limite alto, rallenta o cammina 1 minuto. Devi riuscire a parlare a frasi intere. Se la fai in palestra la sera, puoi farla sullo StairMaster: stessa durata, livello 5–7, battito in Zona 2. Una volta su due però corri: in gara sono 8 km di corsa."]],
    C:["#Riscaldamento",["Corsa Z1 + andature (skip, calciata)","10'"],"#Compromised running",
       ["Serie 1 · 4 giri: 500 m di corsa in {Z3} + stazione","SkiErg 250 m → sled pull 15 m → 10 burpee broad jump → remo 250 m",null,{sled:["pull"]}],
       ["Serie 2 (dalla sett. 3) · 4 giri: 500 m di corsa + stazione","Farmers 50 m (2 × 20 kg) → sandbag lunges 20 m (15 kg) → 20 wall balls (6 kg) → sled push 15 m",null,{sled:["push"]}],
@@ -1600,7 +1600,7 @@ const BLOCKS = LEI ? BLOCKS_L : [
       ["Bulgarian split squat con manubri","3 × 8 per gamba",null,{ex:"bulgaro",r:8,rpe:8}],
       ["Hip thrust con bilanciere","3 × 10",null,{ex:"hip",r:10,rpe:8}],
       "#Finisher Hyrox · {Z3}–{Z4}",
-      ["5 giri: 20 m sled push + 20 wall balls + 250 m SkiErg","rec 90\"","Sali verso i 152 kg solo se la spinta resta continua.",{sled:["push"]}]],
+      ["5 giri: 20 m sled push + 20 wall balls + 2' StairMaster livello 9","rec 90\"","Sali verso i 152 kg solo se la spinta resta continua. Sugli scalini niente corrimano: è lì che lavorano glutei e quadricipiti.",{sled:["push"]}]],
    INT:["#Riscaldamento",["Corsa facile + 4 allunghi da 20\"","12' {Z2}"],"#Lavoro",
       ["Ripetute 800 m in {Z4}, recupero 2' in {Z1}","Sett. 5: 6 · 6: 7 · 7: 5 × 1 km · Scarico: 4 × 800 m"],
       "#Defaticamento",["Corsa lenta","10' {Z1}"]],
@@ -1612,7 +1612,7 @@ const BLOCKS = LEI ? BLOCKS_L : [
       ["Farmer carry","4 × 50 m · 2 × 24 kg (peso gara)"],
       "#Ergometri · ritmo gara",
       ["750 m alternando remo e SkiErg","4 ripetute · rec 2'"]],
-   Z2:[["Corsa continua in {Z2}","Sett. 5: 50' · 6: 55' · 7: 60' · Scarico: 40'"]],
+   Z2:[["Corsa continua in {Z2}","Sett. 5: 50' · 6: 55' · 7: 60' · Scarico: 40'","In palestra puoi farla sullo StairMaster (stessa durata, battito in Zona 2), ma una volta su due corri."]],
    C:["#Riscaldamento",["Corsa Z1 + andature","10'"],"#Mezza Hyrox",
       ["Corsa + metà stazione, nell'ordine di gara","Sett. 5: 6 giri × 800 m · 6: 8 × 800 m · 7: 8 × 1 km · Scarico: 4 giri"],
       ["Mezze stazioni","SkiErg 500 m · sled push 25 m · sled pull 25 m · BBJ 40 m · remo 500 m · farmers 100 m · lunges 50 m · 50 wall balls","Farmers 2 × 24 kg, lunges con sandbag 20 kg, wall ball 6 kg.",{sled:["push","pull"]}],
@@ -1639,7 +1639,7 @@ const BLOCKS = LEI ? BLOCKS_L : [
       ["Farmer carry senza appoggiare","3 × 100 m · 2 × 24 kg"],
       "#Ergometri",
       ["1000 m SkiErg + 3' rec + 1000 m remo","2 giri a ritmo gara"]],
-   Z2:[["Corsa continua in {Z2}","Sett. 9: 60' · 10: 65' · 11: 70' · Scarico: 45'"]],
+   Z2:[["Corsa continua in {Z2}","Sett. 9: 60' · 10: 65' · 11: 70' · Scarico: 45'","Qui conta il volume di corsa: StairMaster solo se proprio non puoi correre."]],
    C:["#Riscaldamento",["Corsa Z1 + andature","10'"],"#Corsa + stazioni complete",
       ["1 km di corsa + stazione intera","Sett. 9: stazioni 1–4 · 10: stazioni 5–8 · 11: 6 giri misti · Scarico: 3 giri"],
       ["Stazioni 1–4","SkiErg 1000 m · sled push 50 m · sled pull 50 m · BBJ 80 m",null,{sled:["push","pull"]}],
