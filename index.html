@@ -2394,7 +2394,8 @@ function weekAssign(d, withPrev = true){
   /* giorni saltati (malato, imprevisti): diventano riposo e la settimana perde prima gli intervalli, poi la Zona 2.
      Senza turni noti i giorni contano come liberi e resta il più possibile la settimana tipo */
   const skip = dks.map(k => !!(S.salti && S.salti[k])), nSkip = skip.filter(Boolean).length;
-  const KEYS = ["A","C","B","Z2","INT"].slice(0, Math.max(1, Math.min(5, 5 - nSkip, 7 - nSkip)));
+  /* più giorni saltati, settimana più leggera: 1 → via gli intervalli; 2 → anche Hyrox C (la più dura); 3 o più → Hyrox A e Zona 2 */
+  const KEYS = nSkip === 0 ? ["A","INT","B","Z2","C"] : nSkip === 1 ? ["A","B","C","Z2"] : nSkip === 2 ? ["A","B","Z2"] : ["A","Z2"].slice(0, Math.max(1, 7 - nSkip));
   const sig = dks[0] + JSON.stringify(tt) + JSON.stringify(dks.map(k=>S.swaps && S.swaps[`${k}|cena`] || "")) + S.giornata.commute + S.giornata.pranzoNegozio + S.giornata.dopoCena + skip.join() + prevLast + run0 + withPrev;
   if (_assign.has(sig)) return _assign.get(sig);
   const W = {C:2, INT:2, A:1.5, B:1.5, Z2:1}, defKey = WEEKPLAN.map(x=>x.key);
@@ -2579,7 +2580,7 @@ function renderOggi(){
   if (w > WEEKS) notes.push("Le 16 settimane sono finite: è il momento di rivedere obiettivi e calorie insieme.");
   if (w === 8) notes.push(LEI ? "Settimana 8: scarico, test e calorie di mantenimento (circa 2.400 kcal): è Natale. Aggiungi circa 600 kcal al giorno, per esempio un panino in più a merenda e un cucchiaio d'olio in più a pranzo e a cena." : "Settimana 8: scarico in palestra e calorie di mantenimento (circa 2.750 kcal). Aggiungi al menù del giorno circa 700 kcal nei giorni di allenamento e 900 in quelli di riposo: più riso, olio e frutta secca.");
   else if (isDeload(w)) notes.push(`Settimana ${w} di scarico: circa il 40% di serie in meno, niente simulazioni. Il menù resta uguale.`);
-  if (!LEI && weekDays(d).some(x => S.salti[iso(x)])) notes.push("Questa settimana hai saltato un allenamento: ho tolto prima gli intervalli e risistemato le altre sedute, con almeno un giorno di riposo in mezzo.");
+  if (!LEI && weekDays(d).some(x => S.salti[iso(x)])) { const n = weekDays(d).filter(x => S.salti[iso(x)]).length; notes.push(n === 1 ? "Questa settimana hai saltato un allenamento: ho tolto gli intervalli e risistemato le altre sedute." : n === 2 ? "Questa settimana hai saltato due allenamenti: restano Hyrox A, Hyrox B e una Zona 2, per ripartire senza strafare." : "Settimana di recupero: restano solo le sedute più facili. Si riparte piano."); }
   if (!LEI && plan.di === 6 && tipo === "train" && plan.turno && !blocksOf(plan.turno).length) notes.push("Oggi non lavori: ti alleni anche di domenica, e domani lunedì c'è palestra.");
   else if (plan.moved && !(!LEI && weekDays(d).some(x => S.salti[iso(x)]))) notes.push("Questa settimana sedute e riposi sono spostati in base ai tuoi turni.");
   $("oggiNote").hidden = !notes.length; $("oggiNote").textContent = notes.join(" ");
