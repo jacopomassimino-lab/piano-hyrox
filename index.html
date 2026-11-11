@@ -2394,9 +2394,13 @@ function weekAssign(d, withPrev = true){
   /* giorni saltati (malato, imprevisti): diventano riposo e la settimana perde prima gli intervalli, poi la Zona 2.
      Senza turni noti i giorni contano come liberi e resta il più possibile la settimana tipo */
   const skip = dks.map(k => !!(S.salti && S.salti[k])), nSkip = skip.filter(Boolean).length;
-  const force = dks.map(k => !skip[dks.indexOf(k)] && !!(S.forza && S.forza[k]));
   /* più giorni saltati, settimana più leggera: 1 → via gli intervalli; 2 → anche Hyrox C (la più dura); 3 o più → Hyrox A e Zona 2 */
-  const KEYS = nSkip === 0 ? ["A","INT","B","Z2","C"] : nSkip === 1 ? ["A","B","C","Z2"] : nSkip === 2 ? ["A","B","Z2"] : ["A","Z2"].slice(0, Math.max(1, 7 - nSkip));
+  const BASE = nSkip === 0 ? ["A","INT","B","Z2","C"] : nSkip === 1 ? ["A","B","C","Z2"] : nSkip === 2 ? ["A","B","Z2"] : ["A","Z2"];
+  const force = dks.map(k => !skip[dks.indexOf(k)] && !!(S.forza && S.forza[k]));
+  /* se scegli di allenarti in più giorni di quanti ne resterebbero, le sedute tolte tornano (B, poi C, poi gli intervalli) */
+  const sunNeed = !skip[6] && !force[6] && !!tt[6] && !blocksOf(tt[6]).length ? 1 : 0;
+  const nWant = Math.min(5, 7 - nSkip, Math.max(BASE.length, force.filter(Boolean).length + sunNeed));
+  const KEYS = [...BASE, ...["A","B","Z2","C","INT"].filter(k => !BASE.includes(k))].slice(0, Math.max(1, nWant));
   const sig = dks[0] + JSON.stringify(tt) + JSON.stringify(dks.map(k=>S.swaps && S.swaps[`${k}|cena`] || "")) + S.giornata.commute + S.giornata.pranzoNegozio + S.giornata.dopoCena + skip.join() + force.join() + prevLast + run0 + withPrev;
   if (_assign.has(sig)) return _assign.get(sig);
   const W = {C:2, INT:2, A:1.5, B:1.5, Z2:1}, defKey = WEEKPLAN.map(x=>x.key);
